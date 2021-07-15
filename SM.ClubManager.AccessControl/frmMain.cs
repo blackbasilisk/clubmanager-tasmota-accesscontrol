@@ -67,30 +67,32 @@ namespace SM.ClubManager.AccessControl
         }
 
         private void InitSerialComms()
-        {
-            //comThread = new System.Threading.Thread(new System.Threading.ThreadStart(OpenComPort));            
-            //comThread.Start();
-            //comThread.Join();
-            OpenComPort();
+        {            
+            
+            InitializeSerialInConnection();
+
+            string portName = ApplicationSettings.Instance.SerialInPort;
+            int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
+
+            OpenComPort(portName, portBaudRate);
         }
 
         #region Private methods
 
-        private void InitializeSerialInConnection(string portName, int baudRate)
+        private void InitializeSerialInConnection()
         {
             try
             {
                 Log("Initializing serial connection...");
-                if (serialInClient != null)
+               
+                if (serialInClient == null)
                 {
-                    //serialInClient.Close();
-                    //serialInClient.Dispose();
-                    serialInClient.Disconnect();                    
-                    serialInClient = null;
+                    serialInClient = new SerialPortInput();                    
+                    serialInClient.ConnectionStatusChanged += SerialInClient_ConnectionStatusChanged;
+                    serialInClient.MessageReceived += SerialInClient_MessageReceived;
+                    
                     messageBuffer = new List<byte>();
-                }
-
-                serialInClient = new SerialPortInput();
+                }              
             }
             catch (Exception ex)
             {
@@ -98,6 +100,7 @@ namespace SM.ClubManager.AccessControl
                 Log("Restart computer or enter another COM port for the serial IN connection", true);
             }            
         }
+
         private void SetDefaults()
         {
             try
@@ -318,10 +321,10 @@ namespace SM.ClubManager.AccessControl
         }       
 
         #region ThreadMethods
-        private void OpenComPort()
+        private void OpenComPort(string portName, int baudRate)
         {
-            string portName = ApplicationSettings.Instance.SerialInPort;
-            int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
+            //string portName = ApplicationSettings.Instance.SerialInPort;
+            //int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
             try
             {
                 Log(string.Format("Opening port {0}...", portName));
@@ -330,48 +333,40 @@ namespace SM.ClubManager.AccessControl
                 //bool isConnectionOk = false;
                 //while (!isConnectionOk && count < 5)
                 //{
-                    try
+                try
+                {                        
+                    if(serialInClient.IsConnected)
                     {
-                        if(serialInClient != null)
-                        {                            
-                            serialInClient.Disconnect();
-                        serialInClient.ConnectionStatusChanged -= SerialInClient_ConnectionStatusChanged;
-                        serialInClient.MessageReceived -= SerialInClient_MessageReceived;
-                                                
-                        serialInClient = null;
+                        serialInClient.Disconnect();
+                       
+                        serialInClient.SetPort(portName: portName, baudRate: baudRate);
 
-                        if(messageBuffer != null)
+                        if (messageBuffer != null)
                         {
                             messageBuffer.Clear();
-                        }                          
-                            messageBuffer = null;
-                            messageBuffer = new List<byte>();
                         }
-                    // serialInClient = new SerialPortStream(portName, portBaudRate);
 
+                        messageBuffer = null;
+                        messageBuffer = new List<byte>();
 
-                    serialInClient = new SerialPortInput();
-                    serialInClient.SetPort(portName: portName, baudRate: portBaudRate);
-                    serialInClient.ConnectionStatusChanged += SerialInClient_ConnectionStatusChanged;
-                    serialInClient.MessageReceived += SerialInClient_MessageReceived;
-                    serialInClient.Connect();
-
-
-                    if (serialInClient != null && serialInClient.IsConnected)
-                    {
-                        Log(string.Format("Port {0} opened OK", portName));
-                        rdoSerialInOK.Checked = true;
-                    }
-                    else
-                    {
-                        rdoSerialInOK.Checked = false;
-                        Log(string.Format("ERROR opening port {0}", portName), true);
-                    }
-                }
-                catch (Exception serialEx)
-                    {
-                        Log("Error opening COM port: " + serialEx.Message, true);                        
+                        serialInClient.Connect();
                     }                   
+              
+                if (serialInClient != null && serialInClient.IsConnected)
+                {
+                    Log(string.Format("Port {0} opened OK", portName));
+                    rdoSerialInOK.Checked = true;
+                }
+                else
+                {
+                    rdoSerialInOK.Checked = false;
+                    Log(string.Format("ERROR opening port {0}", portName), true);
+                }
+            }
+            catch (Exception serialEx)
+                {
+                    Log("Error opening COM port: " + serialEx.Message, true);                        
+                }                   
             }
             catch (Exception ex)
             {
@@ -516,7 +511,10 @@ namespace SM.ClubManager.AccessControl
             if(result == DialogResult.OK)
             {
                 Log("New configuration values loaded");
-                OpenComPort();
+
+                string portName = ApplicationSettings.Instance.SerialInPort;
+                int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
+                OpenComPort(portName, portBaudRate);
             }
             else
             {
@@ -562,7 +560,9 @@ namespace SM.ClubManager.AccessControl
 
         private void btnResetCOM_Click(object sender, EventArgs e)
         {
-            OpenComPort();
+            string portName = ApplicationSettings.Instance.SerialInPort;
+            int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
+            OpenComPort(portName, portBaudRate);
         }
     }
 }

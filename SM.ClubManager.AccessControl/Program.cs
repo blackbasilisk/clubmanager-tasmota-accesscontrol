@@ -31,7 +31,7 @@ namespace SM.ClubManager.AccessControl
             Application.DoEvents();
             Application.ExitThread();
             
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
