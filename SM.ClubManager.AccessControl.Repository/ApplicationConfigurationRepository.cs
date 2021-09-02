@@ -1,4 +1,5 @@
-﻿using SM.ClubManager.AccessControl.Database;
+﻿
+using SM.ClubManager.AccessControl.Database;
 using SM.ClubManager.AccessControl.Model;
 using System;
 using System.Collections.Generic;

@@ -39,10 +39,15 @@
         [ApplicationSettingGetSet]
         public string SerialInPort { get; set; }
 
-
         [ApplicationSettingGetSet]
         public int SerialInBaudRate { get; set; }
-   
+
+        [ApplicationSettingGetSet]
+        public string SerialOutPort { get; set; }
+
+        [ApplicationSettingGetSet]
+        public int SerialOutBaudRate { get; set; }
+
         [ApplicationSettingGetSet]
         public string WirelessDeviceIPAddress { get; set; }
        
@@ -53,7 +58,10 @@
         public bool IsTargetWireless { get; set; }
 
         [ApplicationSettingGetSet]
-        public int InchingDelay { get; set; }        
+        public int InchingDelay { get; set; }
+
+        [ApplicationSettingGetSet]
+        public bool IsServiceMode { get; set; }
         #endregion
     }
 }
