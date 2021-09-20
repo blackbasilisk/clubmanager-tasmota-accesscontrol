@@ -37,9 +37,7 @@ namespace SM.ClubManager.AccessControl
         frmSettings settingsForm = new frmSettings();
         List<byte> messageBuffer = null;
         System.Threading.Thread comThread;
-        string eofString = "\n\r\n";
-
-        
+        string eofString = "\n\r\n";        
         public frmMain()
         {
             InitializeComponent();              
@@ -136,6 +134,7 @@ namespace SM.ClubManager.AccessControl
             }
                  
         }
+
         private void Log(string msg, bool isError = false)
         {
             lstLog.InvokeIfRequired(t => t.AddEntry(msg, isError));
@@ -162,6 +161,7 @@ namespace SM.ClubManager.AccessControl
                     comThread.Join();
                     comThread = null;
                     frmLoading.CloseForm();
+                    System.Threading.Thread.Sleep(10000);
                 }
             }
             catch (Exception ex)
@@ -524,8 +524,7 @@ namespace SM.ClubManager.AccessControl
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Cleanup();
-           
+            Cleanup();           
         }
 
         private void Cleanup()
