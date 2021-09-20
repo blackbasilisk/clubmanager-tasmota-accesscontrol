@@ -315,13 +315,14 @@ namespace SM.ClubManager.AccessControl
                 picScanResult.InvokeIfRequired(t => t.Visible = true);
 
                 if (ApplicationSettings.Instance.IsTargetWireless)
-                {                   
-                    relayCommand.Command == RelayCommand.CommandType.Open
-                    ExecuteWirelessCommand();                                    
+                {
+                    //pasting type comparison as reference
+                    //relayCommand.Command  == RelayCommand.CommandType.Open
+                    ExecuteWirelessCommand(relayCommand.Command);                                    
                 }
                 else
                 {
-                    ExecuteUsbCommand();
+                    ExecuteUsbCommand(relayCommand.Command);
                 }
                 Thread.Sleep(500);
                 picScanResult.InvokeIfRequired(t => t.Visible = false);
@@ -440,24 +441,17 @@ namespace SM.ClubManager.AccessControl
             }
 
             if (serialInClient != null)
-            {
-                if (serialInClient.IsConnected)
-                {
-                    serialInClient.Disconnect();
-                }
-
+            {                
+                serialInClient.Disconnect();                
                 serialInClient.ConnectionStatusChanged -= SerialInClient_ConnectionStatusChanged;
                 serialInClient.MessageReceived -= SerialInClient_MessageReceived;
+                
                 serialInClient = null;
             }
 
             if (serialOutClient != null)
-            {
-                if (serialOutClient.IsConnected)
-                {
-                    serialOutClient.Disconnect();
-                }
-
+            {              
+                serialOutClient.Disconnect();                
                 serialOutClient.ConnectionStatusChanged -= SerialOutClient_ConnectionStatusChanged;
                 serialOutClient.MessageReceived -= SerialOutClient_MessageReceived;                
                 serialOutClient = null;
@@ -660,6 +654,7 @@ namespace SM.ClubManager.AccessControl
         #endregion
 
         #region Eventhandlers
+
         #region Form events
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -820,7 +815,7 @@ namespace SM.ClubManager.AccessControl
                         Log(String.Format("Processing {0} commands", relayCommands.Count));
                         foreach (var item in relayCommands)
                         {
-                            if((RelayCommand)item).Command
+                            //if((RelayCommand)item).Command
                             OnRelayCommandReceived(item);
                         }
                     }
@@ -888,7 +883,7 @@ namespace SM.ClubManager.AccessControl
                 //first we get the type of command that was sent i.e. ON / OFF  
                 //if (rdoWirelessComms.Checked)
                 //{
-                ExecuteWirelessCommand();
+                    //ExecuteWirelessCommand();
                 //}
                 //else
                 //{
@@ -974,6 +969,7 @@ namespace SM.ClubManager.AccessControl
             Log("Manual USB command executed");
             txtUsbCommand.Text = command;
             btnUsbCommand.PerformClick();
+            //btnUsbCommand_Click(null, null);
         }
 
         private void btnUsbCommandOff_Click(object sender, EventArgs e)
@@ -987,7 +983,10 @@ namespace SM.ClubManager.AccessControl
         private void btnUsbCommandTrigger_Click(object sender, EventArgs e)
         {
             Log("Manual USB command executed");
-            string command = "BACKLOG POWER1 ON; DELAY 10; POWER1 OFF";
+
+            string delay = ApplicationSettings.Instance.InchingDelay.ToString();
+
+            string command = string.Format("BACKLOG POWER1 ON; DELAY {0}; POWER1 OFF",delay);
             txtUsbCommand.Text = command;
             btnUsbCommand.PerformClick();
         }

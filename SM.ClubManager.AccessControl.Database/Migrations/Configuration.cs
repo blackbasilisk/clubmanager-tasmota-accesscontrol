@@ -19,11 +19,11 @@ namespace SIS.REA.Actinium.Database.Migrations
         {
           
             List<ApplicationConfiguration> appSettings = new List<ApplicationConfiguration>();
-            appSettings.Add(new ApplicationConfiguration() { Id = 1, Key = "SerialInPort", Value = "COM1" });
+            appSettings.Add(new ApplicationConfiguration() { Id = 1, Key = "SerialInPort", Value = "COM9" });
             appSettings.Add(new ApplicationConfiguration() { Id = 2, Key = "SerialOutPort", Value = "COM3" });            
-            appSettings.Add(new ApplicationConfiguration() { Id = 3, Key = "WirelessDeviceIPAddress", Value = "192.168.0.65" });
+            appSettings.Add(new ApplicationConfiguration() { Id = 3, Key = "WirelessDeviceIPAddress", Value = "" });
             appSettings.Add(new ApplicationConfiguration() { Id = 4, Key = "WirelessDevicePort", Value = "80" });
-            appSettings.Add(new ApplicationConfiguration() { Id = 5, Key = "IsTargetWireless", Value = "True" });
+            appSettings.Add(new ApplicationConfiguration() { Id = 5, Key = "IsTargetWireless", Value = "False" });
 
             context.ApplicationConfigurations.AddOrUpdate(x => x.Id, appSettings.ToArray());
             context.SaveChanges();

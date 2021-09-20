@@ -55,10 +55,10 @@ namespace SM.ClubManager.AccessControl
                 switch (message.Substring(0,1).ToUpper())
                 {
                     case "N":
-                        command.Command = CommandType.Open;
+                        command.Command = CommandType.Close;
                         break;
                     case "F":
-                        command.Command = CommandType.Close;
+                        command.Command = CommandType.Open;
                         break;
                     default:
                         throw new Exception("Invalid command type received. Only N and F commands are catered for. Please contact support.");                        

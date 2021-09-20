@@ -250,32 +250,32 @@ namespace SM.ClubManager.AccessControl
             this.grpUsbCommandPanel.Controls.Add(this.txtUsbCommand);
             this.grpUsbCommandPanel.Controls.Add(this.btnUsbCommand);
             this.grpUsbCommandPanel.Enabled = false;
-            this.grpUsbCommandPanel.Location = new System.Drawing.Point(12, 401);
+            this.grpUsbCommandPanel.Location = new System.Drawing.Point(13, 398);
             this.grpUsbCommandPanel.Name = "grpUsbCommandPanel";
-            this.grpUsbCommandPanel.Size = new System.Drawing.Size(206, 104);
+            this.grpUsbCommandPanel.Size = new System.Drawing.Size(206, 107);
             this.grpUsbCommandPanel.TabIndex = 99;
             this.grpUsbCommandPanel.TabStop = false;
-            this.grpUsbCommandPanel.Text = "Commands";
+            this.grpUsbCommandPanel.Text = "USB Commands";
             // 
             // btnUsbCommandTrigger
             // 
-            this.btnUsbCommandTrigger.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnUsbCommandTrigger.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUsbCommandTrigger.Location = new System.Drawing.Point(98, 74);
+            this.btnUsbCommandTrigger.Location = new System.Drawing.Point(98, 78);
             this.btnUsbCommandTrigger.Name = "btnUsbCommandTrigger";
-            this.btnUsbCommandTrigger.Size = new System.Drawing.Size(75, 23);
+            this.btnUsbCommandTrigger.Size = new System.Drawing.Size(101, 23);
             this.btnUsbCommandTrigger.TabIndex = 7;
-            this.btnUsbCommandTrigger.Text = "TRIGGER";
+            this.btnUsbCommandTrigger.Text = "AUTO ON+OFF";
             this.btnUsbCommandTrigger.UseVisualStyleBackColor = true;
             this.btnUsbCommandTrigger.Click += new System.EventHandler(this.btnUsbCommandTrigger_Click);
             // 
             // btnUsbCommandOff
             // 
-            this.btnUsbCommandOff.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnUsbCommandOff.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUsbCommandOff.Location = new System.Drawing.Point(52, 74);
+            this.btnUsbCommandOff.Location = new System.Drawing.Point(53, 78);
             this.btnUsbCommandOff.Name = "btnUsbCommandOff";
-            this.btnUsbCommandOff.Size = new System.Drawing.Size(40, 23);
+            this.btnUsbCommandOff.Size = new System.Drawing.Size(37, 23);
             this.btnUsbCommandOff.TabIndex = 6;
             this.btnUsbCommandOff.Text = "OFF";
             this.btnUsbCommandOff.UseVisualStyleBackColor = true;
@@ -283,9 +283,9 @@ namespace SM.ClubManager.AccessControl
             // 
             // btnUsbCommandOn
             // 
-            this.btnUsbCommandOn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnUsbCommandOn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUsbCommandOn.Location = new System.Drawing.Point(6, 74);
+            this.btnUsbCommandOn.Location = new System.Drawing.Point(6, 78);
             this.btnUsbCommandOn.Name = "btnUsbCommandOn";
             this.btnUsbCommandOn.Size = new System.Drawing.Size(40, 23);
             this.btnUsbCommandOn.TabIndex = 5;
