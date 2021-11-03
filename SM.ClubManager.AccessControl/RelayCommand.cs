@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SM.ClubManager.AccessControl.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SM.ClubManager.AccessControl
 {
-    public class RelayCommand
+    public class RelayCommand : ISerialMessage
     {
         #region Types
         public enum CommandType
@@ -40,7 +41,7 @@ namespace SM.ClubManager.AccessControl
 
         }      
         
-        public static RelayCommand Create(string message)
+        public ISerialMessage Create(string message)
         {
             try
             {
@@ -54,10 +55,10 @@ namespace SM.ClubManager.AccessControl
                 switch (message.Substring(0,1).ToUpper())
                 {
                     case "N":
-                        command.Command = CommandType.Open;
+                        command.Command = CommandType.Close;
                         break;
                     case "F":
-                        command.Command = CommandType.Close;
+                        command.Command = CommandType.Open;
                         break;
                     default:
                         throw new Exception("Invalid command type received. Only N and F commands are catered for. Please contact support.");                        
@@ -71,7 +72,7 @@ namespace SM.ClubManager.AccessControl
                 }
                 else
                 {
-                    throw new Exception("Command type OK, but cannot parse the port no.");
+                    throw new Exception("Command type OK, but cannot parse the port number");
                 }
 
                 return command;
@@ -81,5 +82,5 @@ namespace SM.ClubManager.AccessControl
                 throw;
             }           
         }
-    }
+    }   
 }

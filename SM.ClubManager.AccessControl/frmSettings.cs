@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using SIS.Library.Base.Infrastructure.Extensions;
 using SM.ClubManager.AccessControl.Config;
+using Syncfusion.Windows.Forms.Tools;
 
 namespace SM.ClubManager.AccessControl
 {
@@ -17,11 +18,14 @@ namespace SM.ClubManager.AccessControl
         private void Initialize()
         {                                          
             Log("Loading configuration...");           
-            txtSwOutPort.Text = ApplicationSettings.Instance.SerialInPort;
+            txtSwInPort.Text = ApplicationSettings.Instance.SerialInPort;
+            txtSerialOutPort.Text = ApplicationSettings.Instance.SerialOutPort;            
             txtSerialInBaudrate.Text = ApplicationSettings.Instance.SerialInBaudRate.ToString();
             txtIPAddress.Text = ApplicationSettings.Instance.WirelessDeviceIPAddress;
             txtWifiPort.Text = ApplicationSettings.Instance.WirelessDevicePort;            
-            txtInchingDelay.Text = ApplicationSettings.Instance.InchingDelay.ToString();            
+            txtInchingDelay.Text = ApplicationSettings.Instance.InchingDelay.ToString();
+            txtSerialOutBaudRate.Text = ApplicationSettings.Instance.SerialOutBaudRate.ToString();
+            toggleisWirelessConnection.ToggleState = ApplicationSettings.Instance.IsTargetWireless ? ToggleButtonState.Active : ToggleButtonState.Inactive;
         }
 
         #region Private methods
@@ -54,12 +58,16 @@ namespace SM.ClubManager.AccessControl
             try
             {
                 Log("Saving configuration");
-                ApplicationSettings.Instance.SerialInPort = txtSwOutPort.Text;
+                ApplicationSettings.Instance.SerialInPort = txtSwInPort.Text.Trim();
                 ApplicationSettings.Instance.SerialInBaudRate = Convert.ToInt32(txtSerialInBaudrate.Text);
                 ApplicationSettings.Instance.WirelessDeviceIPAddress = txtIPAddress.Text;
                 ApplicationSettings.Instance.WirelessDevicePort = txtWifiPort.Text;
-                ApplicationSettings.Instance.IsTargetWireless = true;
+                ApplicationSettings.Instance.IsTargetWireless = toggleisWirelessConnection.ToggleState == ToggleButtonState.Active ? true : false;
+                bool isWireless = ApplicationSettings.Instance.IsTargetWireless;
                 ApplicationSettings.Instance.InchingDelay = txtInchingDelay.Text.ToInt();
+                ApplicationSettings.Instance.SerialOutPort = txtSerialOutPort.Text.Trim();
+                ApplicationSettings.Instance.SerialOutBaudRate = Convert.ToInt32(txtSerialOutBaudRate.Text.Trim());
+
             }
             catch (Exception ex)
             {
@@ -81,9 +89,7 @@ namespace SM.ClubManager.AccessControl
                     
         }
 
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
+       
+       
     }
 }
