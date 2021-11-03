@@ -9,35 +9,56 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using SIS.Library.Base;
-using SIS.Library.Base.Communication;
-using SIS.Library.Base.Infrastructure.Extensions;
 using System.Threading;
-using SIS.Library.Base.Infrastructure.WindowsFormsExtensions;
-
 using SerialPortLib;
 using SM.ClubManager.AccessControl.Database;
 using SM.ClubManager.AccessControl.Config;
+using Syncfusion.Windows.Forms;
+using System.Reflection;
+using System.IO;
+using SIS.Library.Base.Infrastructure.Extensions;
+using SIS.Library.Base.Communication;
+using SIS.Library.Base.Infrastructure.WindowsFormsExtensions;
+using SM.ClubManager.AccessControl.Infrastructure;
+using System.Runtime.InteropServices;
 
 namespace SM.ClubManager.AccessControl
 {
    
+    enum NotificationType
+    {
+        Error,
+        Warning,
+        Info,
+        General
+    }
     public partial class frmMain : Form
     {
-        //
-        string commandWifiOpenStringFormat = "";
-        string commandWifiCloseStringFormat = "";
-        string commandSerialOpenStringFormat = "";
-        string commandSerialCloseStringFormat = "";
+        Size smallSize = new Size(243, 279);
+        Size largeSize = new Size(1024, 556);
+        bool isSmallSizeMode = true;
 
+        string commandWifiRelayOpenStringFormat = "";
+        string commandWifiRelayCloseStringFormat = "";
+        string commandSerialRelayOpenStringFormat = "";
+        string commandSerialRelayCloseStringFormat = "";
+        
         //SimpleSerialClient serialInClient = null;
-        SerialPortInput serialInClient = new SerialPortInput();
+        SerialPortInput serialInClient = null;//new SerialPortInput();
+        SerialPortInput serialOutClient = null;//new SerialPortInput();
         //SerialPortStream serialInClient = new SerialPortStream();
         frmSettings settingsForm = new frmSettings();
         List<byte> messageBuffer = null;
+        List<byte> usbMessageBuffer = null;
         System.Threading.Thread comThread;
-        string eofString = "\n\r\n";        
+        string eofString = "\n\r\n";
+        Image imgUnchecked;
+        Image imgChecked;
+        Image imgUsbConnection;
+        Image imgWifiConnection;
+        Icon notificationWarningIcon;
+        Icon notificationInformationIcon;
+                        
         public frmMain()
         {
             InitializeComponent();              
@@ -45,43 +66,508 @@ namespace SM.ClubManager.AccessControl
             Initialize();
         }
 
+        #region Init Methods
+
         private void Initialize()
         {
-            Log("Initializing user interface");
-            this.ShowInTaskbar = ConfigurationManager.AppSettings["IsDisplayInTaskBar"].ToBool();         
+            isSmallSizeMode = true;
+            this.Size = smallSize;
 
+            Log("Initializing user interface");
+            this.ShowInTaskbar = ConfigurationManager.AppSettings["IsDisplayInTaskBar"].ToBool();
+            
             Log("Intializing database");
             System.Data.Entity.Database.SetInitializer(new DatabaseInitializer());
-                        
+
+            Log("Preloading assets");
+            PreloadAssets();
+
             Log("Initializing configuration...");
             SetDefaults();
-          
-            commandWifiOpenStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Wifi.Open"];
-            commandWifiCloseStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Wifi.Close"];
-            commandSerialOpenStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Serial.Close"];
-            commandSerialCloseStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Serial.Close"];
+        
+
+            commandWifiRelayOpenStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Wifi.RelayOpen"];
+            commandWifiRelayCloseStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Wifi.RelayClose"];
+            commandSerialRelayOpenStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Serial.RelayOpen"];
+            commandSerialRelayCloseStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Serial.RelayClose"];
 
             Log("Startup completed");
+        }      
+
+        private void ConfigureSystem()
+        {
+            EnableDisableWirelessComms();
+        }
+
+        private void PreloadAssets()
+        {
+            try
+            {
+                imgUnchecked = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.Unchecked.png", Assembly.GetExecutingAssembly());
+                imgChecked = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.Checked.png", Assembly.GetExecutingAssembly());
+                imgUsbConnection = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.usb-connection.png", Assembly.GetExecutingAssembly());
+                imgWifiConnection = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.wifi-connection.png", Assembly.GetExecutingAssembly());
+                notificationInformationIcon = this.Icon;//LoadIconFromResource("SM.ClubManager.AccessControl.Resources.notification-warning-icon.ico", Assembly.GetExecutingAssembly());
+                notificationWarningIcon = LoadIconFromResource("SM.ClubManager.AccessControl.Resources.notification-warning-icon.ico", Assembly.GetExecutingAssembly());
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+            }
         }
 
         private void InitSerialComms()
-        {            
-            
+        {
+
             InitializeSerialInConnection();
 
             string portName = ApplicationSettings.Instance.SerialInPort;
             int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
 
-            OpenComPort(portName, portBaudRate);
+            OpenComPort(serialInClient, portName, portBaudRate, picInSerialConnection);
         }
 
+        public static Image LoadImageFromResource(string resourceName)
+        {
+            try
+            {
+                return LoadImageFromResource(resourceName, null);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public Icon LoadIconFromResource(string resourceName, Assembly assembly = null)
+        {
+            try
+            {
+                if (assembly == null)
+                {
+                    assembly = Assembly.GetExecutingAssembly();
+                }
+
+                Stream _imageStream = assembly.GetManifestResourceStream(resourceName);
+                return new Icon(_imageStream);
+            }
+            catch (Exception ex)
+            {
+                Log("Error loading assembly resource icon. " + ex.Message, true);
+                return null;
+            }
+        }
+
+
+        public static Image LoadImageFromResource(string resourceName, Assembly assembly = null)
+        {
+            try
+            {
+                if (assembly == null)
+                {
+                    assembly = Assembly.GetExecutingAssembly();
+                }
+
+                Stream _imageStream = assembly.GetManifestResourceStream(resourceName);
+                return new Bitmap(_imageStream);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Private methods
+        //////[DllImport("user32.dll", CharSet = CharSet.Auto)]
+        //////private static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        //////private const int WM_VSCROLL = 277;
+        //////private const int SB_PAGEBOTTOM = 7;
+
+        //////internal static void ScrollToBottom(RichTextBox richTextBox)
+        //////{
+        //////    SendMessage(richTextBox.Handle, WM_VSCROLL, (IntPtr)SB_PAGEBOTTOM, IntPtr.Zero);
+        //////    richTextBox.SelectionStart = richTextBox.Text.Length;
+        //////}
+        private void DisplayNotificationBalloon(string header, string message, NotificationType notificationType = NotificationType.Info)
+        {
+            Icon icon = this.Icon;
+            ToolTipIcon ttIcon = ToolTipIcon.Info;
+
+            switch (notificationType)
+            {
+                case NotificationType.Error:
+                    //icon = notificationWarningIcon;
+                    ttIcon = ToolTipIcon.Error;
+                    break;
+                case NotificationType.Info:
+                    //icon = notificationInformationIcon;
+                    ttIcon = ToolTipIcon.Info;
+                    break;
+                default:                    
+                    ttIcon = ToolTipIcon.None;
+                    break;
+            }
+            
+            NotifyIcon notifyIcon = new NotifyIcon
+            {
+                Visible = true,
+                Icon = icon,
+                BalloonTipIcon = ttIcon                
+            };
+
+            notifyIcon.Text = "";
+            if (header != null)
+            {
+                notifyIcon.BalloonTipTitle = header;
+            }
+            if (message != null)
+            {
+                notifyIcon.BalloonTipText = message;
+            }
+
+            notifyIcon.BalloonTipClosed += (sender, args) => DisposeNotification(notifyIcon);
+            notifyIcon.BalloonTipClicked += (sender, args) => DisposeNotification(notifyIcon);
+            notifyIcon.ShowBalloonTip(0);
+        }
+
+        private void DisposeNotification(NotifyIcon notifyIcon)
+        {
+            notifyIcon.Dispose();
+        }
+
+        private void OpenComPort(SerialPortInput serialClient, string portName, int baudRate, PictureBox picBox = null)
+        {
+            //string portName = ApplicationSettings.Instance.SerialInPort;
+            //int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
+            try
+            {
+                Log(string.Format("Opening port {0}...", portName));
+
+                //int count = 0;
+                //bool isConnectionOk = false;
+                //while (!isConnectionOk && count < 5)
+                //{
+                try
+                {
+                    serialClient.Disconnect();
+
+                    serialClient.SetPort(portName: portName, baudRate: baudRate);
+                   
+                    serialClient.Connect();
+
+                    if (serialClient != null && serialClient.IsConnected)
+                    {
+                        Log(string.Format("Port {0} opened OK", portName));
+                        if(picBox != null)
+                        {
+                            SetConnectionDisplayEnabledDisabled(picBox, true);
+                        }                      
+                    }
+                    else
+                    {
+                        if(picBox != null)
+                        {
+                            SetConnectionDisplayEnabledDisabled(picBox, false);
+                        }
+                     
+                        Log(string.Format("ERROR opening port {0}", portName), true);
+                    }
+                }
+                catch (Exception serialEx)
+                {
+                    Log("Error opening COM port: " + serialEx.Message, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+            }
+
+            return;
+        }
+
+        private void OnRelayCommandReceived(ISerialMessage item)
+        {           
+            RelayCommand relayCommand = item as RelayCommand;
+            if(relayCommand == null)
+            {
+                throw new Exception("cannot process Club Manager command. Invalid command object received!");
+            }
+
+            Log(string.Format("Processing relay command '{0}'", relayCommand.Command.ToString()));
+            //check what type of command is required i.e. serial / wifi
+            bool isWireless = ApplicationSettings.Instance.IsTargetWireless;
+
+            //switch (relayCommand.Command)
+            //{
+            //    case RelayCommand.CommandType.Close:
+            //        break;
+            //    case RelayCommand.CommandType.Open:
+            //        break;
+            //    default:
+            //        break;
+            //}
+            
+            //this method should not care about whether command is wireless / wired. it just wants to execute command
+            try
+            {
+                picScanResult.InvokeIfRequired(t => t.Visible = true);
+
+                if (ApplicationSettings.Instance.IsTargetWireless)
+                {
+                    //pasting type comparison as reference
+                    //relayCommand.Command  == RelayCommand.CommandType.Open
+                    ExecuteWirelessCommand(relayCommand.Command);                                    
+                }
+                else
+                {
+                    ExecuteUsbCommand(relayCommand.Command);
+                }
+                Thread.Sleep(500);
+                picScanResult.InvokeIfRequired(t => t.Visible = false);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                picScanResult.InvokeIfRequired(t => t.Visible = false);
+            }
+            Log("Relay command processing completed");
+        }
+
+        private List<ISerialMessage> GetMessagesFromBuffer(ref List<byte> byteList, string eofString)
+        {
+            try
+            {                
+                // string str = Encoding.Default.GetString(bytes);
+                string strBuffer = Encoding.UTF8.GetString(byteList.ToArray());
+
+                if (strBuffer.Contains(eofString))
+                {
+                    //find the location of the first eofString so that we can cut the items before that out and then return the remaining bytes
+                    //N1...F1...N1...F
+                    var listOfMessages = strBuffer.Split(new string[] { eofString }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (listOfMessages != null && listOfMessages.Count() > 0)
+                    {
+                        List<ISerialMessage> serialMessages = new List<ISerialMessage>();
+                        //split the buffer into the various commands
+                        foreach (var item in listOfMessages)
+                        {
+                            ISerialMessage serialMessage = new RelayCommand();
+                            serialMessage = serialMessage.Create(item);
+                            serialMessages.Add(serialMessage);
+                        }
+
+                        //we find the location of the last occurence of the eofString
+                        //deduct the index + eofString.Length from the total byteList
+                        int lastEofStringIndex = strBuffer.LastIndexOf(eofString);
+                        int eofStringCount = eofString.Count();
+                        int removeIndexPosition = lastEofStringIndex + eofStringCount;
+
+                        byteList.RemoveRange(0, removeIndexPosition);
+
+                        return serialMessages;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+      
+
+        private void EnableDisableWirelessComms()
+        {
+            try
+            {
+                bool isTargetWireless = ApplicationSettings.Instance.IsTargetWireless;
+
+                if (!isTargetWireless)
+                {
+                    OpenComPort(serialOutClient, ApplicationSettings.Instance.SerialOutPort, ApplicationSettings.Instance.SerialOutBaudRate);
+                    picConnectionType.Image = (Image)imgUsbConnection.Clone();
+                   
+                    txtUsbCommand.Focus();                    
+                    txtUsbCommand.Select();
+
+                }
+                else
+                {
+                    if(serialOutClient != null)
+                    {
+                        serialOutClient.Disconnect();
+                    }
+
+                    picConnectionType.Image = (Image)imgWifiConnection.Clone();
+                    
+                    btnViewLogs.Focus();
+                    btnViewLogs.Select();
+                }
+
+                grpUsbCommandPanel.Visible = !isTargetWireless;
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+            }
+        }
+
+        private void SetConnectionDisplayEnabledDisabled(PictureBox picBox, bool isChecked = false)
+        {
+            if (isChecked)
+            {
+                picBox.Image = (Image)imgChecked.Clone();
+            }
+            else
+            {
+                picBox.Image = (Image)imgUnchecked.Clone();
+            }
+        }
+
+        private void Cleanup()
+        {
+            if (settingsForm != null)
+            {
+                settingsForm.Close();
+                settingsForm.Dispose();
+                settingsForm = null;
+            }
+
+            if (serialInClient != null)
+            {                
+                serialInClient.Disconnect();                
+                serialInClient.ConnectionStatusChanged -= SerialInClient_ConnectionStatusChanged;
+                serialInClient.MessageReceived -= SerialInClient_MessageReceived;
+                
+                serialInClient = null;
+            }
+
+            if (serialOutClient != null)
+            {              
+                serialOutClient.Disconnect();                
+                serialOutClient.ConnectionStatusChanged -= SerialOutClient_ConnectionStatusChanged;
+                serialOutClient.MessageReceived -= SerialOutClient_MessageReceived;                
+                serialOutClient = null;
+            }
+
+            lstLog.Dispose();
+            lstLog = null;
+        }
+
+        private void ExecuteWirelessCommand(RelayCommand.CommandType commandType)
+        {
+            try
+            {
+                Log("Executing wireless command");
+                string url = "";             
+
+                switch (commandType)
+                {
+                    case RelayCommand.CommandType.Open:
+                        url = commandWifiRelayOpenStringFormat;
+                        Log("Sending OPEN command");
+                        break;
+                    case RelayCommand.CommandType.Close:                        
+                    default:
+                        url = commandWifiRelayCloseStringFormat;
+                        Log("Sending CLOSE command");
+                        break;
+                }
+                //frmLoading.ShowLoadingForm("Executing wireless command...");
+                //buid url                
+                url = url.ToLower()
+                            .Replace("{ip}", ApplicationSettings.Instance.WirelessDeviceIPAddress)
+                            .Replace("{port}", ApplicationSettings.Instance.WirelessDevicePort)
+                            .Replace("{delay}", ApplicationSettings.Instance.InchingDelay.ToString());
+                HttpPost(url);
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+            }
+            finally
+            {
+                //give the loading form a chance to actually load properly before trying to close it, just in case the wifi command is super fast :P
+                //Thread.Sleep(20);
+                //frmLoading.CloseForm();
+            }
+        }
+
+
+        private void ExecuteUsbCommand(RelayCommand.CommandType commandType)
+        {
+            try
+            {
+                Log("Executing USB command");
+                string cmd = "";
+                switch (commandType)
+                {                   
+                    case RelayCommand.CommandType.Open:
+                        cmd = commandSerialRelayOpenStringFormat;
+                        Log("Sending OPEN command");
+                        break;
+                    case RelayCommand.CommandType.Close:                        
+                    default:
+                        cmd = commandSerialRelayCloseStringFormat;
+                        Log("Sending CLOSE command");
+                        break;
+                }
+                //string cmd = commandSerialRelayCloseStringFormat;
+
+                //if there a delay field, replace it
+                cmd = cmd.ToLower()                           
+                            .Replace("{delay}", ApplicationSettings.Instance.InchingDelay.ToString());
+
+                if(serialOutClient != null && serialOutClient.IsConnected)
+                {                    
+                    byte[] bte = Encoding.ASCII.GetBytes(cmd);
+                    serialOutClient.SendMessage(bte);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+            }
+        }
+        private void HttpPost(string url)
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(url);
+
+                var postData = "username=" + Uri.EscapeDataString("myUser");
+                postData += "&password=" + Uri.EscapeDataString("myPassword");
+                var data = Encoding.ASCII.GetBytes(postData);
+
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = data.Length;
+
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+                var response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+            }
+        }
 
         private void InitializeSerialInConnection()
         {
             try
             {
-                Log("Initializing serial connection...");
+                Log("Initializing serial connection objects...");
                
                 if (serialInClient == null)
                 {
@@ -91,6 +577,15 @@ namespace SM.ClubManager.AccessControl
                     
                     messageBuffer = new List<byte>();
                 }              
+
+                if(serialOutClient == null)
+                {  
+                   serialOutClient = new SerialPortInput();
+                   serialOutClient.ConnectionStatusChanged +=  SerialOutClient_ConnectionStatusChanged;
+                   serialOutClient.MessageReceived += SerialOutClient_MessageReceived;
+
+                    usbMessageBuffer = new List<byte>();
+                }
             }
             catch (Exception ex)
             {
@@ -127,6 +622,19 @@ namespace SM.ClubManager.AccessControl
                 {
                     ApplicationSettings.Instance.InchingDelay = 2;
                 }
+
+                if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialOutPort))
+                {
+                    ApplicationSettings.Instance.SerialOutPort = "COM3";
+                }
+
+                if (ApplicationSettings.Instance.SerialOutBaudRate == default(int) || ApplicationSettings.Instance.SerialOutBaudRate <= 0)
+                {
+                    ApplicationSettings.Instance.SerialOutBaudRate =  115200;
+                }
+
+                ApplicationSettings.Instance.IsServiceMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsDeugMode"]);
+                                
             }
             catch (Exception ex)
             {
@@ -141,16 +649,33 @@ namespace SM.ClubManager.AccessControl
         }
         #endregion
 
+        #region Public Methods
+
+        #endregion
+
+        #region Eventhandlers
+
+        #region Form events
+
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Cleanup();
+
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //try
-            //{
-            //    //SaveConfigurationValues();
-            //}
-            //catch (Exception ex)
-            //{
-            //    Log(ex.Message, true);
-            //}
+            var window = MessageBox.Show(
+                    "Are you sure you want to close the SimplySwitch Manager?",
+                    "Please confirm",
+                    MessageBoxButtons.YesNo);
+
+            e.Cancel = (window == DialogResult.No);
 
             try
             {
@@ -161,7 +686,6 @@ namespace SM.ClubManager.AccessControl
                     comThread.Join();
                     comThread = null;
                     frmLoading.CloseForm();
-                    System.Threading.Thread.Sleep(10000);
                 }
             }
             catch (Exception ex)
@@ -170,38 +694,183 @@ namespace SM.ClubManager.AccessControl
                 e.Cancel = true;
             }
         }
+        #endregion
+     
+        private void SerialOutClient_ConnectionStatusChanged(object sender, ConnectionStatusChangedEventArgs args)
+        {
+            string statusString = args.Connected ? "opened" : "closed"; //args.Connected.ToString();
+            Log("USB port " + statusString);
+            DisplayNotificationBalloon("Simply Switch", "USB connection " + statusString, args.Connected ? NotificationType.Info : NotificationType.Warning);   
+            
+            if(!args.Connected)
+            {               
+                rtbUsbOutput.BackColor = Color.White;
+                rtbUsbOutput.ForeColor = Color.Black;
+                txtUsbCommand.Select();
+                txtUsbCommand.Focus();
+                rtbUsbOutput.InvokeIfRequired(r => r.Clear());
+            }
+            else
+            {
+                grpUsbCommandPanel.InvokeIfRequired(t => t.Enabled = true);
+                rtbUsbOutput.BackColor = Color.Black;
+                rtbUsbOutput.ForeColor = Color.LimeGreen;
+            }
 
-        //private void SaveConfigurationValues()
-        //{
-        //    try
-        //    {
-        //        Log("Saving configuration");
-        //        //ApplicationSettings.Instance.SerialInPort = txtSwOutPort.Text;
-        //        //ApplicationSettings.Instance.SerialInBaudRate = Convert.ToInt32(txtSerialInBaudrate.Text);
-        //        //ApplicationSettings.Instance.WirelessDeviceIPAddress = txtIPAddress.Text;
-        //        //ApplicationSettings.Instance.WirelessDevicePort = txtPort.Text;
-        //        //ApplicationSettings.Instance.IsTargetWireless = rdoWirelessComms.Checked;
-        //        //ApplicationSettings.Instance.InchingDelay = txtInchingDelay.Text.ToInt();
+            if (usbMessageBuffer != null)
+            {
+                usbMessageBuffer.Clear();
+            }
 
-              
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log(ex.Message, true);                
-        //    }           
-        //}
+            usbMessageBuffer = null;
+            usbMessageBuffer = new List<byte>();
+
+            picScanResult.InvokeIfRequired(t => t.Visible = false);
+        }
+
+        private void SerialOutClient_MessageReceived(object sender, MessageReceivedEventArgs args)
+        {
+            try
+            {
+                //add data to the messagebuffer.            
+                if (args.Data != null && args.Data.Count() > 0)
+                {
+                    string s = Encoding.UTF8.GetString(args.Data);
+
+                    rtbUsbOutput.InvokeIfRequired(r =>
+                    {
+                        r.AppendText(s);
+                        if (r.Lines.Length > 100)
+                        {
+                            r.Clear();
+                        }
+                    });                    
+                  
+                    //foreach (var item in args.Data)
+                    //{
+                    //    messageBuffer.Add(item);
+                    //}
+                    //string msgEofString = "\r\n";
+                    ////put entire buffer into string variable, then we look for the EOF byte sequence i.e. char(10)char(13)char(10) i.e. "\n\r\n"
+                    //List<ISerialMessage> serialMessages = GetMessagesFromBuffer(ref usbMessageBuffer, msgEofString);
+
+                    //if (serialMessages != null && serialMessages.Count() > 0)
+                    //{                        
+                    //    foreach (var item in serialMessages)
+                    //    {
+                    //        rtbUsbOutput.AppendText(item.ToString());
+                    //        if(rtbUsbOutput.Lines.Length > 30)
+                    //        {
+                    //            rtbUsbOutput.Clear();
+                    //        }
+                    //    }
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+            }
+        }
+
+        private void SerialInClient_ConnectionStatusChanged(object sender, ConnectionStatusChangedEventArgs args)
+        {
+            string statusString = args.Connected ? "successful" : "failed";
+            Log("COM port connection status changed to '" + statusString + "'");
+            picInSerialConnection.Image = args.Connected ? (Image)imgChecked.Clone() : (Image)imgUnchecked.Clone();
+            DisplayNotificationBalloon("Club Manager Connection", "Connection " + statusString);
+
+            if (messageBuffer != null)
+            {
+                messageBuffer.Clear();
+            }
+
+            messageBuffer = null;
+            messageBuffer = new List<byte>();
+
+            picScanResult.InvokeIfRequired(t => t.Visible = false);
+        }
+
+        private void SerialInClient_MessageReceived(object sender, MessageReceivedEventArgs args)
+        {
+            try
+            {
+                //add data to the messagebuffer.            
+                if (args.Data != null && args.Data.Count() > 0)
+                {
+                    Log("Data received. Looking for commands to process");
+
+                    foreach (var item in args.Data)
+                    {
+                        messageBuffer.Add(item);
+                    }
+                   
+                    //put entire buffer into string variable, then we look for the EOF byte sequence i.e. char(10)char(13)char(10) i.e. "\n\r\n"
+                    List<ISerialMessage> relayCommands = GetMessagesFromBuffer(ref messageBuffer, eofString);
+
+                    if (relayCommands != null && relayCommands.Count() > 0)
+                    { 
+                        picScanResult.InvokeIfRequired(t => t.Visible = false);
+                    
+                        Log(String.Format("Processing {0} commands", relayCommands.Count));
+                        foreach (var item in relayCommands)
+                        {
+                            //if((RelayCommand)item).Command
+                            OnRelayCommandReceived(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+            }
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            Log("Opening system configuration");
+            DialogResult result = settingsForm.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                Log("New configuration values loaded");
+
+                string portName = ApplicationSettings.Instance.SerialInPort;
+                int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
+
+                //reconnect to the incoming serial port
+                OpenComPort(serialInClient, portName, portBaudRate, picInSerialConnection);
+
+                //setup for either wireless / wired comms to device
+                EnableDisableWirelessComms();
+            }
+            else
+            {
+                Log("Configuration values NOT changed");
+            }
+        }
+
+        private void btnResetCOM_Click(object sender, EventArgs e)
+        {
+            string portName = ApplicationSettings.Instance.SerialInPort;
+            int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
+            OpenComPort(serialInClient, portName, portBaudRate, picInSerialConnection);
+        }
 
         private void frmMain_Shown(object sender, EventArgs e)
         {
             frmSplash.CloseForm();
-            if(ConfigurationManager.AppSettings["IsDisplayFormOnStartup"].ToBool())
-            {                
+            if (ConfigurationManager.AppSettings["IsDisplayFormOnStartup"].ToBool())
+            {
                 this.Activate();
                 this.Focus();
             }
 
             Log("Initialzing communication layer");
             InitSerialComms();
+
+            ConfigureSystem();
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -214,7 +883,7 @@ namespace SM.ClubManager.AccessControl
                 //first we get the type of command that was sent i.e. ON / OFF  
                 //if (rdoWirelessComms.Checked)
                 //{
-                ExecuteWirelessCommand();
+                    //ExecuteWirelessCommand();
                 //}
                 //else
                 //{
@@ -245,8 +914,110 @@ namespace SM.ClubManager.AccessControl
             catch (Exception ex)
             {
                 Log(ex.Message, true);
-            }                                               
+            }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DisplayNotificationBalloon("header goes here", "this is a message");
+        }
+
+        private void btnViewLogs_Click(object sender, EventArgs e)
+        {
+            isSmallSizeMode = !isSmallSizeMode;
+            if(isSmallSizeMode)
+            {
+                this.Size = smallSize;
+                btnViewLogs.Focus();
+                btnViewLogs.Select();
+            }
+            else
+            {
+                this.Size = largeSize;
+                if(ApplicationSettings.Instance.IsTargetWireless)
+                {
+                    txtUsbCommand.Focus();
+                    txtUsbCommand.Select();
+                }                    
+            }
+        }
+
+        private void btnUsbCommand_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialOutClient != null && serialOutClient.IsConnected && !string.IsNullOrEmpty(txtUsbCommand.Text.Trim()))
+                {
+                    byte[] btes = Encoding.ASCII.GetBytes(txtUsbCommand.Text.Trim() + "\r\n");
+                    Log("Sending USB command -> " + txtUsbCommand.Text.Trim());
+                    serialOutClient.SendMessage(btes);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+            }           
+            finally
+            {
+                txtUsbCommand.Text = "";
+            }
+        }
+
+        private void btnUsbCommandOn_Click(object sender, EventArgs e)
+        {            
+            string command = "POWER1 ON";
+            Log("Manual USB command executed");
+            txtUsbCommand.Text = command;
+            btnUsbCommand.PerformClick();
+            //btnUsbCommand_Click(null, null);
+        }
+
+        private void btnUsbCommandOff_Click(object sender, EventArgs e)
+        {
+            Log("Manual USB command executed");
+            string command = "POWER1 OFF";
+            txtUsbCommand.Text = command;
+            btnUsbCommand.PerformClick();
+        }      
+
+        private void btnUsbCommandTrigger_Click(object sender, EventArgs e)
+        {
+            Log("Manual USB command executed");
+
+            string delay = ApplicationSettings.Instance.InchingDelay.ToString();
+
+            string command = string.Format("BACKLOG POWER1 ON; DELAY {0}; POWER1 OFF",delay);
+            txtUsbCommand.Text = command;
+            btnUsbCommand.PerformClick();
+        }
+
+        //private void SerialInClient_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        //{
+        //    Log(sender.ToString() + ": " + e.ToString());
+        //    //throw new NotImplementedException();
+        //}
+        #endregion
+
+        //private void SaveConfigurationValues()
+        //{
+        //    try
+        //    {
+        //        Log("Saving configuration");
+        //        //ApplicationSettings.Instance.SerialInPort = txtSwOutPort.Text;
+        //        //ApplicationSettings.Instance.SerialInBaudRate = Convert.ToInt32(txtSerialInBaudrate.Text);
+        //        //ApplicationSettings.Instance.WirelessDeviceIPAddress = txtIPAddress.Text;
+        //        //ApplicationSettings.Instance.WirelessDevicePort = txtPort.Text;
+        //        //ApplicationSettings.Instance.IsTargetWireless = rdoWirelessComms.Checked;
+        //        //ApplicationSettings.Instance.InchingDelay = txtInchingDelay.Text.ToInt();
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log(ex.Message, true);                
+        //    }           
+        //}
+
 
         //private void ExecuteWiredCommand(string commandType, int portNumber)
         //{
@@ -267,301 +1038,5 @@ namespace SM.ClubManager.AccessControl
         //        Log(ex.Message, true);
         //    }
         //}
-
-        private void ExecuteWirelessCommand()
-        {
-            try
-            {
-                Log("Executing wireless command");                
-                frmLoading.ShowLoadingForm("Executing wireless command...");
-                //buid url
-                string url = commandWifiCloseStringFormat;                    
-                url = url.ToLower()
-                            .Replace("{ip}", ApplicationSettings.Instance.WirelessDeviceIPAddress)
-                            .Replace("{port}", ApplicationSettings.Instance.WirelessDevicePort)
-                            .Replace("{delay}", ApplicationSettings.Instance.InchingDelay.ToString());
-                HttpPost(url);
-            }
-            catch (Exception ex)
-            {
-
-                Log(ex.Message, true);
-            }
-            finally
-            {
-                frmLoading.CloseForm();
-            }
-        }
-
-        private void HttpPost(string url)
-        {
-            try
-            {                
-                var request = (HttpWebRequest)WebRequest.Create(url);
-
-                var postData = "username=" + Uri.EscapeDataString("myUser");
-                postData += "&password=" + Uri.EscapeDataString("myPassword");
-                var data = Encoding.ASCII.GetBytes(postData);
-
-                request.Method = "POST";
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.ContentLength = data.Length;
-
-                using (var stream = request.GetRequestStream())
-                {
-                    stream.Write(data, 0, data.Length);
-                }
-
-                var response = (HttpWebResponse)request.GetResponse();
-            }
-            catch (Exception ex)
-            {
-                Log(ex.Message, true);
-            }           
-        }       
-
-        #region ThreadMethods
-        private void OpenComPort(string portName, int baudRate)
-        {
-            //string portName = ApplicationSettings.Instance.SerialInPort;
-            //int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
-            try
-            {
-                Log(string.Format("Opening port {0}...", portName));
-                
-                //int count = 0;
-                //bool isConnectionOk = false;
-                //while (!isConnectionOk && count < 5)
-                //{
-                try
-                {                        
-                    if(serialInClient.IsConnected)
-                    {
-                        serialInClient.Disconnect();
-                       
-                        serialInClient.SetPort(portName: portName, baudRate: baudRate);
-
-                        if (messageBuffer != null)
-                        {
-                            messageBuffer.Clear();
-                        }
-
-                        messageBuffer = null;
-                        messageBuffer = new List<byte>();
-
-                        serialInClient.Connect();
-                    }                   
-              
-                if (serialInClient != null && serialInClient.IsConnected)
-                {
-                    Log(string.Format("Port {0} opened OK", portName));
-                    rdoSerialInOK.Checked = true;
-                }
-                else
-                {
-                    rdoSerialInOK.Checked = false;
-                    Log(string.Format("ERROR opening port {0}", portName), true);
-                }
-            }
-            catch (Exception serialEx)
-                {
-                    Log("Error opening COM port: " + serialEx.Message, true);                        
-                }                   
-            }
-            catch (Exception ex)
-            {
-                Log(ex.Message, true);
-            }
-
-            return;
-        }
-
-        private void SerialInClient_ConnectionStatusChanged(object sender, ConnectionStatusChangedEventArgs args)
-        {
-            Log("COM port connection status changed to '" + args.Connected.ToString() + "'");
-        }
-
-        private void SerialInClient_MessageReceived(object sender, MessageReceivedEventArgs args)
-        {
-            try
-            {
-                //add data to the messagebuffer.            
-                if (args.Data != null && args.Data.Count() > 0)
-                {
-                    foreach (var item in args.Data)
-                    {
-                        messageBuffer.Add(item);
-                    }
-
-                    //put entire buffer into string variable, then we look for the EOF byte sequence i.e. char(10)char(13)char(10) i.e. "\n\r\n"
-                    List<RelayCommand> relayCommands = GetCommandsFromBuffer(ref messageBuffer, eofString);
-
-                    if (relayCommands != null && relayCommands.Count() > 0)
-                    {
-                        Log(String.Format("Processing {0} commands", relayCommands.Count));
-                        foreach (var item in relayCommands)
-                        {
-                            OnRelayCommandReceived(item);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Log(ex.Message, true);
-            }
-                 
-        }
-
-        private void OnRelayCommandReceived(RelayCommand item)
-        {
-            Log(string.Format("Processing relay command '{0}'", item.Command.ToString()));
-            //check what type of command is required i.e. serial / wifi
-            bool isWireless = ApplicationSettings.Instance.IsTargetWireless;
-
-
-            switch (item.Command)
-            {
-                case RelayCommand.CommandType.Close:                   
-                    break;
-                case RelayCommand.CommandType.Open:
-                    break;
-                default:
-                    break;
-            }
-
-            Log("TO BE COMPLETED");
-            Log("Relay command processing completed");
-        }
-        
-        private List<RelayCommand> GetCommandsFromBuffer(ref List<byte> byteList, string eofString)
-        {
-            try
-            {
-                Log("Looking for commands to process");
-                // string str = Encoding.Default.GetString(bytes);
-                string strBuffer = Encoding.UTF8.GetString(byteList.ToArray());
-
-                if (strBuffer.Contains(eofString))
-                {
-                    //find the location of the first eofString so that we can cut the items before that out and then return the remaining bytes
-                    //N1...F1...N1...F
-                    var listOfCommands = strBuffer.Split(new string[] { eofString }, StringSplitOptions.RemoveEmptyEntries);             
-                 
-                    if (listOfCommands != null && listOfCommands.Count() > 0)
-                    {                       
-                        List<RelayCommand> relayCommands = new List<RelayCommand>();
-                        //split the buffer into the various commands
-                        foreach (var item in listOfCommands)
-                        {
-                            var relayCommand = RelayCommand.Create(item);
-                            relayCommands.Add(relayCommand);
-                        }
-                       
-                        //we find the location of the last occurence of the eofString
-                        //deduct the index + eofString.Length from the total byteList
-                        int lastEofStringIndex = strBuffer.LastIndexOf(eofString);
-                        int eofStringCount = eofString.Count();
-                        int removeIndexPosition = lastEofStringIndex + eofStringCount;
-
-                        byteList.RemoveRange(0, removeIndexPosition);
-
-                        return relayCommands;
-                    }
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-           
-        }
-
-        private void ProcessRelayCommand(RelayCommand item)
-        {
-            //show loading form
-
-            string message = "Sending message to turnstile controller";
-            frmLoading.ShowLoadingForm(message);
-            Log(message);
-        }
-
-        //private void SerialInClient_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        //{
-        //    Log(sender.ToString() + ": " + e.ToString());
-        //    //throw new NotImplementedException();
-        //}
-
-        private void SerialInClient_OnSerialReceiving(object sender, SerialMessageEventArgs e)
-        {            
-            Log("Serial data received", false);
-            if (e.SerialMessage.StartsWith("N"))
-            {
-                btnSend_Click(null,null);
-            }
-        }
-        #endregion
-
-        private void btnSettings_Click(object sender, EventArgs e)
-        {
-            Log("Opening system configuration");
-            DialogResult result = settingsForm.ShowDialog();    
-            
-            if(result == DialogResult.OK)
-            {
-                Log("New configuration values loaded");
-
-                string portName = ApplicationSettings.Instance.SerialInPort;
-                int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
-                OpenComPort(portName, portBaudRate);
-            }
-            else
-            {
-                Log("Configuration values NOT changed");
-            }
-        }
-
-        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Cleanup();           
-        }
-
-        private void Cleanup()
-        {
-            if(settingsForm != null)
-            {
-                settingsForm.Close();
-                settingsForm.Dispose();
-                settingsForm = null;
-            }
-
-            if(serialInClient != null)
-            {                
-                if (serialInClient.IsConnected)
-                {                    
-                    serialInClient.Disconnect();
-                }
-                
-                serialInClient.ConnectionStatusChanged -= SerialInClient_ConnectionStatusChanged;
-                serialInClient.MessageReceived -= SerialInClient_MessageReceived;
-                serialInClient = null;
-            }
-
-            lstLog.Dispose();
-            lstLog = null;
-        }
-
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnResetCOM_Click(object sender, EventArgs e)
-        {
-            string portName = ApplicationSettings.Instance.SerialInPort;
-            int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
-            OpenComPort(portName, portBaudRate);
-        }
     }
 }
