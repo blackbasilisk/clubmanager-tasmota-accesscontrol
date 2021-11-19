@@ -48,6 +48,7 @@ namespace SM.ClubManager.AccessControl
         SerialPortInput serialOutClient = null;//new SerialPortInput();
         //SerialPortStream serialInClient = new SerialPortStream();
         frmSettings settingsForm = new frmSettings();
+        frmNewLoading newLoadingForm = new frmNewLoading();
         List<byte> messageBuffer = null;
         List<byte> usbMessageBuffer = null;
         System.Threading.Thread comThread;
@@ -58,7 +59,9 @@ namespace SM.ClubManager.AccessControl
         Image imgWifiConnection;
         Icon notificationWarningIcon;
         Icon notificationInformationIcon;
-                        
+        Image imgInfo;
+
+
         public frmMain()
         {
             InitializeComponent();              
@@ -82,6 +85,9 @@ namespace SM.ClubManager.AccessControl
             Log("Preloading assets");
             PreloadAssets();
 
+            Log("Assigning resources");
+            AssignResources();
+
             Log("Initializing configuration...");
             SetDefaults();
         
@@ -91,8 +97,16 @@ namespace SM.ClubManager.AccessControl
             commandSerialRelayOpenStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Serial.RelayOpen"];
             commandSerialRelayCloseStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Serial.RelayClose"];
 
+            newLoadingForm.StartPosition = FormStartPosition.Manual;
+            newLoadingForm.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width/2) - (newLoadingForm.Width/2), Screen.PrimaryScreen.WorkingArea.Height - newLoadingForm.Height-50);
+
             Log("Startup completed");
-        }      
+        }
+
+        private void AssignResources()
+        {
+            
+        }
 
         private void ConfigureSystem()
         {
@@ -103,8 +117,9 @@ namespace SM.ClubManager.AccessControl
         {
             try
             {
-                imgUnchecked = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.Unchecked.png", Assembly.GetExecutingAssembly());
-                imgChecked = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.Checked.png", Assembly.GetExecutingAssembly());
+                imgInfo = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.info.png", Assembly.GetExecutingAssembly());
+                imgUnchecked = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.unchecked.png", Assembly.GetExecutingAssembly());
+                imgChecked = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.checked.png", Assembly.GetExecutingAssembly());
                 imgUsbConnection = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.usb-connection.png", Assembly.GetExecutingAssembly());
                 imgWifiConnection = LoadImageFromResource("SM.ClubManager.AccessControl.Resources.wifi-connection.png", Assembly.GetExecutingAssembly());
                 notificationInformationIcon = this.Icon;//LoadIconFromResource("SM.ClubManager.AccessControl.Resources.notification-warning-icon.ico", Assembly.GetExecutingAssembly());
@@ -157,7 +172,6 @@ namespace SM.ClubManager.AccessControl
                 return null;
             }
         }
-
 
         public static Image LoadImageFromResource(string resourceName, Assembly assembly = null)
         {
@@ -314,6 +328,7 @@ namespace SM.ClubManager.AccessControl
             {
                 picScanResult.InvokeIfRequired(t => t.Visible = true);
 
+                
                 if (ApplicationSettings.Instance.IsTargetWireless)
                 {
                     //pasting type comparison as reference
@@ -380,9 +395,7 @@ namespace SM.ClubManager.AccessControl
                 throw;
             }
         }
-
       
-
         private void EnableDisableWirelessComms()
         {
             try
@@ -412,6 +425,9 @@ namespace SM.ClubManager.AccessControl
                 }
 
                 grpUsbCommandPanel.Visible = !isTargetWireless;
+
+                newLoadingForm.Show();
+                newLoadingForm.Hide();
             }
             catch (Exception ex)
             {
@@ -438,6 +454,13 @@ namespace SM.ClubManager.AccessControl
                 settingsForm.Close();
                 settingsForm.Dispose();
                 settingsForm = null;
+            }
+
+            if(newLoadingForm != null)
+            {
+                newLoadingForm.Close();
+                newLoadingForm.Dispose();
+                newLoadingForm = null;
             }
 
             if (serialInClient != null)
@@ -471,6 +494,9 @@ namespace SM.ClubManager.AccessControl
                 switch (commandType)
                 {
                     case RelayCommand.CommandType.Open:
+                        Log("Applying pre-activation delay, if applicable");
+                        ApplyPreActivationDelay(ApplicationSettings.Instance.InchingDelay);
+
                         url = commandWifiRelayOpenStringFormat;
                         Log("Sending OPEN command");
                         break;
@@ -480,12 +506,12 @@ namespace SM.ClubManager.AccessControl
                         Log("Sending CLOSE command");
                         break;
                 }
-                //frmLoading.ShowLoadingForm("Executing wireless command...");
-                //buid url                
+              
                 url = url.ToLower()
                             .Replace("{ip}", ApplicationSettings.Instance.WirelessDeviceIPAddress)
-                            .Replace("{port}", ApplicationSettings.Instance.WirelessDevicePort)
-                            .Replace("{delay}", ApplicationSettings.Instance.InchingDelay.ToString());
+                            .Replace("{port}", ApplicationSettings.Instance.WirelessDevicePort);
+
+                
                 HttpPost(url);
             }
             catch (Exception ex)
@@ -501,6 +527,65 @@ namespace SM.ClubManager.AccessControl
         }
 
 
+
+        private void ShowNewLoadingForm(bool displayLoader)
+        {
+            if (displayLoader)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    if(newLoadingForm != null)
+                    {
+                        newLoadingForm.RunCounter(ApplicationSettings.Instance.InchingDelay);
+                        newLoadingForm.Show();                      
+                        newLoadingForm.TopMost = true;
+                        
+                    }
+                    
+                    this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+                });
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    if (newLoadingForm != null)
+                    {
+                        newLoadingForm.Hide();
+                    }
+                        
+                    this.Cursor = System.Windows.Forms.Cursors.Default;
+                });
+            }
+        }
+
+        private void ApplyPreActivationDelay(int delay)
+        {
+            try
+            {
+                int displayDelay = delay;
+                delay = delay * 1000;
+                
+                if (delay > 0)
+                {
+                    // frmLoading.ShowLoadingForm(String.Format("Waiting for {0} seconds before activating the gate", displayDelay));
+                    ShowNewLoadingForm(true);
+                    //We have to add in additional 100ms in case th delay is too close to zero, because then the loading form display will cause issues
+                    if ( delay < 100)
+                    {
+                        delay += 100;
+                    }
+
+                    System.Threading.Thread.Sleep(delay);
+                    ShowNewLoadingForm(false);
+                }               
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);                
+            }
+        }
+
         private void ExecuteUsbCommand(RelayCommand.CommandType commandType)
         {
             try
@@ -510,6 +595,9 @@ namespace SM.ClubManager.AccessControl
                 switch (commandType)
                 {                   
                     case RelayCommand.CommandType.Open:
+                        Log("Applying pre-activation delay, if applicable");
+                        ApplyPreActivationDelay(ApplicationSettings.Instance.InchingDelay);
+
                         cmd = commandSerialRelayOpenStringFormat;
                         Log("Sending OPEN command");
                         break;
@@ -519,16 +607,18 @@ namespace SM.ClubManager.AccessControl
                         Log("Sending CLOSE command");
                         break;
                 }
-                //string cmd = commandSerialRelayCloseStringFormat;
+                
 
-                //if there a delay field, replace it
-                cmd = cmd.ToLower()                           
-                            .Replace("{delay}", ApplicationSettings.Instance.InchingDelay.ToString());
+                if (serialOutClient != null && serialOutClient.IsConnected)
+                {
+                   
 
-                if(serialOutClient != null && serialOutClient.IsConnected)
-                {                    
                     byte[] bte = Encoding.ASCII.GetBytes(cmd);
                     serialOutClient.SendMessage(bte);
+                }
+                else
+                {
+                    Log("No connection to the controller exist. Please check the settings and make sure that the device is plugged in and switched on!", true);
                 }
             }
             catch (Exception ex)
@@ -618,9 +708,9 @@ namespace SM.ClubManager.AccessControl
                     ApplicationSettings.Instance.WirelessDevicePort = "80";
                 }
 
-                if (ApplicationSettings.Instance.InchingDelay <= 0)
+                if (ApplicationSettings.Instance.InchingDelay < 0)
                 {
-                    ApplicationSettings.Instance.InchingDelay = 2;
+                    ApplicationSettings.Instance.InchingDelay = 0;
                 }
 
                 if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialOutPort))
@@ -979,17 +1069,7 @@ namespace SM.ClubManager.AccessControl
             txtUsbCommand.Text = command;
             btnUsbCommand.PerformClick();
         }      
-
-        private void btnUsbCommandTrigger_Click(object sender, EventArgs e)
-        {
-            Log("Manual USB command executed");
-
-            string delay = ApplicationSettings.Instance.InchingDelay.ToString();
-
-            string command = string.Format("BACKLOG POWER1 ON; DELAY {0}; POWER1 OFF",delay);
-            txtUsbCommand.Text = command;
-            btnUsbCommand.PerformClick();
-        }
+      
 
         //private void SerialInClient_DataReceived(object sender, SerialDataReceivedEventArgs e)
         //{

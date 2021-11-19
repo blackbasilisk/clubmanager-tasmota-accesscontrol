@@ -64,7 +64,9 @@ namespace SM.ClubManager.AccessControl
                 //if (loadingForm.Handle == null || !loadingForm.IsHandleCreated)
                 //{
                     loadingForm = new frmLoading(defaultMessage);
+                    loadingForm.TopMost = true;                
                     Application.Run(loadingForm);
+                    loadingForm.Focus();
                 //}               
             }       
         }

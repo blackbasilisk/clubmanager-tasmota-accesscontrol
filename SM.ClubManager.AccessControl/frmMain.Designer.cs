@@ -47,7 +47,6 @@ namespace SM.ClubManager.AccessControl
             this.btnUsbCommand = new System.Windows.Forms.Button();
             this.txtUsbCommand = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             this.grpUsbCommandPanel = new System.Windows.Forms.GroupBox();
-            this.btnUsbCommandTrigger = new System.Windows.Forms.Button();
             this.btnUsbCommandOff = new System.Windows.Forms.Button();
             this.btnUsbCommandOn = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -244,7 +243,6 @@ namespace SM.ClubManager.AccessControl
             // 
             // grpUsbCommandPanel
             // 
-            this.grpUsbCommandPanel.Controls.Add(this.btnUsbCommandTrigger);
             this.grpUsbCommandPanel.Controls.Add(this.btnUsbCommandOff);
             this.grpUsbCommandPanel.Controls.Add(this.btnUsbCommandOn);
             this.grpUsbCommandPanel.Controls.Add(this.txtUsbCommand);
@@ -256,18 +254,6 @@ namespace SM.ClubManager.AccessControl
             this.grpUsbCommandPanel.TabIndex = 99;
             this.grpUsbCommandPanel.TabStop = false;
             this.grpUsbCommandPanel.Text = "USB Commands";
-            // 
-            // btnUsbCommandTrigger
-            // 
-            this.btnUsbCommandTrigger.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUsbCommandTrigger.Location = new System.Drawing.Point(98, 78);
-            this.btnUsbCommandTrigger.Name = "btnUsbCommandTrigger";
-            this.btnUsbCommandTrigger.Size = new System.Drawing.Size(101, 23);
-            this.btnUsbCommandTrigger.TabIndex = 7;
-            this.btnUsbCommandTrigger.Text = "AUTO ON+OFF";
-            this.btnUsbCommandTrigger.UseVisualStyleBackColor = true;
-            this.btnUsbCommandTrigger.Click += new System.EventHandler(this.btnUsbCommandTrigger_Click);
             // 
             // btnUsbCommandOff
             // 
@@ -364,7 +350,6 @@ namespace SM.ClubManager.AccessControl
         private System.Windows.Forms.GroupBox grpUsbCommandPanel;
         private System.Windows.Forms.Button btnUsbCommandOff;
         private System.Windows.Forms.Button btnUsbCommandOn;
-        private System.Windows.Forms.Button btnUsbCommandTrigger;
         private System.Windows.Forms.PictureBox picScanResult;
     }
 }

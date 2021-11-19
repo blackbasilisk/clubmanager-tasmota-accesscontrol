@@ -29,6 +29,7 @@ namespace SM.ClubManager.AccessControl
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection1 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
             Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection1 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
             Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection1 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
@@ -43,20 +44,22 @@ namespace SM.ClubManager.AccessControl
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtWifiPort = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtInchingDelay = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.toggleisWirelessConnection = new Syncfusion.Windows.Forms.Tools.ToggleButton();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBoxExt1 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.txtSerialOutPort = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxExt2 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.picToolTip1 = new System.Windows.Forms.PictureBox();
+            this.txtInchingDelay = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.picToolTip3 = new System.Windows.Forms.PictureBox();
             this.textBoxExt3 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             this.panel5 = new System.Windows.Forms.Panel();
             this.txtSerialOutBaudRate = new System.Windows.Forms.TextBox();
@@ -64,14 +67,17 @@ namespace SM.ClubManager.AccessControl
             this.textBoxExt7 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             this.textBoxExt6 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             this.textBoxExt4 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
+            this.ttOpenDelay = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.toggleisWirelessConnection)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textBoxExt1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textBoxExt2)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picToolTip1)).BeginInit();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picToolTip3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textBoxExt3)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textBoxExt7)).BeginInit();
@@ -83,8 +89,9 @@ namespace SM.ClubManager.AccessControl
             // 
             this.txtSwInPort.Location = new System.Drawing.Point(89, 26);
             this.txtSwInPort.Name = "txtSwInPort";
-            this.txtSwInPort.Size = new System.Drawing.Size(100, 20);
+            this.txtSwInPort.Size = new System.Drawing.Size(58, 20);
             this.txtSwInPort.TabIndex = 3;
+            this.txtSwInPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // label1
             // 
@@ -99,8 +106,9 @@ namespace SM.ClubManager.AccessControl
             // 
             this.txtSerialInBaudrate.Location = new System.Drawing.Point(89, 52);
             this.txtSerialInBaudrate.Name = "txtSerialInBaudrate";
-            this.txtSerialInBaudrate.Size = new System.Drawing.Size(100, 20);
+            this.txtSerialInBaudrate.Size = new System.Drawing.Size(58, 20);
             this.txtSerialInBaudrate.TabIndex = 5;
+            this.txtSerialInBaudrate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // label2
             // 
@@ -113,7 +121,7 @@ namespace SM.ClubManager.AccessControl
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(15, 320);
+            this.btnSave.Location = new System.Drawing.Point(12, 319);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 20;
@@ -123,7 +131,7 @@ namespace SM.ClubManager.AccessControl
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(339, 320);
+            this.btnCancel.Location = new System.Drawing.Point(344, 319);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;
@@ -137,6 +145,7 @@ namespace SM.ClubManager.AccessControl
             this.txtIPAddress.Name = "txtIPAddress";
             this.txtIPAddress.Size = new System.Drawing.Size(100, 20);
             this.txtIPAddress.TabIndex = 22;
+            this.txtIPAddress.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // label4
             // 
@@ -162,31 +171,7 @@ namespace SM.ClubManager.AccessControl
             this.txtWifiPort.Name = "txtWifiPort";
             this.txtWifiPort.Size = new System.Drawing.Size(43, 20);
             this.txtWifiPort.TabIndex = 24;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(127, 30);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 13);
-            this.label7.TabIndex = 28;
-            this.label7.Text = " x 0.1 sec";
-            // 
-            // txtInchingDelay
-            // 
-            this.txtInchingDelay.Location = new System.Drawing.Point(88, 26);
-            this.txtInchingDelay.Name = "txtInchingDelay";
-            this.txtInchingDelay.Size = new System.Drawing.Size(39, 20);
-            this.txtInchingDelay.TabIndex = 26;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 30);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 13);
-            this.label6.TabIndex = 27;
-            this.label6.Text = "Inching Delay";
+            this.txtWifiPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // toggleisWirelessConnection
             // 
@@ -201,7 +186,7 @@ namespace SM.ClubManager.AccessControl
             inactiveStateCollection1.ForeColor = System.Drawing.Color.White;
             inactiveStateCollection1.Text = "USB";
             this.toggleisWirelessConnection.InactiveState = inactiveStateCollection1;
-            this.toggleisWirelessConnection.Location = new System.Drawing.Point(88, 52);
+            this.toggleisWirelessConnection.Location = new System.Drawing.Point(93, 26);
             this.toggleisWirelessConnection.MinimumSize = new System.Drawing.Size(52, 20);
             this.toggleisWirelessConnection.Name = "toggleisWirelessConnection";
             this.toggleisWirelessConnection.Size = new System.Drawing.Size(90, 32);
@@ -212,19 +197,7 @@ namespace SM.ClubManager.AccessControl
             this.toggleisWirelessConnection.Text = "toggleButton1";
             this.toggleisWirelessConnection.ThemeStyle.BorderThickness = 1;
             this.toggleisWirelessConnection.ToggleState = Syncfusion.Windows.Forms.Tools.ToggleButtonState.Active;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox2.ErrorImage = null;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(407, 65);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 22;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.WaitOnLoad = true;
+            this.toggleisWirelessConnection.ToggleStateChanged += new Syncfusion.Windows.Forms.Tools.ToggleStateChangedEventHandler(this.toggleisWirelessConnection_ToggleStateChanged);
             // 
             // panel1
             // 
@@ -262,12 +235,26 @@ namespace SM.ClubManager.AccessControl
             this.panel2.Size = new System.Drawing.Size(407, 65);
             this.panel2.TabIndex = 24;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox2.ErrorImage = null;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(407, 65);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 22;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.WaitOnLoad = true;
+            // 
             // txtSerialOutPort
             // 
             this.txtSerialOutPort.Location = new System.Drawing.Point(89, 133);
             this.txtSerialOutPort.Name = "txtSerialOutPort";
             this.txtSerialOutPort.Size = new System.Drawing.Size(100, 20);
             this.txtSerialOutPort.TabIndex = 22;
+            this.txtSerialOutPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // label3
             // 
@@ -281,11 +268,11 @@ namespace SM.ClubManager.AccessControl
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 61);
+            this.label9.Location = new System.Drawing.Point(7, 35);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(64, 13);
             this.label9.TabIndex = 30;
-            this.label9.Text = "Wi-Fi / USB";            
+            this.label9.Text = "Wi-Fi / USB";
             // 
             // textBoxExt2
             // 
@@ -306,29 +293,81 @@ namespace SM.ClubManager.AccessControl
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Controls.Add(this.picToolTip1);
+            this.panel3.Controls.Add(this.txtInchingDelay);
+            this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.textBoxExt2);
             this.panel3.Controls.Add(this.toggleisWirelessConnection);
-            this.panel3.Controls.Add(this.txtInchingDelay);
-            this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.label7);
             this.panel3.Location = new System.Drawing.Point(12, 119);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 100);
+            this.panel3.Size = new System.Drawing.Size(200, 95);
             this.panel3.TabIndex = 27;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(135, 71);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(24, 13);
+            this.label11.TabIndex = 35;
+            this.label11.Text = "sec";
+            // 
+            // picToolTip1
+            // 
+            this.picToolTip1.Image = global::SM.ClubManager.AccessControl.Properties.Resources.info;
+            this.picToolTip1.Location = new System.Drawing.Point(165, 66);
+            this.picToolTip1.Name = "picToolTip1";
+            this.picToolTip1.Size = new System.Drawing.Size(16, 16);
+            this.picToolTip1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picToolTip1.TabIndex = 33;
+            this.picToolTip1.TabStop = false;
+            this.ttOpenDelay.SetToolTip(this.picToolTip1, "The delay in seconds BEFORE the controller activates. Min: 0, Max: 10.  Only full" +
+        " seconds i.e. 1 or 2 or 3 etc.");
+            // 
+            // txtInchingDelay
+            // 
+            this.txtInchingDelay.Location = new System.Drawing.Point(93, 64);
+            this.txtInchingDelay.Name = "txtInchingDelay";
+            this.txtInchingDelay.Size = new System.Drawing.Size(39, 20);
+            this.txtInchingDelay.TabIndex = 31;
+            this.txtInchingDelay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 67);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 13);
+            this.label8.TabIndex = 32;
+            this.label8.Text = "Open Delay";
             // 
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.picToolTip3);
             this.panel4.Controls.Add(this.label1);
             this.panel4.Controls.Add(this.txtSwInPort);
             this.panel4.Controls.Add(this.textBoxExt3);
             this.panel4.Controls.Add(this.txtSerialInBaudrate);
             this.panel4.Controls.Add(this.label2);
-            this.panel4.Location = new System.Drawing.Point(12, 225);
+            this.panel4.Location = new System.Drawing.Point(12, 220);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(200, 89);
+            this.panel4.Size = new System.Drawing.Size(200, 88);
             this.panel4.TabIndex = 31;
+            // 
+            // picToolTip3
+            // 
+            this.picToolTip3.Image = global::SM.ClubManager.AccessControl.Properties.Resources.info;
+            this.picToolTip3.Location = new System.Drawing.Point(163, 28);
+            this.picToolTip3.Name = "picToolTip3";
+            this.picToolTip3.Size = new System.Drawing.Size(16, 16);
+            this.picToolTip3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picToolTip3.TabIndex = 34;
+            this.picToolTip3.TabStop = false;
+            this.ttOpenDelay.SetToolTip(this.picToolTip3, "RECEIVING port for Simply Switch Manager. Default value is COM9. This is NOT the " +
+        "same value as the value in the Club Manager software");
             // 
             // textBoxExt3
             // 
@@ -362,7 +401,7 @@ namespace SM.ClubManager.AccessControl
             this.panel5.Controls.Add(this.label5);
             this.panel5.Location = new System.Drawing.Point(218, 119);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(200, 195);
+            this.panel5.Size = new System.Drawing.Size(200, 189);
             this.panel5.TabIndex = 32;
             // 
             // txtSerialOutBaudRate
@@ -371,6 +410,7 @@ namespace SM.ClubManager.AccessControl
             this.txtSerialOutBaudRate.Name = "txtSerialOutBaudRate";
             this.txtSerialOutBaudRate.Size = new System.Drawing.Size(100, 20);
             this.txtSerialOutBaudRate.TabIndex = 27;
+            this.txtSerialOutBaudRate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // label10
             // 
@@ -429,6 +469,14 @@ namespace SM.ClubManager.AccessControl
             this.textBoxExt4.Text = "Communication";
             this.textBoxExt4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // ttOpenDelay
+            // 
+            this.ttOpenDelay.AutomaticDelay = 100;
+            this.ttOpenDelay.AutoPopDelay = 7500;
+            this.ttOpenDelay.InitialDelay = 100;
+            this.ttOpenDelay.IsBalloon = true;
+            this.ttOpenDelay.ReshowDelay = 20;
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -453,16 +501,18 @@ namespace SM.ClubManager.AccessControl
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSettings_Closing);
             ((System.ComponentModel.ISupportInitialize)(this.toggleisWirelessConnection)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textBoxExt1)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textBoxExt2)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picToolTip1)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picToolTip3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textBoxExt3)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
@@ -484,9 +534,6 @@ namespace SM.ClubManager.AccessControl
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtWifiPort;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtInchingDelay;
-        private System.Windows.Forms.Label label6;
         private Syncfusion.Windows.Forms.Tools.ToggleButton toggleisWirelessConnection;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
@@ -505,6 +552,12 @@ namespace SM.ClubManager.AccessControl
         private Syncfusion.Windows.Forms.Tools.TextBoxExt textBoxExt4;
         private System.Windows.Forms.TextBox txtSerialOutBaudRate;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtInchingDelay;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.PictureBox picToolTip1;
+        private System.Windows.Forms.PictureBox picToolTip3;
+        private System.Windows.Forms.ToolTip ttOpenDelay;
+        private System.Windows.Forms.Label label11;
     }
 }
 

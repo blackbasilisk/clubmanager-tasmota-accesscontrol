@@ -16,7 +16,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
-	<Deterministic>False</Deterministic>
+    <Deterministic>False</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -129,6 +129,12 @@
     <Compile Include="frmLoading.Designer.cs">
       <DependentUpon>frmLoading.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmNewLoading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNewLoading.Designer.cs">
+      <DependentUpon>frmNewLoading.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,9 @@
     <Compile Include="RelayCommand.cs" />
     <EmbeddedResource Include="frmLoading.resx">
       <DependentUpon>frmLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNewLoading.resx">
+      <DependentUpon>frmNewLoading.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
@@ -198,6 +207,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\access-granted.png" />
+    <EmbeddedResource Include="Resources\checked.png" />
+    <EmbeddedResource Include="Resources\notification-warning-icon.ico" />
+    <EmbeddedResource Include="Resources\unchecked.png" />
+    <EmbeddedResource Include="Resources\usb-connection.png" />
+    <EmbeddedResource Include="Resources\wifi-connection.png" />
+    <EmbeddedResource Include="Resources\info.png" />
     <Content Include="simplemode-icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
