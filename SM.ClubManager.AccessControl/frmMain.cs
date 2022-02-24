@@ -21,6 +21,8 @@ using SIS.Library.Base.Communication;
 using SIS.Library.Base.Infrastructure.WindowsFormsExtensions;
 using SM.ClubManager.AccessControl.Infrastructure;
 using System.Runtime.InteropServices;
+using Gibraltar.Agent;
+using System.Collections.Concurrent;
 
 namespace SM.ClubManager.AccessControl
 {
@@ -32,11 +34,13 @@ namespace SM.ClubManager.AccessControl
         Info,
         General
     }
+
     public partial class frmMain : Form
     {
         Size smallSize = new Size(243, 279);
         Size largeSize = new Size(1024, 556);
         bool isSmallSizeMode = true;
+        bool isClosing = false;
 
         string commandWifiRelayOpenStringFormat = "";
         string commandWifiRelayCloseStringFormat = "";
@@ -61,6 +65,8 @@ namespace SM.ClubManager.AccessControl
         Icon notificationInformationIcon;
         Image imgInfo;
 
+        BlockingCollection<RelayCommand> commandQueue;
+        BackgroundWorker bwCommandProcessor;
 
         public frmMain()
         {
@@ -100,8 +106,12 @@ namespace SM.ClubManager.AccessControl
             newLoadingForm.StartPosition = FormStartPosition.Manual;
             newLoadingForm.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width/2) - (newLoadingForm.Width/2), Screen.PrimaryScreen.WorkingArea.Height - newLoadingForm.Height-50);
 
+            StartCommandQueueConsumer();
+
             Log("Startup completed");
         }
+
+       
 
         private void AssignResources()
         {
@@ -188,6 +198,73 @@ namespace SM.ClubManager.AccessControl
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        private void StartCommandQueueConsumer()
+        {
+
+            try
+            {
+                commandQueue = new BlockingCollection<RelayCommand>();
+                bwCommandProcessor = new BackgroundWorker();
+                bwCommandProcessor.DoWork += BwCommandProcessor_DoWork;
+                bwCommandProcessor.RunWorkerAsync();
+            }
+            catch (Exception ex)
+            {
+                Log("**WARNING** Message processor failed to start! Please contact support!", true);
+                throw;
+            }
+        }
+
+        private void BwCommandProcessor_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                while (!this.Disposing && !isClosing)
+                {
+                    if (!commandQueue.IsCompleted && commandQueue.Count() > 0)
+                    {
+                        RelayCommand commandEntry = commandQueue.Take();
+
+                        ProcessRelayCommand(commandEntry);
+
+                    }
+
+                    if (this.Disposing || isClosing)
+                        break;
+                    System.Threading.Thread.Sleep(10);
+                }
+            }
+            catch (OperationCanceledException ex)
+            {
+                Log("EXCEPTION (BwCommandProcessor_DoWork): " + ex.Message + " STACKTRACE: " + ex.StackTrace, true);
+            }
+            catch (Exception ex)
+            {
+                Log("EXCEPTION (BwCommandProcesso_DoWork): " + ex.Message + " STACKTRACE: " + ex.StackTrace, true);
+                throw;
+            }
+        }
+
+        private void ProcessRelayCommand(RelayCommand command)
+        {
+            if(command.PreExecutionDelayMs > 0)
+            {
+                Log(string.Format("Applying pre-activation delay of {0} second", command.PreExecutionDelayMs));
+                ApplyPreActivationDelay(ApplicationSettings.Instance.InchingDelay);
+            }
+           
+            if (ApplicationSettings.Instance.IsTargetWireless)
+            {
+                //pasting type comparison as reference
+                //relayCommand.Command  == RelayCommand.CommandType.Open
+                ExecuteWirelessCommand(command.Command);
+            }
+            else
+            {
+                ExecuteUsbCommand(command.Command);
             }
         }
         #endregion
@@ -306,39 +383,21 @@ namespace SM.ClubManager.AccessControl
             RelayCommand relayCommand = item as RelayCommand;
             if(relayCommand == null)
             {
-                throw new Exception("cannot process Club Manager command. Invalid command object received!");
+                throw new Exception("Cannot process Club Manager command. Invalid command object received!");
             }
 
             Log(string.Format("Processing relay command '{0}'", relayCommand.Command.ToString()));
             //check what type of command is required i.e. serial / wifi
             bool isWireless = ApplicationSettings.Instance.IsTargetWireless;
-
-            //switch (relayCommand.Command)
-            //{
-            //    case RelayCommand.CommandType.Close:
-            //        break;
-            //    case RelayCommand.CommandType.Open:
-            //        break;
-            //    default:
-            //        break;
-            //}
-            
+           
             //this method should not care about whether command is wireless / wired. it just wants to execute command
             try
             {
                 picScanResult.InvokeIfRequired(t => t.Visible = true);
 
-                
-                if (ApplicationSettings.Instance.IsTargetWireless)
-                {
-                    //pasting type comparison as reference
-                    //relayCommand.Command  == RelayCommand.CommandType.Open
-                    ExecuteWirelessCommand(relayCommand.Command);                                    
-                }
-                else
-                {
-                    ExecuteUsbCommand(relayCommand.Command);
-                }
+                commandQueue.Add(relayCommand);
+               
+                //Adding delay to allow the 'loading' image to be displayed so user can see something happened. serves no other purpose
                 Thread.Sleep(500);
                 picScanResult.InvokeIfRequired(t => t.Visible = false);
             }
@@ -356,7 +415,8 @@ namespace SM.ClubManager.AccessControl
         private List<ISerialMessage> GetMessagesFromBuffer(ref List<byte> byteList, string eofString)
         {
             try
-            {                
+            {
+                int preactivationdelay = ApplicationSettings.Instance.InchingDelay;
                 // string str = Encoding.Default.GetString(bytes);
                 string strBuffer = Encoding.UTF8.GetString(byteList.ToArray());
 
@@ -373,7 +433,7 @@ namespace SM.ClubManager.AccessControl
                         foreach (var item in listOfMessages)
                         {
                             ISerialMessage serialMessage = new RelayCommand();
-                            serialMessage = serialMessage.Create(item);
+                            serialMessage = serialMessage.Create(item, preactivationdelay);
                             serialMessages.Add(serialMessage);
                         }
 
@@ -449,6 +509,15 @@ namespace SM.ClubManager.AccessControl
 
         private void Cleanup()
         {
+            isClosing = true;            
+            commandQueue.CompleteAdding();            
+            var items = commandQueue.Take(commandQueue.Count);
+            foreach (var item in items)
+            {
+                item.Dispose();                
+            }
+            items = null;
+                        
             if (settingsForm != null)
             {
                 settingsForm.Close();
@@ -482,6 +551,8 @@ namespace SM.ClubManager.AccessControl
 
             lstLog.Dispose();
             lstLog = null;
+            commandQueue.Dispose();
+            commandQueue = null;
         }
 
         private void ExecuteWirelessCommand(RelayCommand.CommandType commandType)
@@ -525,8 +596,6 @@ namespace SM.ClubManager.AccessControl
                 //frmLoading.CloseForm();
             }
         }
-
-
 
         private void ShowNewLoadingForm(bool displayLoader)
         {
@@ -591,13 +660,11 @@ namespace SM.ClubManager.AccessControl
             try
             {
                 Log("Executing USB command");
+
                 string cmd = "";
                 switch (commandType)
                 {                   
-                    case RelayCommand.CommandType.Open:
-                        Log("Applying pre-activation delay, if applicable");
-                        ApplyPreActivationDelay(ApplicationSettings.Instance.InchingDelay);
-
+                    case RelayCommand.CommandType.Open:                       
                         cmd = commandSerialRelayOpenStringFormat;
                         Log("Sending OPEN command");
                         break;
@@ -729,12 +796,25 @@ namespace SM.ClubManager.AccessControl
             catch (Exception ex)
             {
                 Log(ex.Message, true);
-            }
-                 
+            }                 
         }
 
-        private void Log(string msg, bool isError = false)
+        private void Log(string msg, bool isError = false, bool isDebug = false)
         {
+            //Console.WriteLine(string.Format("{0} - {1}", DateTime.Now.ToLongTimeString(), msg));
+            if(isError)
+            {
+                Gibraltar.Agent.Log.Warning("General", msg, "");
+            }
+            else if(isDebug)
+            {
+                Gibraltar.Agent.Log.Verbose("General", msg, "");
+            }
+            else
+            {
+                Gibraltar.Agent.Log.Information("General", msg, "");
+            }
+
             lstLog.InvokeIfRequired(t => t.AddEntry(msg, isError));
         }
         #endregion
@@ -750,7 +830,6 @@ namespace SM.ClubManager.AccessControl
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             Cleanup();
-
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -769,6 +848,7 @@ namespace SM.ClubManager.AccessControl
 
             try
             {
+                isClosing = true;
                 if (comThread != null)
                 {
                     frmLoading.ShowLoadingForm();
@@ -903,9 +983,9 @@ namespace SM.ClubManager.AccessControl
                         picScanResult.InvokeIfRequired(t => t.Visible = false);
                     
                         Log(String.Format("Processing {0} commands", relayCommands.Count));
+                        
                         foreach (var item in relayCommands)
-                        {
-                            //if((RelayCommand)item).Command
+                        {                            
                             OnRelayCommandReceived(item);
                         }
                     }

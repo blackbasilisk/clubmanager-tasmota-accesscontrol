@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gibraltar.Agent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace SM.ClubManager.AccessControl
         [STAThread]
         static void Main()
         {
+            Log.StartSession();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             frmSplash.ShowSplashScreen();
@@ -23,7 +25,8 @@ namespace SM.ClubManager.AccessControl
             Application.ApplicationExit += Application_ApplicationExit;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            Application.Run(new frmMain());            
+            Application.Run(new frmMain());
+            Log.EndSession();
         }
 
         private static void Application_ApplicationExit(object sender, EventArgs e)

@@ -47,8 +47,6 @@ namespace SM.ClubManager.AccessControl
             // 
             // txtStatusMessage
             // 
-            this.txtStatusMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtStatusMessage.BackColor = System.Drawing.Color.White;
             this.txtStatusMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtStatusMessage.Enabled = false;
@@ -56,9 +54,9 @@ namespace SM.ClubManager.AccessControl
             this.txtStatusMessage.ForeColor = System.Drawing.Color.Black;
             this.txtStatusMessage.Location = new System.Drawing.Point(11, 4);
             this.txtStatusMessage.Name = "txtStatusMessage";
-            this.txtStatusMessage.Size = new System.Drawing.Size(736, 66);
+            this.txtStatusMessage.Size = new System.Drawing.Size(344, 66);
             this.txtStatusMessage.TabIndex = 13;
-            this.txtStatusMessage.Text = "Confirm member information";
+            this.txtStatusMessage.Text = "One moment...";
             // 
             // panel3
             // 
@@ -71,19 +69,18 @@ namespace SM.ClubManager.AccessControl
             this.panel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(814, 75);
+            this.panel3.Size = new System.Drawing.Size(491, 75);
             this.panel3.TabIndex = 6;
             // 
             // txtDelayCounter
             // 
-            this.txtDelayCounter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDelayCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDelayCounter.BackColor = System.Drawing.Color.White;
             this.txtDelayCounter.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDelayCounter.Enabled = false;
             this.txtDelayCounter.Font = new System.Drawing.Font("Open Sans Light", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDelayCounter.ForeColor = System.Drawing.Color.Black;
-            this.txtDelayCounter.Location = new System.Drawing.Point(698, 4);
+            this.txtDelayCounter.Location = new System.Drawing.Point(375, 4);
             this.txtDelayCounter.Name = "txtDelayCounter";
             this.txtDelayCounter.Size = new System.Drawing.Size(103, 66);
             this.txtDelayCounter.TabIndex = 15;
@@ -95,7 +92,7 @@ namespace SM.ClubManager.AccessControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(814, 75);
+            this.ClientSize = new System.Drawing.Size(491, 75);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

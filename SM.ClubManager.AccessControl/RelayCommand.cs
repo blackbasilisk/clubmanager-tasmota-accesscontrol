@@ -19,6 +19,15 @@ namespace SM.ClubManager.AccessControl
         #endregion
 
         #region Properties
+        private int _preExecutionDelayMs;
+
+        public int PreExecutionDelayMs
+        {
+            get { return _preExecutionDelayMs; }
+            set { _preExecutionDelayMs = value; }
+        }
+
+
         private CommandType _command;
 
         public CommandType Command
@@ -39,9 +48,9 @@ namespace SM.ClubManager.AccessControl
         public RelayCommand()
         {
 
-        }      
-        
-        public ISerialMessage Create(string message)
+        }
+
+        public ISerialMessage Create(string message, int preExecutionDelayMs = 0)
         {
             try
             {
@@ -66,6 +75,8 @@ namespace SM.ClubManager.AccessControl
 
                 string sPortNo = message.Substring(1, message.Length - 1);
 
+                command.PreExecutionDelayMs = preExecutionDelayMs;
+
                 if (int.TryParse(sPortNo, out int portNo))
                 {
                     command.PortNo = portNo;
@@ -81,6 +92,13 @@ namespace SM.ClubManager.AccessControl
             {
                 throw;
             }           
+        }
+
+        public void Dispose()
+        {
+            _portNo = default(int);
+            _command = default(int);
+            _preExecutionDelayMs = default(int);
         }
     }   
 }

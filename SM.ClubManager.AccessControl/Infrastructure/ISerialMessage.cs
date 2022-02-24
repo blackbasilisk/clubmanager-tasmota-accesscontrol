@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SM.ClubManager.AccessControl.Infrastructure
 {
-    public interface ISerialMessage 
-    {
-        ISerialMessage Create(string messageString);
+    public interface ISerialMessage : IDisposable
+    {        
+        ISerialMessage Create(string message, int preExecutionDelayMs = 0);
+        
     }
 }
