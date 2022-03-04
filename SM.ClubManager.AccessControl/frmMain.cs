@@ -250,7 +250,7 @@ namespace SM.ClubManager.AccessControl
 
         private void ProcessRelayCommand(RelayCommand command)
         {
-            if(command.PreExecutionDelayMs > 0)
+            if(command.PreExecutionDelayMs > 0 && command.Command == RelayCommand.CommandType.Close)
             {
                 Log(string.Format("Applying pre-activation delay of {0} second", command.PreExecutionDelayMs));
                 ApplyPreActivationDelay(ApplicationSettings.Instance.InchingDelay);
