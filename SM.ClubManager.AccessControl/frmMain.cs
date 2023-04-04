@@ -13,12 +13,8 @@ using System.Threading;
 using SerialPortLib;
 using SM.ClubManager.AccessControl.Database;
 using SM.ClubManager.AccessControl.Config;
-using Syncfusion.Windows.Forms;
 using System.Reflection;
 using System.IO;
-using SIS.Library.Base.Infrastructure.Extensions;
-using SIS.Library.Base.Communication;
-using SIS.Library.Base.Infrastructure.WindowsFormsExtensions;
 using SM.ClubManager.AccessControl.Infrastructure;
 using System.Runtime.InteropServices;
 using Gibraltar.Agent;
@@ -329,8 +325,6 @@ namespace SM.ClubManager.AccessControl
 
         private void OpenComPort(SerialPortInput serialClient, string portName, int baudRate, PictureBox picBox = null)
         {
-            //string portName = ApplicationSettings.Instance.SerialInPort;
-            //int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
             try
             {
                 Log(string.Format("Opening port {0}...", portName));
@@ -392,23 +386,17 @@ namespace SM.ClubManager.AccessControl
            
             //this method should not care about whether command is wireless / wired. it just wants to execute command
             try
-            {
-                picScanResult.InvokeIfRequired(t => t.Visible = true);
-
-                commandQueue.Add(relayCommand);
-               
+            {                
+                commandQueue.Add(relayCommand);               
                 //Adding delay to allow the 'loading' image to be displayed so user can see something happened. serves no other purpose
                 Thread.Sleep(500);
-                picScanResult.InvokeIfRequired(t => t.Visible = false);
+               
             }
             catch (Exception ex)
             {
                 throw;
             }
-            finally
-            {
-                picScanResult.InvokeIfRequired(t => t.Visible = false);
-            }
+           
             Log("Relay command processing completed");
         }
 
