@@ -68,9 +68,6 @@
     <Reference Include="PostSharp, Version=6.9.7.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <HintPath>..\packages\PostSharp.Redist.6.9.7\lib\net45\PostSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SIS.Library.ModelBase">
-      <HintPath>..\..\..\..\..\..\..\..\source\_internal\SIS.Library\SIS.Library.ModelBase\bin\x86\Debug\SIS.Library.ModelBase.dll</HintPath>
-    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations">
       <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.ComponentModel.DataAnnotations.dll</HintPath>
     </Reference>

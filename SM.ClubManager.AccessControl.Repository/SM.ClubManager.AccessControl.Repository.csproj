@@ -52,12 +52,6 @@
     <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.SqlServerCompact.6.4.4\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
     </Reference>
-    <Reference Include="SIS.Library.DAL.Repositories">
-      <HintPath>..\..\..\..\..\..\..\..\source\_internal\SIS.Library\SIS.Library.DAL.Repository\bin\x86\Debug\SIS.Library.DAL.Repositories.dll</HintPath>
-    </Reference>
-    <Reference Include="SIS.Library.ModelBase">
-      <HintPath>..\..\..\..\..\..\..\..\source\_internal\SIS.Library\SIS.Library.ModelBase\bin\x86\Debug\SIS.Library.ModelBase.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />

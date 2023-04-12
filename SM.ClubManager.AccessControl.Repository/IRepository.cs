@@ -15,8 +15,6 @@ namespace SM.ClubManager.AccessControl.Repository
         IQueryable<T> GetAll();
         Task<List<T>> GetAllListAsync();
         T GetById(int id);
-        Task<T> GetByIdAsync(int id);
-        void Dispose();
-
+        Task<T> GetByIdAsync(int id);        
     }
 }

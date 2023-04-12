@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Gibraltar.Agent" Version="5.0.0.4" />
+    <PackageReference Include="Loupe.Agent.Core" Version="4.14.0.11" />
     <PackageReference Include="SerialPortLib" Version="1.1.1" />
   </ItemGroup>
 

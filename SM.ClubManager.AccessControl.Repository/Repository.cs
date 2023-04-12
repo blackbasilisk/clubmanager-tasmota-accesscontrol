@@ -1,4 +1,5 @@
-﻿using SIS.Library.ModelBase;
+﻿
+using SM.ClubManager.AccessControl.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -20,6 +21,10 @@ namespace SM.ClubManager.AccessControl.Repository
             context = dataContext;
         }
 
+        public Repository(DbContext dataContext) : this(dataContext)
+        {
+        }
+
         #region IRepository<T> Members
 
         //public void Insert(T entity)
@@ -34,7 +39,7 @@ namespace SM.ClubManager.AccessControl.Repository
         public void InsertOrUpdate(T entity, bool IsSaveChanges = false)
         {
 
-            if (((IEntity)entity).Id == default(int))
+            if (((IEntity)entity).Id == default)
             {
                 DbSet.Add(entity);
             }

@@ -20,9 +20,12 @@ using System.Runtime.InteropServices;
 using Gibraltar.Agent;
 using System.Collections.Concurrent;
 
+
+
 namespace SM.ClubManager.AccessControl
 {
-   
+#pragma warning disable IDE1006 // Naming Styles
+
     enum NotificationType
     {
         Error,
@@ -154,7 +157,7 @@ namespace SM.ClubManager.AccessControl
             {
                 return LoadImageFromResource(resourceName, null);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -191,7 +194,7 @@ namespace SM.ClubManager.AccessControl
                 Stream _imageStream = assembly.GetManifestResourceStream(resourceName);
                 return new Bitmap(_imageStream);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -207,7 +210,7 @@ namespace SM.ClubManager.AccessControl
                 bwCommandProcessor.DoWork += BwCommandProcessor_DoWork;
                 bwCommandProcessor.RunWorkerAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Log("**WARNING** Message processor failed to start! Please contact support!", true);
                 throw;
@@ -295,15 +298,14 @@ namespace SM.ClubManager.AccessControl
                     ttIcon = ToolTipIcon.None;
                     break;
             }
-            
+
             NotifyIcon notifyIcon = new NotifyIcon
             {
                 Visible = true,
                 Icon = icon,
-                BalloonTipIcon = ttIcon                
+                BalloonTipIcon = ttIcon,
+                Text = ""
             };
-
-            notifyIcon.Text = "";
             if (header != null)
             {
                 notifyIcon.BalloonTipTitle = header;
@@ -373,17 +375,16 @@ namespace SM.ClubManager.AccessControl
         }
 
         private void OnRelayCommandReceived(ISerialMessage item)
-        {           
-            RelayCommand relayCommand = item as RelayCommand;
-            if(relayCommand == null)
+        {
+            if (!(item is RelayCommand relayCommand))
             {
                 throw new Exception("Cannot process Club Manager command. Invalid command object received!");
             }
 
             Log(string.Format("Processing relay command '{0}'", relayCommand.Command.ToString()));
             //check what type of command is required i.e. serial / wifi
-            bool isWireless = ApplicationSettings.Instance.IsTargetWireless;
-           
+            //_ = ApplicationSettings.Instance.IsTargetWireless;
+
             //this method should not care about whether command is wireless / wired. it just wants to execute command
             try
             {                
@@ -392,7 +393,7 @@ namespace SM.ClubManager.AccessControl
                 Thread.Sleep(500);
                
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -438,7 +439,7 @@ namespace SM.ClubManager.AccessControl
                 }
                 return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -460,11 +461,8 @@ namespace SM.ClubManager.AccessControl
 
                 }
                 else
-                {
-                    if(serialOutClient != null)
-                    {
-                        serialOutClient.Disconnect();
-                    }
+                {                   
+                    serialOutClient?.Disconnect();                    
 
                     picConnectionType.Image = (Image)imgWifiConnection.Clone();
                     
@@ -621,7 +619,7 @@ namespace SM.ClubManager.AccessControl
             try
             {
                 int displayDelay = delay;
-                delay = delay * 1000;
+                delay *= 1000;
                 
                 if (delay > 0)
                 {
@@ -748,7 +746,7 @@ namespace SM.ClubManager.AccessControl
                     ApplicationSettings.Instance.SerialInPort = "COM1";
                 }
 
-                if (ApplicationSettings.Instance.SerialInBaudRate == default(int) || ApplicationSettings.Instance.SerialInBaudRate <= 0)
+                if (ApplicationSettings.Instance.SerialInBaudRate == default || ApplicationSettings.Instance.SerialInBaudRate <= 0)
                 {
                     ApplicationSettings.Instance.SerialInBaudRate = 9600;
                 }
@@ -773,7 +771,7 @@ namespace SM.ClubManager.AccessControl
                     ApplicationSettings.Instance.SerialOutPort = "COM3";
                 }
 
-                if (ApplicationSettings.Instance.SerialOutBaudRate == default(int) || ApplicationSettings.Instance.SerialOutBaudRate <= 0)
+                if (ApplicationSettings.Instance.SerialOutBaudRate == default || ApplicationSettings.Instance.SerialOutBaudRate <= 0)
                 {
                     ApplicationSettings.Instance.SerialOutBaudRate =  115200;
                 }
@@ -816,6 +814,7 @@ namespace SM.ClubManager.AccessControl
         #region Form events
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+
         {
             Cleanup();
         }
@@ -866,7 +865,7 @@ namespace SM.ClubManager.AccessControl
                 rtbUsbOutput.ForeColor = Color.Black;
                 txtUsbCommand.Select();
                 txtUsbCommand.Focus();
-                rtbUsbOutput.InvokeIfRequired(r => r.Clear());
+                rtbUsbOutput.InvokeIfRequired(t => t.Clear());
             }
             else
             {
@@ -875,10 +874,9 @@ namespace SM.ClubManager.AccessControl
                 rtbUsbOutput.ForeColor = Color.LimeGreen;
             }
 
-            if (usbMessageBuffer != null)
-            {
-                usbMessageBuffer.Clear();
-            }
+          
+           usbMessageBuffer?.Clear();
+
 
             usbMessageBuffer = null;
             usbMessageBuffer = new List<byte>();

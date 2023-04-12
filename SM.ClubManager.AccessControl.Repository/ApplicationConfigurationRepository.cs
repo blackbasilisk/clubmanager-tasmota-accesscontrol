@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace SM.ClubManager.AccessControl.Repository
 {
-    public class ApplicationConfigurationRepository : IDisposable
+    internal class ApplicationConfigurationRepository : IDisposable
     {
 
-        public ApplicationConfigurationRepository()
+        internal ApplicationConfigurationRepository()
         { }
 
-        public object GetByKey(string key)
+        internal object GetByKey(string key)
         {
             object obj;
             using (MainContext context = MainContext.Create())
@@ -28,9 +28,11 @@ namespace SM.ClubManager.AccessControl.Repository
                         var val = repo.GetAll().FirstOrDefault(c => c.Key == key);
                         if (val == null)
                         {
-                            val = new ApplicationConfiguration();
-                            val.Value = default(string);
-                            val.Key = key;
+                            val = new ApplicationConfiguration()
+                            {
+                                Value = default,
+                                Key = key
+                            };
 
                             repo.InsertOrUpdate(val, true);
                         }
@@ -41,7 +43,7 @@ namespace SM.ClubManager.AccessControl.Repository
 
 
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -66,12 +68,10 @@ namespace SM.ClubManager.AccessControl.Repository
             using (Repository<ApplicationConfiguration> repo = new Repository<ApplicationConfiguration>(new MainContext()))
             {
 
-                ApplicationConfiguration settingObj = repo.GetAll().FirstOrDefault(c => c.Key == key);
-                if(settingObj == null)
-                {
-                    settingObj = new ApplicationConfiguration();
-                    settingObj.Key = key;
-                }
+                ApplicationConfiguration settingObj = repo.GetAll().FirstOrDefault(c => c.Key == key) ?? new ApplicationConfiguration
+                    {
+                        Key = key
+                    };
                 settingObj.Value = value.ToString();
                 repo.InsertOrUpdate(settingObj, true);
             }

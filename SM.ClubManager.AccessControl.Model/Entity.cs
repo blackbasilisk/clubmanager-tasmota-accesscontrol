@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace SM.ClubManager.AccessControl.Model
 {
-    public class ApplicationConfiguration : Entity
+    public class Entity : IEntity
     {
-        public string Key { get; set; }
+		private int _id;
 
-        public string Value { get; set; }
-    }
+		public int Id
+		{
+			get { return _id; }
+			set { _id = value; }
+		}
+
+	}
 }

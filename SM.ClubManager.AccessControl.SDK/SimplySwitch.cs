@@ -20,17 +20,17 @@ namespace SM.ClubManager.AccessControl.SDK
 
         #region Fields 
         bool isDisposing = false;
-        string serialComPort = "";
-        int serialBaudRate = 115200;       
-        string commandSerialRelayOpenStringFormat = "Power1 on\r\n";
-        string commandSerialRelayCloseStringFormat = "Power1 off\r\n";
+        string serialComPort = "NAN";
+        readonly int serialBaudRate = 115200;
+        readonly string commandSerialRelayOpenStringFormat = "Power1 on\r\n";
+        readonly string commandSerialRelayCloseStringFormat = "Power1 off\r\n";
 
         //<add key = "Cmd.Format.Serial.RelayClose" value="Power1 on&#xD;&#xA;" />       
         //<add key = "Cmd.Format.Serial.RelayOpen" value="Power1 off&#xD;&#xA;" />
 
         BlockingCollection<RelayCommand>? commandQueue;
         BackgroundWorker? bwCommandProcessor;
-        SerialPortInput serialOutClient = new SerialPortInput();
+        SerialPortInput? serialOutClient = new();
         List<byte>? usbMessageBuffer = null;
         #endregion
 
@@ -107,6 +107,8 @@ namespace SM.ClubManager.AccessControl.SDK
 
         public void Dispose()
         {
+            GC.SuppressFinalize(this);
+
             try
             {
                 isDisposing = true;
@@ -127,20 +129,24 @@ namespace SM.ClubManager.AccessControl.SDK
 
         #endregion
 
-
         #region Internal Methods
         private void Cleanup()
         {
             isDisposing = true;
-            commandQueue.CompleteAdding();
-            var items = commandQueue.Take(commandQueue.Count);
-            foreach (var item in items)
+            if(commandQueue != null)
             {
-                item.Dispose();
+                commandQueue?.CompleteAdding();
+                var items = commandQueue?.Take(commandQueue.Count);
+                if(items != null)
+                {
+                    foreach (var item in items)
+                    {
+                        item.Dispose();
+                    }
+                    items = null;
+                }              
             }
-            items = null;
-
-
+            
             if (serialOutClient != null)
             {
                 serialOutClient.Disconnect();
@@ -153,7 +159,7 @@ namespace SM.ClubManager.AccessControl.SDK
             OnSerialDisconnected = null;
             OnLogMessage = null;
 
-            commandQueue.Dispose();
+            commandQueue?.Dispose();
             commandQueue = null;
         }
 
@@ -176,17 +182,17 @@ namespace SM.ClubManager.AccessControl.SDK
             OnLogMessage?.Invoke(this, LogMessage.GetNewLogMessage(msg, isError));
         }
 
-        private void EnableDisableSerialComms()
-        {
-            try
-            {
-                OpenComPort(serialOutClient, serialComPort, serialBaudRate);                                                 
-            }
-            catch (Exception ex)
-            {
-                Log(ex.Message, true);
-            }
-        }
+        //private void EnableDisableSerialComms()
+        //{
+        //    try
+        //    {
+        //        OpenComPort(serialOutClient, serialComPort, serialBaudRate);                                                 
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log(ex.Message, true);
+        //    }
+        //}
 
         private void SerialOutClient_ConnectionStatusChanged(object sender, ConnectionStatusChangedEventArgs args)
         {
@@ -195,11 +201,8 @@ namespace SM.ClubManager.AccessControl.SDK
 
             //Set internal connection status var based on statusString
             _isConnected = args.Connected;
-
-            if (usbMessageBuffer != null)
-            {
-                usbMessageBuffer.Clear();
-            }
+            
+            usbMessageBuffer?.Clear();           
 
             usbMessageBuffer = null;
             usbMessageBuffer = new List<byte>();    
@@ -210,7 +213,7 @@ namespace SM.ClubManager.AccessControl.SDK
             try
             {
                 //add data to the messagebuffer.            
-                if (args.Data != null && args.Data.Count() > 0)
+                if (args.Data != null && args.Data.Length > 0)
                 {
                     string s = Encoding.UTF8.GetString(args.Data);                                    
                 }
@@ -239,13 +242,13 @@ namespace SM.ClubManager.AccessControl.SDK
             }
         }
 
-        private void BwCommandProcessor_DoWork(object sender, DoWorkEventArgs e)
+        private void BwCommandProcessor_DoWork(object? sender, DoWorkEventArgs e)
         {
             try
             {
                 while (!isDisposing)
                 {
-                    if (commandQueue != null && !commandQueue.IsCompleted && commandQueue.Count() > 0)
+                    if (commandQueue != null && !commandQueue.IsCompleted && commandQueue.Count > 0)
                     {
                         RelayCommand commandEntry = commandQueue.Take();
 
@@ -280,10 +283,11 @@ namespace SM.ClubManager.AccessControl.SDK
                 ExecuteUsbCommand(command.Command);            
         }
 
-        private void OpenComPort(SerialPortInput serialClient, string portName, int baudRate)
+        private void OpenComPort(SerialPortInput? serialClient, string portName, int baudRate)
         {
             try
             {
+               
                 Log(string.Format("Opening port {0}...", portName));
 
                 //int count = 0;
@@ -292,6 +296,10 @@ namespace SM.ClubManager.AccessControl.SDK
                 //{
                 try
                 {
+                    if (serialClient == null)
+                    {
+                        throw new Exception("COM port has not been initialized");
+                    }
                     serialClient.Disconnect();
 
                     serialClient.SetPort(portName: portName, baudRate: baudRate);

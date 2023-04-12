@@ -7,6 +7,13 @@ using System.Windows.Forms;
 
 namespace SM.ClubManager.AccessControl
 {
+
+
+
+    /// <summary>
+    /// Syncfusion license key
+    /// MTcwMTgwOUAzMjMxMmUzMTJlMzMzNVM5WFZ6NktOUFAvcTBUUUR3UVJLckVVSDduQkRLYm14TVpMbnpKYTUybWs9;MTcwMTgxMEAzMjMxMmUzMTJlMzMzNWtCQVd0clFsUldDdy8yZUN3bElGZUlDejVOUW55ZlI4SGlBQ1owN3ZycVk9;MTcwMTgxMUAzMjMxMmUzMTJlMzMzNVVJQ29PSWlxNC81MGJUZFI2bHo0VGsrbGpRTkt4amVFWi96NzdJTFhVcGs9
+    /// </summary>
     static class Program
     {
         /// <summary>
