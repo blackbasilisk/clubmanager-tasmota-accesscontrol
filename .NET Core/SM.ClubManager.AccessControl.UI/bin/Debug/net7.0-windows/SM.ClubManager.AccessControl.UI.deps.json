@@ -1,0 +1,440 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "SM.ClubManager.AccessControl.UI/1.0.0": {
+        "dependencies": {
+          "Syncfusion.GridHelperClasses.Windows": "21.1.39"
+        },
+        "runtime": {
+          "SM.ClubManager.AccessControl.UI.dll": {}
+        }
+      },
+      "Syncfusion.Chart.Base/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Chart.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Chart.Windows/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Chart.Base": "21.1.39",
+          "Syncfusion.Grouping.Base": "21.1.39",
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Chart.Windows.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Compression.Base/21.1.39": {
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Compression.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.DocIO.WinForms/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Compression.Base": "21.1.39",
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.OfficeChart.Base": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.DocIO.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Grid.Grouping.Windows/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Grid.Windows": "21.1.39",
+          "Syncfusion.Grouping.Base": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39",
+          "Syncfusion.Shared.Windows": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Grid.Grouping.Windows.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Grid.Windows/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39",
+          "Syncfusion.Shared.Windows": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Grid.Windows.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.GridExport.WinForms/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Compression.Base": "21.1.39",
+          "Syncfusion.Grid.Grouping.Windows": "21.1.39",
+          "Syncfusion.Grid.Windows": "21.1.39",
+          "Syncfusion.Grouping.Base": "21.1.39",
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39",
+          "Syncfusion.XlsIO.WinForms": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Gridconverter.Windows.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.GridHelperClasses.Windows/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Chart.Base": "21.1.39",
+          "Syncfusion.Chart.Windows": "21.1.39",
+          "Syncfusion.DocIO.WinForms": "21.1.39",
+          "Syncfusion.Grid.Grouping.Windows": "21.1.39",
+          "Syncfusion.Grid.Windows": "21.1.39",
+          "Syncfusion.GridExport.WinForms": "21.1.39",
+          "Syncfusion.Grouping.Base": "21.1.39",
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.Pdf.WinForms": "21.1.39",
+          "Syncfusion.PivotAnalysis.Base": "21.1.39",
+          "Syncfusion.PivotTable.WinForms": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39",
+          "Syncfusion.Shared.Windows": "21.1.39",
+          "Syncfusion.Tools.Base": "21.1.39",
+          "Syncfusion.Tools.Windows": "21.1.39",
+          "Syncfusion.XlsIO.WinForms": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.GridHelperClasses.Windows.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Grouping.Base/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Grouping.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Licensing/21.1.39": {
+        "runtime": {
+          "lib/net7.0-windows7.0/Syncfusion.Licensing.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Linq.Base/21.1.39": {
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Linq.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.OfficeChart.Base/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Compression.Base": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.OfficeChart.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Pdf.WinForms/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Compression.Base": "21.1.39",
+          "Syncfusion.Licensing": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Pdf.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.PivotAnalysis.Base/21.1.39": {
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.PivotAnalysis.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.PivotTable.WinForms/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Grid.Windows": "21.1.39",
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.Linq.Base": "21.1.39",
+          "Syncfusion.PivotAnalysis.Base": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39",
+          "Syncfusion.Shared.Windows": "21.1.39",
+          "Syncfusion.Tools.Windows": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.PivotAnalysis.Windows.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Shared.Base/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Licensing": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Shared.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Shared.Windows/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Shared.Windows.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.SpellChecker.Base/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Licensing": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.SpellChecker.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Tools.Base/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Tools.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.Tools.Windows/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Grid.Windows": "21.1.39",
+          "Syncfusion.Licensing": "21.1.39",
+          "Syncfusion.Shared.Base": "21.1.39",
+          "Syncfusion.Shared.Windows": "21.1.39",
+          "Syncfusion.SpellChecker.Base": "21.1.39",
+          "Syncfusion.Tools.Base": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.Tools.Windows.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      },
+      "Syncfusion.XlsIO.WinForms/21.1.39": {
+        "dependencies": {
+          "Syncfusion.Compression.Base": "21.1.39",
+          "Syncfusion.Licensing": "21.1.39"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Syncfusion.XlsIO.Base.dll": {
+            "assemblyVersion": "21.1.39.0",
+            "fileVersion": "21.1.39.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SM.ClubManager.AccessControl.UI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Syncfusion.Chart.Base/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IgZrh6ptVUR2xrKV8E34KbMkeEWXXZKGMjniQzdyWW1FWUzmVizXn/WhJwWQXeQNzKLwlMwPcBSF7bQ+I4Bqew==",
+      "path": "syncfusion.chart.base/21.1.39",
+      "hashPath": "syncfusion.chart.base.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Chart.Windows/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ax+pfBy5oqpZ//ejT2GkU4hUN+g9/u3JZ45kE8j2dc3EfqIMBOl+H+W9gt34Wy7HrGWcS7dYsN+t4RR1f68jVA==",
+      "path": "syncfusion.chart.windows/21.1.39",
+      "hashPath": "syncfusion.chart.windows.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Compression.Base/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bVZ1yzKGU9j3OhCkCINfLomYs1zzU1ct2GOfcj3H9aYH0QDkJfLJLcLEEp/ucRwCsRQlwkOZP6r4GR0pgaQWRg==",
+      "path": "syncfusion.compression.base/21.1.39",
+      "hashPath": "syncfusion.compression.base.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.DocIO.WinForms/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tz+tXyN2kE9BirmoX5xbYuvl6WDAv6EybQZZ/VKRxMUj4L6b1frQXoYde+a46Mhpo9FmoTPHAaCvEhtAyBAcBQ==",
+      "path": "syncfusion.docio.winforms/21.1.39",
+      "hashPath": "syncfusion.docio.winforms.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Grid.Grouping.Windows/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NwE6mEm5pDO7O2S4yKcbhVt5pv1EzdXlcpiQ1n3eerqQfXcoqxqofXFvdCNdkIPiJT2Ui1DwPRVkDIr4to67tA==",
+      "path": "syncfusion.grid.grouping.windows/21.1.39",
+      "hashPath": "syncfusion.grid.grouping.windows.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Grid.Windows/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Jy+yI53ErN3AENhO+hugLs5cb/TdBv9Omv7eD7AK49prKCFtpQocFUx8OQnh/QvPYC8jS4NR7wFvoxX5aS3lgg==",
+      "path": "syncfusion.grid.windows/21.1.39",
+      "hashPath": "syncfusion.grid.windows.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.GridExport.WinForms/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5jpECXg9m8UCW7osNyQF20WJdfSVqkYrglCZh/ZwaiPZ7yGl3fZbDFfCcyGMoTQw1T7UWX2znZuB3+cNbI4HAw==",
+      "path": "syncfusion.gridexport.winforms/21.1.39",
+      "hashPath": "syncfusion.gridexport.winforms.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.GridHelperClasses.Windows/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1C6/1HqP3u8kjwFm1nD977+N/mA6JK/Xart47vgU+Pk037FBFwQ4tSgyxPOla81brLbFKao+IgTiOfH3CqgefA==",
+      "path": "syncfusion.gridhelperclasses.windows/21.1.39",
+      "hashPath": "syncfusion.gridhelperclasses.windows.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Grouping.Base/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vdWhnxB05zg95Jk6XXQ3BJa8mhc8jS5DIw4bRw35j2wPoQDEQf1n4R6h2upkru0BBBsVbiElr55osyl8vjiiFA==",
+      "path": "syncfusion.grouping.base/21.1.39",
+      "hashPath": "syncfusion.grouping.base.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Licensing/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wV0L6cKbm8Z6WGksFThQmC1K64aER/yVMF4jq57VtdA/bZhruDo4WSZJJnRKBI27xQkiaijbubLhqRP//rfEqA==",
+      "path": "syncfusion.licensing/21.1.39",
+      "hashPath": "syncfusion.licensing.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Linq.Base/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DMMhRmJIHLWWTNbzGrkGf4myk0oG9XUdwZuUmK6h6avzLlpigqmuTi5XU/impogAFCCyCjsPRvsfHCudZh+yhw==",
+      "path": "syncfusion.linq.base/21.1.39",
+      "hashPath": "syncfusion.linq.base.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.OfficeChart.Base/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OOxgVOR6dIo7EZYcSCKUhhYmC/IyrsF+/maHBtjbe9rKP0uAikz0X1NGQJwUdHUUMOeYC1I8DKXjNUZ949s2nA==",
+      "path": "syncfusion.officechart.base/21.1.39",
+      "hashPath": "syncfusion.officechart.base.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Pdf.WinForms/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gWkvwzCMgDqgcja3cYqcvuGYdlupEtJP5aeHC5pJqcZmZuqY5Vp6GJomv3u5hVOewsqTMXoSc5cWAS5OdObS2g==",
+      "path": "syncfusion.pdf.winforms/21.1.39",
+      "hashPath": "syncfusion.pdf.winforms.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.PivotAnalysis.Base/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qkc7ETohZW7jTfIpUB8j34mIaVwivnkwYlOWdCB3NNLrlQqUbPrwGwe2l16CiLPjhRAGHlKBnYB+ja3WaNkbkg==",
+      "path": "syncfusion.pivotanalysis.base/21.1.39",
+      "hashPath": "syncfusion.pivotanalysis.base.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.PivotTable.WinForms/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GANPkF7SQdZvfUgWk/lnVNWYjryKE5ItkSNxJhoxIo8h6LaFUsV3OOcjGIMa/pStE7S4tJfUtk3k8e66jqgjKA==",
+      "path": "syncfusion.pivottable.winforms/21.1.39",
+      "hashPath": "syncfusion.pivottable.winforms.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Shared.Base/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-g5Bfz2YOvqHxIq7HRkkRamFtqWG1hjjoT6uvSQyk8sVMD3swB07TaNTNw5Zh62rc1UFj3bnctsmEoKnfqAFs/Q==",
+      "path": "syncfusion.shared.base/21.1.39",
+      "hashPath": "syncfusion.shared.base.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Shared.Windows/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QKPYr4gfSHXgMhGO0hrYVxfQHPBccyUbkL5Te3xdMTbb/xa491cDAFWykGphdB2wrcaxAe1vFy4IXqwD+hfO6Q==",
+      "path": "syncfusion.shared.windows/21.1.39",
+      "hashPath": "syncfusion.shared.windows.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.SpellChecker.Base/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WzbaVXVFgqyBiMb6+5PQXQrzGY0oJb0b3oAL+jLrBdUF/DNCAhWmRhegIGbgrQKYptavr7PykAUOYcfOagqetw==",
+      "path": "syncfusion.spellchecker.base/21.1.39",
+      "hashPath": "syncfusion.spellchecker.base.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Tools.Base/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-i4nHkUYs8REsGUyI00KmZK+1nHadyT06QR6u7GsjQqGXNXW0S59kNj3ZUOgt+fJxgfbAXseRW/Ib9lvmXDQtZg==",
+      "path": "syncfusion.tools.base/21.1.39",
+      "hashPath": "syncfusion.tools.base.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.Tools.Windows/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-U3sTM+PZ2EpfTzRcgtFkVVBmwvJ3zAxibZKQnYfIACEafkRf1P8HIaQJ9fzv1WyU+JH94+yGpFyNEn2/lHF3Tg==",
+      "path": "syncfusion.tools.windows/21.1.39",
+      "hashPath": "syncfusion.tools.windows.21.1.39.nupkg.sha512"
+    },
+    "Syncfusion.XlsIO.WinForms/21.1.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-71hEbWdZizAXBXYSizw7lrjgZOT4b6d4eymp2L6/yj8o8rfP5yQj9MQQK4qWBgjHG6iqOHdd2FGXICLHBHodUw==",
+      "path": "syncfusion.xlsio.winforms/21.1.39",
+      "hashPath": "syncfusion.xlsio.winforms.21.1.39.nupkg.sha512"
+    }
+  }
+}

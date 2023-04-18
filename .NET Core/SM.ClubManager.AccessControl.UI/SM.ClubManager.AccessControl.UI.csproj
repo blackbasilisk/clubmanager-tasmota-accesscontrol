@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\access-granted.png" />
+    <None Remove="Resources\Checked.png" />
+    <None Remove="Resources\info.png" />
+    <None Remove="Resources\notification-warning-icon.ico" />
+    <None Remove="Resources\Unchecked.png" />
+    <None Remove="Resources\usb-connection.png" />
+    <None Remove="Resources\wifi-connection.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\access-granted.png" />
+    <EmbeddedResource Include="Resources\Checked.png" />
+    <EmbeddedResource Include="Resources\info.png" />
+    <EmbeddedResource Include="Resources\notification-warning-icon.ico" />
+    <EmbeddedResource Include="Resources\Unchecked.png" />
+    <EmbeddedResource Include="Resources\usb-connection.png" />
+    <EmbeddedResource Include="Resources\wifi-connection.png" />
+  </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Loupe.Agent.Core" Version="4.14.0.11" />
+        <PackageReference Include="SerialPortLib" Version="1.1.1" />
+        <PackageReference Include="Syncfusion.GridHelperClasses.Windows" Version="21.1.39" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.Base\SIS.Library.Base.csproj" />
+      <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.WinFormsBase\SIS.Library.WinFormsBase.csproj" />
+      <ProjectReference Include="..\SM.ClubManager.AccessControl.Config\SM.ClubManager.AccessControl.Config.csproj" />
+    </ItemGroup>
+</Project>
