@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using static BB.GymAccess.Common.Exceptions;
 using PostSharp.Aspects;
 using PostSharp.Serialization;
 
@@ -68,7 +67,7 @@ namespace SM.ClubManager.AccessControl.Config
             }
             catch (Exception e)
             {
-                throw e;
+                throw;
             }
         }
         

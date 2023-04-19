@@ -316,7 +316,7 @@ namespace SM.ClubManager.AccessControl
             // 
             // picToolTip1
             // 
-            this.picToolTip1.Image = global::SM.ClubManager.AccessControl.Properties.Resources.info;
+            this.picToolTip1.Image = global::SM.ClubManager.AccessControl.UI.Properties.Resources.info;
             this.picToolTip1.Location = new System.Drawing.Point(165, 66);
             this.picToolTip1.Name = "picToolTip1";
             this.picToolTip1.Size = new System.Drawing.Size(16, 16);
@@ -359,7 +359,7 @@ namespace SM.ClubManager.AccessControl
             // 
             // picToolTip3
             // 
-            this.picToolTip3.Image = global::SM.ClubManager.AccessControl.Properties.Resources.info;
+            this.picToolTip3.Image = global::SM.ClubManager.AccessControl.UI.Properties.Resources.info;
             this.picToolTip3.Location = new System.Drawing.Point(163, 28);
             this.picToolTip3.Name = "picToolTip3";
             this.picToolTip3.Size = new System.Drawing.Size(16, 16);

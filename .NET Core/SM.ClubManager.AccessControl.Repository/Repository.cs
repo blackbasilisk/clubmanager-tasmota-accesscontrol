@@ -3,7 +3,7 @@ using SIS.Library.ModelBase;
 using SM.ClubManager.AccessControl.Model;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -78,13 +78,13 @@ namespace SM.ClubManager.AccessControl.Repository
             return await DbSet.ToListAsync();
         }
 
-        public T GetById(int id)
+        public T GetByKey(string key)
         {
-            return DbSet.Find(id);
+            return DbSet.Find(key);
         }
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByKeyAsync(string key)
         {
-            return await DbSet.FindAsync(id);
+            return await DbSet.FindAsync(key);
         }
         #endregion
 

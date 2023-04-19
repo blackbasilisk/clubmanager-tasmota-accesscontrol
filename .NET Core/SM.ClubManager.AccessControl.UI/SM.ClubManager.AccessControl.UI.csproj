@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,24 +20,58 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\access-granted.png" />
-    <EmbeddedResource Include="Resources\Checked.png" />
+    <Resource Include="Resources\access-granted.png" />
+    <EmbeddedResource Include="Resources\checked.png" />
     <EmbeddedResource Include="Resources\info.png" />
     <EmbeddedResource Include="Resources\notification-warning-icon.ico" />
-    <EmbeddedResource Include="Resources\Unchecked.png" />
+    <EmbeddedResource Include="Resources\unchecked.png" />
     <EmbeddedResource Include="Resources\usb-connection.png" />
     <EmbeddedResource Include="Resources\wifi-connection.png" />
   </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Loupe.Agent.Core" Version="4.14.0.11" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="PostSharp" Version="2023.0.4" />
+        <PackageReference Include="PostSharp.Patterns.Common.Redist" Version="2023.0.4" />
+        <PackageReference Include="PostSharp.Redist" Version="2023.0.4" />
         <PackageReference Include="SerialPortLib" Version="1.1.1" />
         <PackageReference Include="Syncfusion.GridHelperClasses.Windows" Version="21.1.39" />
+        <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.Base\SIS.Library.Base.csproj" />
       <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.WinFormsBase\SIS.Library.WinFormsBase.csproj" />
       <ProjectReference Include="..\SM.ClubManager.AccessControl.Config\SM.ClubManager.AccessControl.Config.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Properties\Resources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Properties\Resources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="data.db">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="data.sdf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>

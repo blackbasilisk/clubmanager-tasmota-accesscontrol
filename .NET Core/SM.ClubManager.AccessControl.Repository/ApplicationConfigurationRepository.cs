@@ -22,15 +22,14 @@ namespace SM.ClubManager.AccessControl.Repository
             {
                 try
                 {
-
-                    using (Repository<ApplicationConfiguration> repo = new Repository<ApplicationConfiguration>(context))
+                    using (Repository<SMApplicationConfigurationItem> repo = new Repository<SMApplicationConfigurationItem>(context))
                     {
                         var val = repo.GetAll().FirstOrDefault(c => c.Key == key);
                         if (val == null)
                         {
-                            val = new ApplicationConfiguration()
+                            val = new SMApplicationConfigurationItem()
                             {
-                                Value = default,
+                                Value = "",
                                 Key = key
                             };
 
@@ -43,7 +42,7 @@ namespace SM.ClubManager.AccessControl.Repository
 
 
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     throw;
                 }
@@ -55,25 +54,41 @@ namespace SM.ClubManager.AccessControl.Repository
 
         public void UpdateValueByKey(string key, object value)
         {
-            using (Repository<ApplicationConfiguration> repo = new Repository<ApplicationConfiguration>(new MainContext()))
+            try
             {
-                var settingObj = repo.GetAll().FirstOrDefault(c => c.Key == key);
-                settingObj.Value = value.ToString();
-                repo.InsertOrUpdate(settingObj, true);
+                using (Repository<SMApplicationConfigurationItem> repo = new Repository<SMApplicationConfigurationItem>(new MainContext()))
+                {
+                    var settingObj = repo.GetAll().FirstOrDefault(c => c.Key == key);
+                    settingObj.Value = value.ToString();
+                    repo.InsertOrUpdate(settingObj, true);
+                }
             }
+            catch (Exception e)
+            {
+                throw;
+            }
+            
         }
 
         public void InsertOrUpdateValueByKey(string key, object value)
         {
-            using (Repository<ApplicationConfiguration> repo = new Repository<ApplicationConfiguration>(new MainContext()))
+            try
             {
+                using (Repository<SMApplicationConfigurationItem> repo = new Repository<SMApplicationConfigurationItem>(new MainContext()))
+                {
 
-                ApplicationConfiguration settingObj = repo.GetAll().FirstOrDefault(c => c.Key == key) ?? new ApplicationConfiguration
+                    SMApplicationConfigurationItem settingObj = repo.GetAll().FirstOrDefault(c => c.Key == key) ?? new SMApplicationConfigurationItem
                     {
                         Key = key
                     };
-                settingObj.Value = value.ToString();
-                repo.InsertOrUpdate(settingObj, true);
+                    settingObj.Value = value.ToString();
+                    repo.InsertOrUpdate(settingObj, true);
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw;
             }
         }
 

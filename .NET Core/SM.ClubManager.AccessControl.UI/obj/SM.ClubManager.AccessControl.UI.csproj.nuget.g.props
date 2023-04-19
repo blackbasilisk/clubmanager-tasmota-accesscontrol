@@ -13,7 +13,10 @@
     <SourceRoot Include="C:\Users\Dave\.nuget\packages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\7.0.5\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\7.0.5\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\7.0.5\build\net6.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\7.0.5\build\net6.0\Microsoft.EntityFrameworkCore.Design.props')" />
     <Import Project="$(NuGetPackageRoot)entityframework\6.4.4\buildTransitive\netcoreapp3.0\EntityFramework.props" Condition="Exists('$(NuGetPackageRoot)entityframework\6.4.4\buildTransitive\netcoreapp3.0\EntityFramework.props')" />
+    <Import Project="$(NuGetPackageRoot)postsharp\2023.0.4\build\PostSharp.props" Condition="Exists('$(NuGetPackageRoot)postsharp\2023.0.4\build\PostSharp.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgSyncfusion_Shared_Base Condition=" '$(PkgSyncfusion_Shared_Base)' == '' ">C:\Users\Dave\.nuget\packages\syncfusion.shared.base\21.1.39</PkgSyncfusion_Shared_Base>
@@ -22,6 +25,7 @@
     <PkgSyncfusion_PivotTable_WinForms Condition=" '$(PkgSyncfusion_PivotTable_WinForms)' == '' ">C:\Users\Dave\.nuget\packages\syncfusion.pivottable.winforms\21.1.39</PkgSyncfusion_PivotTable_WinForms>
     <PkgSyncfusion_Grid_Grouping_Windows Condition=" '$(PkgSyncfusion_Grid_Grouping_Windows)' == '' ">C:\Users\Dave\.nuget\packages\syncfusion.grid.grouping.windows\21.1.39</PkgSyncfusion_Grid_Grouping_Windows>
     <PkgSyncfusion_Chart_Windows Condition=" '$(PkgSyncfusion_Chart_Windows)' == '' ">C:\Users\Dave\.nuget\packages\syncfusion.chart.windows\21.1.39</PkgSyncfusion_Chart_Windows>
+    <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\Dave\.nuget\packages\microsoft.entityframeworkcore.tools\7.0.5</PkgMicrosoft_EntityFrameworkCore_Tools>
     <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\Dave\.nuget\packages\entityframework\6.4.4</PkgEntityFramework>
   </PropertyGroup>
 </Project>

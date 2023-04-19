@@ -1,0 +1,12 @@
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\bin\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.deps.json
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\bin\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.dll
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\bin\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.pdb
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\obj\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.csproj.AssemblyReference.cache
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\obj\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.GeneratedMSBuildEditorConfig.editorconfig
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\obj\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.AssemblyInfoInputs.cache
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\obj\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.AssemblyInfo.cs
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\obj\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.csproj.CoreCompileInputs.cache
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\obj\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.dll
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\obj\x86\Debug\net7.0\refint\SM.ClubManager.AccessControl.SDK.dll
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\obj\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.pdb
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.SDK\obj\x86\Debug\net7.0\ref\SM.ClubManager.AccessControl.SDK.dll

@@ -44,6 +44,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "PostSharp": {
+              "target": "Package",
+              "version": "[2023.0.4, )"
+            },
             "PostSharp.Redist": {
               "target": "Package",
               "version": "[2023.0.4, )"
@@ -112,6 +116,20 @@
             "EntityFramework": {
               "target": "Package",
               "version": "[6.4.4, )"
+            },
+            "Microsoft.Data.Sqlite.Core": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.5, )"
             }
           },
           "imports": [
@@ -311,6 +329,32 @@
               "target": "Package",
               "version": "[4.14.0.11, )"
             },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "PostSharp": {
+              "target": "Package",
+              "version": "[2023.0.4, )"
+            },
+            "PostSharp.Patterns.Common.Redist": {
+              "target": "Package",
+              "version": "[2023.0.4, )"
+            },
+            "PostSharp.Redist": {
+              "target": "Package",
+              "version": "[2023.0.4, )"
+            },
             "SerialPortLib": {
               "target": "Package",
               "version": "[1.1.1, )"
@@ -318,6 +362,10 @@
             "Syncfusion.GridHelperClasses.Windows": {
               "target": "Package",
               "version": "[21.1.39, )"
+            },
+            "System.Resources.Extensions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             }
           },
           "imports": [
