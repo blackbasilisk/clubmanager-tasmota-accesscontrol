@@ -49,6 +49,7 @@
       <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.Base\SIS.Library.Base.csproj" />
       <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.WinFormsBase\SIS.Library.WinFormsBase.csproj" />
       <ProjectReference Include="..\SM.ClubManager.AccessControl.Config\SM.ClubManager.AccessControl.Config.csproj" />
+      <ProjectReference Include="..\SM.ClubManager.AccessControl.SDK\SM.ClubManager.AccessControl.SDK.csproj" />
     </ItemGroup>
 
     <ItemGroup>

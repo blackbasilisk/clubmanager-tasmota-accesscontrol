@@ -16,7 +16,7 @@ namespace SM.ClubManager.AccessControl.SDK
             internal set { _code = value; }
 		}
 
-        private string _errorMessage;
+        private string? _errorMessage;
 
         public string ErrorMessage
         {
@@ -24,7 +24,7 @@ namespace SM.ClubManager.AccessControl.SDK
             internal set { _errorMessage = value; }
         }
 
-        internal static SSResponse GetResponseObject(ErrorCode errorCode = ErrorCode.Success, string errorMessage = "" )
+        public static SSResponse Create(ErrorCode errorCode = ErrorCode.Success, string errorMessage = "" )
 		{
             SSResponse response = new SSResponse();
             response.Code = errorCode;
@@ -32,11 +32,5 @@ namespace SM.ClubManager.AccessControl.SDK
 
             return response;
 		}
-
-		internal SSResponse() 
-        {
-            _errorMessage = "";
-            _code = ErrorCode.Unknown;
-        }
     }
 }

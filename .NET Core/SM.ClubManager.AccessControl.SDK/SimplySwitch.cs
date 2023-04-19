@@ -12,18 +12,18 @@ namespace SM.ClubManager.AccessControl.SDK
 
         #region Events
 
-        public event EventHandler? OnSerialConnected;
-        public event EventHandler? OnSerialDisconnected;
+        public event EventHandler? OnConnected;
+        public event EventHandler? OnDisconnected;
         public event EventHandler<SSLogMessage>? OnLogMessage;
 
         #endregion
 
         #region Fields 
         bool isDisposing = false;
-        string serialComPort = "NAN";
-        readonly int serialBaudRate = 115200;
-        readonly string commandSerialRelayOpenStringFormat = "Power1 on\r\n";
-        readonly string commandSerialRelayCloseStringFormat = "Power1 off\r\n";
+
+        readonly string tasmotaCommandOpen = "Power1 on\r\n";
+        readonly string tasmotaCommandClose = "Power1 off\r\n";
+        readonly string tasmotaCommandRestart = "Restart 1\r\n";
 
         //<add key = "Cmd.Format.Serial.RelayClose" value="Power1 on&#xD;&#xA;" />       
         //<add key = "Cmd.Format.Serial.RelayOpen" value="Power1 off&#xD;&#xA;" />
@@ -51,60 +51,124 @@ namespace SM.ClubManager.AccessControl.SDK
             internal set { _isConnected = value; }
         }
 
+        private string _serialPort;
+
+        public string SerialPort
+        {
+            get { return _serialPort; }
+            set { _serialPort = value; }
+        }
+
+
+        private int _serialBaudRate;
+
+        public int SerialBaudRate
+        {
+            get { return _serialBaudRate; }
+            set { _serialBaudRate = value; }
+        }
+
         #endregion
 
         #region Constructor
-        public SimplySwitch(string comPort, int baudRate)
+        public SimplySwitch(string comPort, int baudRate = 115200)
         {
-            serialComPort = comPort;
-            serialBaudRate = baudRate;
+            _serialPort = comPort;
+            _serialBaudRate = baudRate;
 
             Initialize();
         }
 
         private void Initialize()
-        {
-            StartCommandQueueConsumer();
+        {           
+            StartCommandQueueConsumer();           
         }
         #endregion
 
         #region Public Methods
-        public SSResponse Connect()
+        public SSResponse SOpen(ushort preExecutionDelayMs = 0)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //The command is close because it closes the relay, but from the consumer perspective it 'opens' the gate 
+                SSRelayCommand command = SSRelayCommand.Create(SSRelayCommand.CommandType.Close, preExecutionDelayMs);
+                commandQueue?.Add(command);
+                return SSResponse.Create(ErrorCode.Success);
+            }
+            catch (Exception)
+            {
+                Log("Error adding command close relay command to command queue", true);
+                return SSResponse.Create(ErrorCode.Unknown);                
+            }                    
         }
 
-        public SStatus GetStatus()
+        public SSResponse SClose(ushort preExecutionDelayMs = 0)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //The command is open because it opens the relay, but from the consumer perspective it 'closes' the gate 
+                SSRelayCommand command = SSRelayCommand.Create(SSRelayCommand.CommandType.Open, preExecutionDelayMs);
+                commandQueue?.Add(command);
+                return SSResponse.Create(ErrorCode.Success);
+            }
+            catch (Exception)
+            {
+                Log("Error adding command close relay command to command queue", true);
+                return SSResponse.Create(ErrorCode.Unknown);
+            }
         }
+
+        //public SStatus GetStatus()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public SSResponse Restart()
         {
-            throw new NotImplementedException();
+            try
+            {              
+                SSRelayCommand command = SSRelayCommand.Create(SSRelayCommand.CommandType.Restart);
+                commandQueue?.Add(command);
+                return SSResponse.Create(ErrorCode.Success);
+            }
+            catch (Exception)
+            {
+                Log("Error adding restart command to command queue", true);
+                return SSResponse.Create(ErrorCode.Unknown);
+            }
         }
-
-        public SSResponse SClose(string ComPort, int BaudRate)
+      
+        public SSResponse SDisconnect()
         {
-            throw new NotImplementedException();
+            try
+            {
+                Log("Closing port " + _serialPort);
+                EnableDisableConnection(false);
+                return SSResponse.Create(ErrorCode.Success, "");
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);                
+                return SSResponse.Create(ErrorCode.Unknown, "Error when trying to close serial port");
+            }
         }
 
-        public SSResponse SClose()
+        public SSResponse SConnect()
         {
-            throw new NotImplementedException();
+            try
+            {
+                Log("Opening port " + _serialPort);
+                EnableDisableConnection(true);
+                return SSResponse.Create(ErrorCode.Success, "");
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+                EnableDisableConnection(false);
+                return SSResponse.Create(ErrorCode.Unknown, "Failed to open serial port");
+            }
         }
-
-        public SSResponse SOpen(string ComPort, int BaudRate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public SSResponse SOpen()
-        {
-            throw new NotImplementedException();
-        }
-
-
+      
         public void Dispose()
         {
             GC.SuppressFinalize(this);
@@ -129,7 +193,8 @@ namespace SM.ClubManager.AccessControl.SDK
 
         #endregion
 
-        #region Internal Methods
+        #region Internal Methods       
+
         private void Cleanup()
         {
             isDisposing = true;
@@ -155,8 +220,8 @@ namespace SM.ClubManager.AccessControl.SDK
                 serialOutClient = null;
             }
 
-            OnSerialConnected = null;
-            OnSerialDisconnected = null;
+            OnConnected = null;
+            OnDisconnected = null;
             OnLogMessage = null;
 
             commandQueue?.Dispose();
@@ -182,27 +247,15 @@ namespace SM.ClubManager.AccessControl.SDK
             OnLogMessage?.Invoke(this, SSLogMessage.GetNewLogMessage(msg, isError));
         }
 
-        //private void EnableDisableSerialComms()
-        //{
-        //    try
-        //    {
-        //        OpenComPort(serialOutClient, serialComPort, serialBaudRate);                                                 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log(ex.Message, true);
-        //    }
-        //}
-
         private void SerialOutClient_ConnectionStatusChanged(object sender, ConnectionStatusChangedEventArgs args)
         {
             string statusString = args.Connected ? "opened" : "closed"; //args.Connected.ToString();
 
             if (args.Connected) {
-                OnSerialConnected?.Invoke(this, new EventArgs());
+                OnConnected?.Invoke(this, new EventArgs());
             }
             else {
-                OnSerialDisconnected?.Invoke(this, new EventArgs());  
+                OnDisconnected?.Invoke(this, new EventArgs());  
             }
             Log("USB port " + statusString);
 
@@ -231,7 +284,6 @@ namespace SM.ClubManager.AccessControl.SDK
                 Log(ex.Message, true);
             }
         }
-
 
         private void StartCommandQueueConsumer()
         {
@@ -291,22 +343,37 @@ namespace SM.ClubManager.AccessControl.SDK
                 ExecuteUsbCommand(command.Command);            
         }
 
-        private void OpenComPort(SerialPortInput? serialClient, string portName, int baudRate)
+        private void EnableDisableConnection(bool isEnable = true)
         {
             try
             {
-               
+                if (isEnable)
+                {
+                    OpenComPort(serialOutClient, _serialPort, _serialBaudRate);
+                }
+                else
+                {
+                    serialOutClient?.Disconnect();
+                }         
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, true);
+                throw;
+            }
+        }
+    
+        private void OpenComPort(SerialPortInput? serialClient, string portName, int baudRate)
+        {
+            try
+            {               
                 Log(string.Format("Opening port {0}...", portName));
-
-                //int count = 0;
-                //bool isConnectionOk = false;
-                //while (!isConnectionOk && count < 5)
-                //{
+       
                 try
                 {
                     if (serialClient == null)
                     {
-                        throw new Exception("COM port has not been initialized");
+                        throw new Exception("COM port object has not been initialized");
                     }
                     serialClient.Disconnect();
 
@@ -369,13 +436,17 @@ namespace SM.ClubManager.AccessControl.SDK
                 string cmd = "";
                 switch (commandType)
                 {
+                    case SSRelayCommand.CommandType.Restart:
+                        cmd = tasmotaCommandRestart;
+                        Log("Sending RESTART command");
+                        break;
                     case SSRelayCommand.CommandType.Open:
-                        cmd = commandSerialRelayOpenStringFormat;
+                        cmd = tasmotaCommandOpen;
                         Log("Sending OPEN command");
                         break;
                     case SSRelayCommand.CommandType.Close:
                     default:
-                        cmd = commandSerialRelayCloseStringFormat;
+                        cmd = tasmotaCommandClose;
                         Log("Sending CLOSE command");
                         break;
                 }

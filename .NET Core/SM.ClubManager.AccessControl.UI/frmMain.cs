@@ -19,6 +19,7 @@ using SM.ClubManager.AccessControl.Infrastructure;
 using System.Runtime.InteropServices;
 using Gibraltar.Agent;
 using System.Collections.Concurrent;
+using SM.ClubManager.AccessControl.SDK;
 
 namespace SM.ClubManager.AccessControl
 {
@@ -39,19 +40,19 @@ namespace SM.ClubManager.AccessControl
         bool isSmallSizeMode = true;
         bool isClosing = false;
 
-        string commandWifiRelayOpenStringFormat = "";
-        string commandWifiRelayCloseStringFormat = "";
-        string commandSerialRelayOpenStringFormat = "";
-        string commandSerialRelayCloseStringFormat = "";
+        //string commandWifiRelayOpenStringFormat = "";
+        //string commandWifiRelayCloseStringFormat = "";
+        //string commandSerialRelayOpenStringFormat = "";
+        //string commandSerialRelayCloseStringFormat = "";
 
-        //SimpleSerialClient serialInClient = null;
+        
         SerialPortInput serialInClient = null;//new SerialPortInput();
-        SerialPortInput serialOutClient = null;//new SerialPortInput();
-        //SerialPortStream serialInClient = new SerialPortStream();
+        SimplySwitch simplySwitchClient;//serialOutClient = null;//new SerialPortInput();
+       
         frmSettings settingsForm = new frmSettings();
         frmNewLoading newLoadingForm = new frmNewLoading();
         List<byte> messageBuffer = null;
-        List<byte> usbMessageBuffer = null;
+        //List<byte> usbMessageBuffer = null;
         System.Threading.Thread comThread;
         string eofString = "\n\r\n";
         Image imgUnchecked;
@@ -61,9 +62,6 @@ namespace SM.ClubManager.AccessControl
         Icon notificationWarningIcon;
         Icon notificationInformationIcon;
         Image imgInfo;
-
-        BlockingCollection<RelayCommand> commandQueue;
-        BackgroundWorker bwCommandProcessor;
 
         public frmMain()
         {
@@ -94,20 +92,18 @@ namespace SM.ClubManager.AccessControl
             Log("Initializing configuration...");
             SetDefaults();
 
-
-            commandWifiRelayOpenStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Wifi.RelayOpen"];
-            commandWifiRelayCloseStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Wifi.RelayClose"];
-            commandSerialRelayOpenStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Serial.RelayOpen"];
-            commandSerialRelayCloseStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Serial.RelayClose"];
+            //commandWifiRelayOpenStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Wifi.RelayOpen"];
+            //commandWifiRelayCloseStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Wifi.RelayClose"];
+            //commandSerialRelayOpenStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Serial.RelayOpen"];
+            //commandSerialRelayCloseStringFormat = ConfigurationManager.AppSettings["Cmd.Format.Serial.RelayClose"];
 
             newLoadingForm.StartPosition = FormStartPosition.Manual;
             newLoadingForm.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width / 2) - (newLoadingForm.Width / 2), Screen.PrimaryScreen.WorkingArea.Height - newLoadingForm.Height - 50);
 
-            StartCommandQueueConsumer();
+            //StartCommandQueueConsumer();
 
             Log("Startup completed");
         }
-
 
         private void AssignResources()
         {
@@ -116,7 +112,7 @@ namespace SM.ClubManager.AccessControl
 
         private void ConfigureSystem()
         {
-            EnableDisableWirelessComms();
+            //EnableDisableWirelessComms();
         }
 
         private void PreloadAssets()
@@ -139,6 +135,7 @@ namespace SM.ClubManager.AccessControl
 
         private void InitSerialComms()
         {
+            //InitializeSerialOutConnection();
 
             InitializeSerialInConnection();
 
@@ -146,6 +143,56 @@ namespace SM.ClubManager.AccessControl
             int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
 
             OpenComPort(serialInClient, portName, portBaudRate, picInSerialConnection);
+
+            simplySwitchClient = new SimplySwitch("COM5");
+            simplySwitchClient.OnLogMessage += SimplySwitchClient_OnLogMessage;
+            simplySwitchClient.OnConnected += SimplySwitchClient_OnConnected;
+            simplySwitchClient.OnDisconnected += SimplySwitchClient_OnDisconnected;            
+        }
+
+
+        private void HandleSimplySwitchClientConnectionEvent(bool isConnectedEvent)
+        {
+            string statusString = isConnectedEvent ? "opened" : "closed"; //args.Connected.ToString();
+            Log("USB port " + statusString);
+            DisplayNotificationBalloon("Simply Switch", "USB connection " + statusString, isConnectedEvent ? NotificationType.Info : NotificationType.Warning);
+
+            if (!isConnectedEvent)
+            {
+                rtbUsbOutput.BackColor = Color.White;
+                rtbUsbOutput.ForeColor = Color.Black;
+                txtUsbCommand.Select();
+                txtUsbCommand.Focus();
+                rtbUsbOutput.InvokeIfRequired(t => t.Clear());
+            }
+            else
+            {
+                grpUsbCommandPanel.InvokeIfRequired(t => t.Enabled = true);
+                rtbUsbOutput.BackColor = Color.Black;
+                rtbUsbOutput.ForeColor = Color.LimeGreen;
+            }
+
+            //usbMessageBuffer?.Clear();
+
+            //usbMessageBuffer = null;
+            //usbMessageBuffer = new List<byte>();
+
+            picScanResult.InvokeIfRequired(t => t.Visible = false);
+        }
+
+        private void SimplySwitchClient_OnConnected(object? sender, EventArgs e)
+        {
+            HandleSimplySwitchClientConnectionEvent(true);
+        }
+
+        private void SimplySwitchClient_OnDisconnected(object? sender, EventArgs e)
+        {
+            HandleSimplySwitchClientConnectionEvent(false);
+        }
+
+        private void SimplySwitchClient_OnLogMessage(object? sender, SSLogMessage e)
+        {
+            Log(e.Message, e.IsError);
         }
 
         public static Image LoadImageFromResource(string resourceName)
@@ -196,86 +243,11 @@ namespace SM.ClubManager.AccessControl
                 return null;
             }
         }
-
-        private void StartCommandQueueConsumer()
-        {
-
-            try
-            {
-                commandQueue = new BlockingCollection<RelayCommand>();
-                bwCommandProcessor = new BackgroundWorker();
-                bwCommandProcessor.DoWork += BwCommandProcessor_DoWork;
-                bwCommandProcessor.RunWorkerAsync();
-            }
-            catch (Exception)
-            {
-                Log("**WARNING** Message processor failed to start! Please contact support!", true);
-                throw;
-            }
-        }
-
-        private void BwCommandProcessor_DoWork(object sender, DoWorkEventArgs e)
-        {
-            try
-            {
-                while (!this.Disposing && !isClosing)
-                {
-                    if (!commandQueue.IsCompleted && commandQueue.Count() > 0)
-                    {
-                        RelayCommand commandEntry = commandQueue.Take();
-
-                        ProcessRelayCommand(commandEntry);
-
-                    }
-
-                    if (this.Disposing || isClosing)
-                        break;
-                    System.Threading.Thread.Sleep(10);
-                }
-            }
-            catch (OperationCanceledException ex)
-            {
-                Log("EXCEPTION (BwCommandProcessor_DoWork): " + ex.Message + " STACKTRACE: " + ex.StackTrace, true);
-            }
-            catch (Exception ex)
-            {
-                Log("EXCEPTION (BwCommandProcesso_DoWork): " + ex.Message + " STACKTRACE: " + ex.StackTrace, true);
-                throw;
-            }
-        }
-
-        private void ProcessRelayCommand(RelayCommand command)
-        {
-            if (command.PreExecutionDelayMs > 0 && command.Command == RelayCommand.CommandType.Close)
-            {
-                Log(string.Format("Applying pre-activation delay of {0} second", command.PreExecutionDelayMs));
-                ApplyPreActivationDelay(ApplicationSettings.Instance.InchingDelay);
-            }
-
-            if (ApplicationSettings.Instance.IsTargetWireless)
-            {
-                //pasting type comparison as reference
-                //relayCommand.Command  == RelayCommand.CommandType.Open
-                ExecuteWirelessCommand(command.Command);
-            }
-            else
-            {
-                ExecuteUsbCommand(command.Command);
-            }
-        }
+             
         #endregion
 
         #region Private methods
-        //////[DllImport("user32.dll", CharSet = CharSet.Auto)]
-        //////private static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
-        //////private const int WM_VSCROLL = 277;
-        //////private const int SB_PAGEBOTTOM = 7;
-
-        //////internal static void ScrollToBottom(RichTextBox richTextBox)
-        //////{
-        //////    SendMessage(richTextBox.Handle, WM_VSCROLL, (IntPtr)SB_PAGEBOTTOM, IntPtr.Zero);
-        //////    richTextBox.SelectionStart = richTextBox.Text.Length;
-        //////}
+     
         private void DisplayNotificationBalloon(string header, string message, NotificationType notificationType = NotificationType.Info)
         {
             Icon icon = this.Icon;
@@ -284,11 +256,11 @@ namespace SM.ClubManager.AccessControl
             switch (notificationType)
             {
                 case NotificationType.Error:
-                    //icon = notificationWarningIcon;
+                    
                     ttIcon = ToolTipIcon.Error;
                     break;
                 case NotificationType.Info:
-                    //icon = notificationInformationIcon;
+                 
                     ttIcon = ToolTipIcon.Info;
                     break;
                 default:
@@ -328,10 +300,6 @@ namespace SM.ClubManager.AccessControl
             {
                 Log(string.Format("Opening port {0}...", portName));
 
-                //int count = 0;
-                //bool isConnectionOk = false;
-                //while (!isConnectionOk && count < 5)
-                //{
                 try
                 {
                     serialClient.Disconnect();
@@ -369,33 +337,6 @@ namespace SM.ClubManager.AccessControl
             }
 
             return;
-        }
-
-        private void OnRelayCommandReceived(ISerialMessage item)
-        {
-            if (!(item is RelayCommand relayCommand))
-            {
-                throw new Exception("Cannot process Club Manager command. Invalid command object received!");
-            }
-
-            Log(string.Format("Processing relay command '{0}'", relayCommand.Command.ToString()));
-            //check what type of command is required i.e. serial / wifi
-            //_ = ApplicationSettings.Instance.IsTargetWireless;
-
-            //this method should not care about whether command is wireless / wired. it just wants to execute command
-            try
-            {
-                commandQueue.Add(relayCommand);
-                //Adding delay to allow the 'loading' image to be displayed so user can see something happened. serves no other purpose
-                Thread.Sleep(500);
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            Log("Relay command processing completed");
         }
 
         private List<ISerialMessage> GetMessagesFromBuffer(ref List<byte> byteList, string eofString)
@@ -441,43 +382,7 @@ namespace SM.ClubManager.AccessControl
                 throw;
             }
         }
-
-        private void EnableDisableWirelessComms()
-        {
-            try
-            {
-                bool isTargetWireless = ApplicationSettings.Instance.IsTargetWireless;
-
-                if (!isTargetWireless)
-                {
-                    OpenComPort(serialOutClient, ApplicationSettings.Instance.SerialOutPort, ApplicationSettings.Instance.SerialOutBaudRate);
-                    picConnectionType.Image = (Image)imgUsbConnection.Clone();
-
-                    txtUsbCommand.Focus();
-                    txtUsbCommand.Select();
-
-                }
-                else
-                {
-                    serialOutClient?.Disconnect();
-
-                    picConnectionType.Image = (Image)imgWifiConnection.Clone();
-
-                    btnViewLogs.Focus();
-                    btnViewLogs.Select();
-                }
-
-                grpUsbCommandPanel.Visible = !isTargetWireless;
-
-                newLoadingForm?.Show();
-                newLoadingForm?.Hide();
-            }
-            catch (Exception ex)
-            {
-                Log(ex.Message, true);
-            }
-        }
-
+     
         private void SetConnectionDisplayEnabledDisabled(PictureBox picBox, bool isChecked = false)
         {
             if (isChecked)
@@ -493,13 +398,13 @@ namespace SM.ClubManager.AccessControl
         private void Cleanup()
         {
             isClosing = true;
-            commandQueue.CompleteAdding();
-            var items = commandQueue.Take(commandQueue.Count);
-            foreach (var item in items)
-            {
-                item.Dispose();
-            }
-            items = null;
+            //commandQueue.CompleteAdding();
+            //var items = commandQueue.Take(commandQueue.Count);
+            //foreach (var item in items)
+            //{
+            //    item.Dispose();
+            //}
+            //items = null;
 
             if (settingsForm != null)
             {
@@ -524,61 +429,12 @@ namespace SM.ClubManager.AccessControl
                 serialInClient = null;
             }
 
-            if (serialOutClient != null)
-            {
-                serialOutClient.Disconnect();
-                serialOutClient.ConnectionStatusChanged -= SerialOutClient_ConnectionStatusChanged;
-                serialOutClient.MessageReceived -= SerialOutClient_MessageReceived;
-                serialOutClient = null;
-            }
-
             lstLog.Dispose();
             lstLog = null;
-            commandQueue.Dispose();
-            commandQueue = null;
+            //commandQueue.Dispose();
+            //commandQueue = null;
         }
 
-        private void ExecuteWirelessCommand(RelayCommand.CommandType commandType)
-        {
-            try
-            {
-                Log("Executing wireless command");
-                string url = "";
-
-                switch (commandType)
-                {
-                    case RelayCommand.CommandType.Open:
-                        Log("Applying pre-activation delay, if applicable");
-                        ApplyPreActivationDelay(ApplicationSettings.Instance.InchingDelay);
-
-                        url = commandWifiRelayOpenStringFormat;
-                        Log("Sending OPEN command");
-                        break;
-                    case RelayCommand.CommandType.Close:
-                    default:
-                        url = commandWifiRelayCloseStringFormat;
-                        Log("Sending CLOSE command");
-                        break;
-                }
-
-                url = url.ToLower()
-                            .Replace("{ip}", ApplicationSettings.Instance.WirelessDeviceIPAddress)
-                            .Replace("{port}", ApplicationSettings.Instance.WirelessDevicePort);
-
-
-                HttpPost(url);
-            }
-            catch (Exception ex)
-            {
-                Log(ex.Message, true);
-            }
-            finally
-            {
-                //give the loading form a chance to actually load properly before trying to close it, just in case the wifi command is super fast :P
-                //Thread.Sleep(20);
-                //frmLoading.CloseForm();
-            }
-        }
 
         private void ShowNewLoadingForm(bool displayLoader)
         {
@@ -638,44 +494,35 @@ namespace SM.ClubManager.AccessControl
             }
         }
 
-        private void ExecuteUsbCommand(RelayCommand.CommandType commandType)
+
+        private void OnRelayCommandReceived(ISerialMessage item)
         {
+            if (!(item is RelayCommand relayCommand))
+            {
+                throw new Exception("Cannot process Club Manager command. Invalid command object received!");
+            }
+
+            Log(string.Format("Processing relay command '{0}'", relayCommand.Command.ToString()));
+            //check what type of command is required i.e. serial / wifi
+            //_ = ApplicationSettings.Instance.IsTargetWireless;
+
+            //this method should not care about whether command is wireless / wired. it just wants to execute command
             try
             {
-                Log("Executing USB command");
+                var response = simplySwitchClient.SOpen();
+                //commandQueue?.Add(relayCommand);
+                //Adding delay to allow the 'loading' image to be displayed so user can see something happened. serves no other purpose
+                Thread.Sleep(500);
 
-                string cmd = "";
-                switch (commandType)
-                {
-                    case RelayCommand.CommandType.Open:
-                        cmd = commandSerialRelayOpenStringFormat;
-                        Log("Sending OPEN command");
-                        break;
-                    case RelayCommand.CommandType.Close:
-                    default:
-                        cmd = commandSerialRelayCloseStringFormat;
-                        Log("Sending CLOSE command");
-                        break;
-                }
-
-
-                if (serialOutClient != null && serialOutClient.IsConnected)
-                {
-
-
-                    byte[] bte = Encoding.ASCII.GetBytes(cmd);
-                    serialOutClient.SendMessage(bte);
-                }
-                else
-                {
-                    Log("No connection to the controller exist. Please check the settings and make sure that the device is plugged in and switched on!", true);
-                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Log(ex.Message, true);
+                throw;
             }
+
+            Log("Relay command processing completed");
         }
+
         private void HttpPost(string url)
         {
             try
@@ -702,12 +549,12 @@ namespace SM.ClubManager.AccessControl
                 Log(ex.Message, true);
             }
         }
-
+       
         private void InitializeSerialInConnection()
         {
             try
             {
-                Log("Initializing serial connection objects...");
+                Log("Initializing serial IN connection object...");
 
                 if (serialInClient == null)
                 {
@@ -718,14 +565,7 @@ namespace SM.ClubManager.AccessControl
                     messageBuffer = new List<byte>();
                 }
 
-                if (serialOutClient == null)
-                {
-                    serialOutClient = new SerialPortInput();
-                    serialOutClient.ConnectionStatusChanged += SerialOutClient_ConnectionStatusChanged;
-                    serialOutClient.MessageReceived += SerialOutClient_MessageReceived;
-
-                    usbMessageBuffer = new List<byte>();
-                }
+              
             }
             catch (Exception ex)
             {
@@ -880,13 +720,6 @@ namespace SM.ClubManager.AccessControl
                 rtbUsbOutput.ForeColor = Color.LimeGreen;
             }
 
-
-            usbMessageBuffer?.Clear();
-
-
-            usbMessageBuffer = null;
-            usbMessageBuffer = new List<byte>();
-
             picScanResult.InvokeIfRequired(t => t.Visible = false);
         }
 
@@ -1005,7 +838,7 @@ namespace SM.ClubManager.AccessControl
                 OpenComPort(serialInClient, portName, portBaudRate, picInSerialConnection);
 
                 //setup for either wireless / wired comms to device
-                EnableDisableWirelessComms();
+                //EnableDisableWirelessComms();
             }
             else
             {
@@ -1112,12 +945,15 @@ namespace SM.ClubManager.AccessControl
         {
             try
             {
-                if (serialOutClient != null && serialOutClient.IsConnected && !string.IsNullOrEmpty(txtUsbCommand.Text.Trim()))
-                {
-                    byte[] btes = Encoding.ASCII.GetBytes(txtUsbCommand.Text.Trim() + "\r\n");
-                    Log("Sending USB command -> " + txtUsbCommand.Text.Trim());
-                    serialOutClient.SendMessage(btes);
-                }
+                Log("THIS FEATURE HAS BEEN DISABLED FOR NOW",true);
+                return;
+
+                //if (serialOutClient != null && serialOutClient.IsConnected && !string.IsNullOrEmpty(txtUsbCommand.Text.Trim()))
+                //{
+                //    byte[] btes = Encoding.ASCII.GetBytes(txtUsbCommand.Text.Trim() + "\r\n");
+                //    Log("Sending USB command -> " + txtUsbCommand.Text.Trim());
+                //    serialOutClient.SendMessage(btes);
+                //}
             }
             catch (Exception ex)
             {
@@ -1131,19 +967,25 @@ namespace SM.ClubManager.AccessControl
 
         private void btnUsbCommandOn_Click(object sender, EventArgs e)
         {
-            string command = "POWER1 ON";
-            Log("Manual USB command executed");
-            txtUsbCommand.Text = command;
-            btnUsbCommand.PerformClick();
+            Log("THIS FEATURE HAS BEEN DISABLED FOR NOW", true);
+            return;
+
+            //string command = "POWER1 ON";
+            //Log("Manual USB command executed");
+            //txtUsbCommand.Text = command;
+            //btnUsbCommand.PerformClick();
             //btnUsbCommand_Click(null, null);
         }
 
         private void btnUsbCommandOff_Click(object sender, EventArgs e)
         {
-            Log("Manual USB command executed");
-            string command = "POWER1 OFF";
-            txtUsbCommand.Text = command;
-            btnUsbCommand.PerformClick();
+            Log("THIS FEATURE HAS BEEN DISABLED FOR NOW", true);
+            return;
+
+            //Log("Manual USB command executed");
+            //string command = "POWER1 OFF";
+            //txtUsbCommand.Text = command;
+            //btnUsbCommand.PerformClick();
         }
 
 
@@ -1194,5 +1036,211 @@ namespace SM.ClubManager.AccessControl
         //        Log(ex.Message, true);
         //    }
         //}
+
+
+        #region SimplySwitch Removed Code
+
+        //BlockingCollection<RelayCommand> commandQueue;
+        //BackgroundWorker bwCommandProcessor;
+
+
+        //private void InitializeSerialOutConnection()
+        //{
+        //    Log("Initializing serial OUT connection object...");
+        //    if (serialOutClient == null)
+        //    {
+        //        serialOutClient = new SerialPortInput();
+        //        serialOutClient.ConnectionStatusChanged += SerialOutClient_ConnectionStatusChanged;
+        //        serialOutClient.MessageReceived += SerialOutClient_MessageReceived;
+
+        //        usbMessageBuffer = new List<byte>();
+        //    }
+        //}
+
+        //private void EnableDisableWirelessComms()
+        //{
+        //    try
+        //    {
+        //        bool isTargetWireless = ApplicationSettings.Instance.IsTargetWireless;
+
+        //        if (!isTargetWireless)
+        //        {
+        //            OpenComPort(serialOutClient, ApplicationSettings.Instance.SerialOutPort, ApplicationSettings.Instance.SerialOutBaudRate);
+        //            picConnectionType.Image = (Image)imgUsbConnection.Clone();
+
+        //            txtUsbCommand.Focus();
+        //            txtUsbCommand.Select();
+
+        //        }
+        //        else
+        //        {
+        //            serialOutClient?.Disconnect();
+
+        //            picConnectionType.Image = (Image)imgWifiConnection.Clone();
+
+        //            btnViewLogs.Focus();
+        //            btnViewLogs.Select();
+        //        }
+
+        //        grpUsbCommandPanel.Visible = !isTargetWireless;
+
+        //        newLoadingForm?.Show();
+        //        newLoadingForm?.Hide();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log(ex.Message, true);
+        //    }
+        //}
+
+        //private void StartCommandQueueConsumer()
+        //{
+
+        //    try
+        //    {
+        //        commandQueue = new BlockingCollection<RelayCommand>();
+        //        bwCommandProcessor = new BackgroundWorker();
+        //        bwCommandProcessor.DoWork += BwCommandProcessor_DoWork;
+        //        bwCommandProcessor.RunWorkerAsync();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Log("**WARNING** Message processor failed to start! Please contact support!", true);
+        //        throw;
+        //    }
+        //}
+
+        //private void BwCommandProcessor_DoWork(object sender, DoWorkEventArgs e)
+        //{
+        //    try
+        //    {
+        //        while (!this.Disposing && !isClosing)
+        //        {
+        //            if (!commandQueue.IsCompleted && commandQueue.Count() > 0)
+        //            {
+        //                RelayCommand commandEntry = commandQueue.Take();
+
+        //                ProcessRelayCommand(commandEntry);
+
+        //            }
+
+        //            if (this.Disposing || isClosing)
+        //                break;
+        //            System.Threading.Thread.Sleep(10);
+        //        }
+        //    }
+        //    catch (OperationCanceledException ex)
+        //    {
+        //        Log("EXCEPTION (BwCommandProcessor_DoWork): " + ex.Message + " STACKTRACE: " + ex.StackTrace, true);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log("EXCEPTION (BwCommandProcesso_DoWork): " + ex.Message + " STACKTRACE: " + ex.StackTrace, true);
+        //        throw;
+        //    }
+        //}
+
+
+        //private void ProcessRelayCommand(RelayCommand command)
+        //{
+        //    if (command.PreExecutionDelayMs > 0 && command.Command == RelayCommand.CommandType.Close)
+        //    {
+        //        Log(string.Format("Applying pre-activation delay of {0} second", command.PreExecutionDelayMs));
+        //        ApplyPreActivationDelay(ApplicationSettings.Instance.InchingDelay);
+        //    }
+
+        //    if (ApplicationSettings.Instance.IsTargetWireless)
+        //    {
+        //        //pasting type comparison as reference
+        //        //relayCommand.Command  == RelayCommand.CommandType.Open
+        //        ExecuteWirelessCommand(command.Command);
+        //    }
+        //    else
+        //    {
+        //        ExecuteUsbCommand(command.Command);
+        //    }
+        //}
+
+        //private void ExecuteUsbCommand(RelayCommand.CommandType commandType)
+        //{
+        //    try
+        //    {
+        //        Log("Executing USB command");
+
+        //        string cmd = "";
+        //        switch (commandType)
+        //        {
+        //            case RelayCommand.CommandType.Open:
+        //                cmd = commandSerialRelayOpenStringFormat;
+        //                Log("Sending OPEN command");
+        //                break;
+        //            case RelayCommand.CommandType.Close:
+        //            default:
+        //                cmd = commandSerialRelayCloseStringFormat;
+        //                Log("Sending CLOSE command");
+        //                break;
+        //        }
+
+
+        //        if (serialOutClient != null && serialOutClient.IsConnected)
+        //        {
+
+
+        //            byte[] bte = Encoding.ASCII.GetBytes(cmd);
+        //            serialOutClient.SendMessage(bte);
+        //        }
+        //        else
+        //        {
+        //            Log("No connection to the controller exist. Please check the settings and make sure that the device is plugged in and switched on!", true);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log(ex.Message, true);
+        //    }
+        //}
+
+        //private void ExecuteWirelessCommand(RelayCommand.CommandType commandType)
+        //{
+        //    try
+        //    {
+        //        Log("Executing wireless command");
+        //        string url = "";
+
+        //        switch (commandType)
+        //        {
+        //            case RelayCommand.CommandType.Open:
+        //                Log("Applying pre-activation delay, if applicable");
+        //                ApplyPreActivationDelay(ApplicationSettings.Instance.InchingDelay);
+
+        //                url = commandWifiRelayOpenStringFormat;
+        //                Log("Sending OPEN command");
+        //                break;
+        //            case RelayCommand.CommandType.Close:
+        //            default:
+        //                url = commandWifiRelayCloseStringFormat;
+        //                Log("Sending CLOSE command");
+        //                break;
+        //        }
+
+        //        url = url.ToLower()
+        //                    .Replace("{ip}", ApplicationSettings.Instance.WirelessDeviceIPAddress)
+        //                    .Replace("{port}", ApplicationSettings.Instance.WirelessDevicePort);
+
+
+        //        HttpPost(url);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log(ex.Message, true);
+        //    }
+        //    finally
+        //    {
+        //        //give the loading form a chance to actually load properly before trying to close it, just in case the wifi command is super fast :P
+        //        //Thread.Sleep(20);
+        //        //frmLoading.CloseForm();
+        //    }
+        //}
+        #endregion
     }
 }

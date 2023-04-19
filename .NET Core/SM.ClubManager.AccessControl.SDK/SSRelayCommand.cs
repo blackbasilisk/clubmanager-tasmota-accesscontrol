@@ -1,5 +1,4 @@
-﻿using SM.ClubManager.AccessControl.SDK.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace SM.ClubManager.AccessControl.SDK
 {
-    public class SSRelayCommand : ISSerialMessage
+    public class SSRelayCommand
     {
         #region Types
         public enum CommandType
         {
             Close,
-            Open
+            Open,
+            Restart,
+            GetStatus
         }
 
         #endregion
@@ -50,48 +51,20 @@ namespace SM.ClubManager.AccessControl.SDK
 
         }
 
-        public ISSerialMessage Create(string message, ushort preExecutionDelayMs = 0)
+        public static SSRelayCommand Create(CommandType commandType, ushort preExecutionDelayMs = 0)
         {
             try
             {
                 SSRelayCommand command = new();
-
-                if (string.IsNullOrEmpty(message))
-                {
-                    throw new Exception("Cannot generate command from an empty string");
-                }
-               
-                switch (message.Substring(0,1).ToUpper())
-                {
-                    case "N":
-                        command.Command = CommandType.Close;
-                        break;
-                    case "F":
-                        command.Command = CommandType.Open;
-                        break;
-                    default:
-                        throw new Exception("Invalid command type received. Only N and F commands are catered for. Please contact support.");                        
-                }
-
-                string sPortNo = message.Substring(1, message.Length - 1);
-
-                command.PreExecutionDelayMs = preExecutionDelayMs;
-
-                if (int.TryParse(sPortNo, out int portNo))
-                {
-                    command.PortNo = portNo;
-                }
-                else
-                {
-                    throw new Exception("Command type OK, but cannot parse the port number");
-                }
+                command.Command = commandType;                 
+                command.PreExecutionDelayMs = preExecutionDelayMs;               
 
                 return command;
             }
             catch (Exception)
             {
                 throw;
-            }           
+            }
         }
 
         public void Dispose()

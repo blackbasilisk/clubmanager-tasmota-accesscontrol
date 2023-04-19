@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 
 namespace SM.ClubManager.AccessControl.SDK
 {
-    internal interface ISimplySwitch : IDisposable
+    public interface ISimplySwitch : IDisposable
     {
-        internal SSResponse Restart(); 
+        public SSResponse Restart();
 
-        internal SSResponse Connect();
+        public SSResponse SOpen(ushort preExecutionDelayMs = 0);
 
-        internal SSResponse SOpen(string ComPort, int BaudRate);
+        public SSResponse SClose(ushort preExecutionDelayMs = 0);
 
-        internal SSResponse SOpen();
+        public SSResponse SConnect();
 
-        internal SSResponse SClose(string ComPort, int BaudRate);
+        public SSResponse SDisconnect();
 
-        internal SSResponse SClose();
-
-        internal SStatus GetStatus();
+        //public SStatus GetStatus();
 
 
 
