@@ -17,7 +17,10 @@ C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessContr
 C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\bin\Debug\net7.0\SM.ClubManager.AccessControl.Model.pdb
 C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\obj\Debug\net7.0\SM.ClubManager.AccessControl.Config.csproj.CopyComplete
 C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\obj\Debug\net7.0\SM.ClubManager.AccessControl.Config.dll
-C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\obj\Debug\net7.0\refint\SM.ClubManager.AccessControl.Config.dll
 C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\obj\Debug\net7.0\SM.ClubManager.AccessControl.Config.pdb
 C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\obj\Debug\net7.0\SM.ClubManager.AccessControl.Config.genruntimeconfig.cache
-C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\obj\Debug\net7.0\ref\SM.ClubManager.AccessControl.Config.dll
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\bin\Debug\net7.0\SM.ClubManager.AccessControl.Config.pssym
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\bin\Debug\net7.0\SM.ClubManager.AccessControl.Config.pspdb
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\obj\Debug\net7.0\PostSharp\touch
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\obj\Debug\net7.0\PostSharp\AdditionalBuildDependencies.txt
+C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\obj\Debug\net7.0\PostSharp\postsharp.app.config

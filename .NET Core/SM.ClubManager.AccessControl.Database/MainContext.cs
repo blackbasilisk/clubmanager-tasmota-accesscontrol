@@ -25,8 +25,7 @@ namespace SM.ClubManager.AccessControl.Database
         //    // Database.SetInitializer(new DropCreateDatabaseIfModelChanges<MainContext>());
         //    //Database.SetInitializer<MainContext>(new MigrateDatabaseToLatestVersion<MainContext, SM.ClubManager.AccessControl.Database.Migrations.Configuration>());
         //    //            System.Data.Entity.Database.SetInitializer<MainContext>(null);
-        //    //            
-            
+        //    //                        
         //}
 
 

@@ -39,6 +39,16 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Loupe.Agent.Core": {
+              "target": "Package",
+              "version": "[4.14.0.11, )"
+            },
+            "SerialPortLib": {
+              "target": "Package",
+              "version": "[1.1.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

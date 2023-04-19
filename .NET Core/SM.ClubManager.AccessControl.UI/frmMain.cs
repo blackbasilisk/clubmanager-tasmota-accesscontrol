@@ -20,8 +20,6 @@ using System.Runtime.InteropServices;
 using Gibraltar.Agent;
 using System.Collections.Concurrent;
 
-
-
 namespace SM.ClubManager.AccessControl
 {
 #pragma warning disable IDE1006 // Naming Styles
@@ -846,9 +844,10 @@ namespace SM.ClubManager.AccessControl
                 if (comThread != null)
                 {
                     frmLoading.ShowLoadingForm();
-                    comThread.Abort();
-                    comThread.Join();
-                    comThread = null;
+                    comThread.Interrupt();
+                    //comThread.Abort();
+                    comThread.Join();                    
+                    //comThread = null;
                     frmLoading.CloseForm();
                 }
             }
