@@ -1,4 +1,4 @@
-![Logo of the project](https://raw.githubusercontent.com/blackbasilisk/clubmanager-tasmota-accesscontrol/blob/dev/SimplySwitchLogo.png)
+![Logo of the project](https://raw.githubusercontent.com/blackbasilisk/clubmanager-tasmota-accesscontrol/dev/SimplySwitchLogo.png)
 # Simply Switch SDK
 > Just switch it
 
