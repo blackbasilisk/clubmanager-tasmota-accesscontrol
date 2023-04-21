@@ -545,7 +545,7 @@ namespace SM.ClubManager.AccessControl
             //this method should not care about whether command is wireless / wired. it just wants to execute command
             try
             {
-                var response = simplySwitchClient.SOpen();
+                var response = simplySwitchClient.SActivate();
                 //commandQueue?.Add(relayCommand);
                 //Adding delay to allow the 'loading' image to be displayed so user can see something happened. serves no other purpose
                 Thread.Sleep(500);
@@ -949,7 +949,7 @@ namespace SM.ClubManager.AccessControl
         private void btnUsbCommandOn_Click(object sender, EventArgs e)
         {
 
-            var r = simplySwitchClient?.SClose();
+            var r = simplySwitchClient?.SActivate();
             if (r != null && r.ResponseCode != ResponseCode.Success)
             {
                 Log(r.Message, true);
@@ -958,7 +958,7 @@ namespace SM.ClubManager.AccessControl
 
         private void btnUsbCommandOff_Click(object sender, EventArgs e)
         {
-            var r = simplySwitchClient?.SOpen();
+            var r = simplySwitchClient?.SDeactivate();
             if (r != null && r.ResponseCode != ResponseCode.Success)
             {
                 Log(r.Message, true);

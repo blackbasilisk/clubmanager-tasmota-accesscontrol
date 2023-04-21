@@ -1075,7 +1075,6 @@
       },
       "SM.ClubManager.AccessControl.SDK/1.0.0": {
         "dependencies": {
-          "Loupe.Agent.Core": "4.14.0.11",
           "SerialPortLib": "1.1.1"
         },
         "runtime": {

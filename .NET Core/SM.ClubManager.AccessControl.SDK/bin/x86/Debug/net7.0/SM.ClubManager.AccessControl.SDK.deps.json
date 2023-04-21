@@ -8,44 +8,10 @@
     ".NETCoreApp,Version=v7.0": {
       "SM.ClubManager.AccessControl.SDK/1.0.0": {
         "dependencies": {
-          "Loupe.Agent.Core": "4.14.0.11",
           "SerialPortLib": "1.1.1"
         },
         "runtime": {
           "SM.ClubManager.AccessControl.SDK.dll": {}
-        }
-      },
-      "Loupe.Agent.Core/4.14.0.11": {
-        "dependencies": {
-          "Loupe.Agent.Core.Extensibility": "4.14.0.11",
-          "Loupe.Agent.Core.Internal": "4.14.0.11"
-        },
-        "runtime": {
-          "lib/net5.0/Loupe.Agent.NETCore.dll": {
-            "assemblyVersion": "4.13.0.0",
-            "fileVersion": "4.13.0.0"
-          }
-        }
-      },
-      "Loupe.Agent.Core.Extensibility/4.14.0.11": {
-        "runtime": {
-          "lib/net5.0/Loupe.Extensibility.NETCore.dll": {
-            "assemblyVersion": "4.13.0.0",
-            "fileVersion": "4.13.0.0"
-          }
-        }
-      },
-      "Loupe.Agent.Core.Internal/4.14.0.11": {
-        "dependencies": {
-          "Loupe.Agent.Core.Extensibility": "4.14.0.11",
-          "Microsoft.Extensions.Logging": "6.0.0",
-          "System.Security.Principal.Windows": "5.0.0"
-        },
-        "runtime": {
-          "lib/net5.0/Loupe.Core.NETCore.dll": {
-            "assemblyVersion": "4.13.0.0",
-            "fileVersion": "4.13.0.0"
-          }
         }
       },
       "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
@@ -242,8 +208,7 @@
           }
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
-      "System.Security.Principal.Windows/5.0.0": {}
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {}
     }
   },
   "libraries": {
@@ -251,27 +216,6 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
-    },
-    "Loupe.Agent.Core/4.14.0.11": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-DGogd6vvw1/lcdg9hj6YRv3sORv/rgPZxibnfA1KxLI6t24KfBa5HTV9tbBlQ4ck6DmdrFuqErJ4y5GCvfioSg==",
-      "path": "loupe.agent.core/4.14.0.11",
-      "hashPath": "loupe.agent.core.4.14.0.11.nupkg.sha512"
-    },
-    "Loupe.Agent.Core.Extensibility/4.14.0.11": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-20TueKkeHT4ETXbvBmLugraohtTD6baCg8//HuqpbtEcelEQF0ZqcW3Z01TkkV1KslBrwtN1/j8tYaKZG11CDw==",
-      "path": "loupe.agent.core.extensibility/4.14.0.11",
-      "hashPath": "loupe.agent.core.extensibility.4.14.0.11.nupkg.sha512"
-    },
-    "Loupe.Agent.Core.Internal/4.14.0.11": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-YRETOnVBubHMIjUnXjWQlHb0wUltmpihWFuFf7ao/QbBstfBI8iJmyRykxbz0RJrrAyvQa4iTLXxvlLlGPsxDA==",
-      "path": "loupe.agent.core.internal/4.14.0.11",
-      "hashPath": "loupe.agent.core.internal.4.14.0.11.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
       "type": "package",
@@ -405,13 +349,6 @@
       "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
-    },
-    "System.Security.Principal.Windows/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-t0MGLukB5WAVU9bO3MGzvlGnyJPgUlcwerXn1kzBRjwLKixT96XV0Uza41W49gVd8zEMFu9vQEFlv0IOrytICA==",
-      "path": "system.security.principal.windows/5.0.0",
-      "hashPath": "system.security.principal.windows.5.0.0.nupkg.sha512"
     }
   }
 }

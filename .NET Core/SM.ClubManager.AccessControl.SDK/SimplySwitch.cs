@@ -179,13 +179,15 @@ namespace SM.ClubManager.AccessControl.SDK
                 {
                     throw new InvalidOperationException("BaudRate has not been set");
                 }
-                Log("Opening port " + _serialPort);
+                Log(string.Format("Enable/Disable connecton [{0}]: True", _serialPort));
                 EnableDisableConnection(true);
+                
                 return SSResponse.Create(ResponseCode.Success, "");
             }
             catch (Exception ex)
             {
                 Log(ex.Message, true);
+                Log(string.Format("Enable/Disable connecton [{0}]: False", _serialPort));
                 EnableDisableConnection(false);
                 return SSResponse.Create(ResponseCode.InitializeError, "Failed to open serial port");
             }
@@ -236,6 +238,7 @@ namespace SM.ClubManager.AccessControl.SDK
             
             if (serialOutClient != null)
             {
+
                 serialOutClient.Disconnect();                
                 serialOutClient.ConnectionStatusChanged -= SerialOutClient_ConnectionStatusChanged;
                 serialOutClient.MessageReceived -= SerialOutClient_MessageReceived;
@@ -252,19 +255,19 @@ namespace SM.ClubManager.AccessControl.SDK
 
         private void Log(string msg, bool isError = false, bool isDebug = false)
         {
-            //Console.WriteLine(string.Format("{0} - {1}", DateTime.Now.ToLongTimeString(), msg));
-            if (isError)
-            {
-                Gibraltar.Agent.Log.Warning("General", msg, "");
-            }
-            else if (isDebug)
-            {
-                Gibraltar.Agent.Log.Verbose("General", msg, "");
-            }
-            else
-            {
-                Gibraltar.Agent.Log.Information("General", msg, "");
-            }
+            ////Console.WriteLine(string.Format("{0} - {1}", DateTime.Now.ToLongTimeString(), msg));
+            //if (isError)
+            //{
+            //    Gibraltar.Agent.Log.Warning("General", msg, "");
+            //}
+            //else if (isDebug)
+            //{
+            //    Gibraltar.Agent.Log.Verbose("General", msg, "");
+            //}
+            //else
+            //{
+            //    Gibraltar.Agent.Log.Information("General", msg, "");
+            //}
 
             OnLogMessage?.Invoke(this, SSLogMessage.GetNewLogMessage(msg, isError, isDebug));
         }
@@ -374,6 +377,7 @@ namespace SM.ClubManager.AccessControl.SDK
                 }
                 else
                 {
+                    Thread.Sleep(100);
                     serialOutClient?.Disconnect();
                 }         
             }
@@ -396,10 +400,11 @@ namespace SM.ClubManager.AccessControl.SDK
                     {
                         throw new Exception("COM port object has not been initialized");
                     }
+                    
                     serialClient.Disconnect();
 
                     serialClient.SetPort(portName: portName, baudRate: baudRate);
-
+                   
                     serialClient.Connect();
 
                     if (serialClient != null && serialClient.IsConnected)

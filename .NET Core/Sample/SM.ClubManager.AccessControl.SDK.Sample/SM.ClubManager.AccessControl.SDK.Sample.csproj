@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Platforms>AnyCPU;x86</Platforms>
+    <StartupObject>SM.ClubManager.AccessControl.SDK.Sample.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SerialPortLib" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SM.ClubManager.AccessControl.SDK">
+      <HintPath>..\..\SM.ClubManager.AccessControl.SDK\bin\x86\Debug\net7.0\SM.ClubManager.AccessControl.SDK.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

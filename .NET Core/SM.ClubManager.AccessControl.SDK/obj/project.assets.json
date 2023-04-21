@@ -2,54 +2,6 @@
   "version": 3,
   "targets": {
     "net7.0": {
-      "Loupe.Agent.Core/4.14.0.11": {
-        "type": "package",
-        "dependencies": {
-          "Loupe.Agent.Core.Extensibility": "4.14.0.11",
-          "Loupe.Agent.Core.Internal": "4.14.0.11"
-        },
-        "compile": {
-          "lib/net5.0/Loupe.Agent.NETCore.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net5.0/Loupe.Agent.NETCore.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Loupe.Agent.Core.Extensibility/4.14.0.11": {
-        "type": "package",
-        "compile": {
-          "lib/net5.0/Loupe.Extensibility.NETCore.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net5.0/Loupe.Extensibility.NETCore.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Loupe.Agent.Core.Internal/4.14.0.11": {
-        "type": "package",
-        "dependencies": {
-          "Loupe.Agent.Core.Extensibility": "4.14.0.11",
-          "Microsoft.Extensions.Logging": "5.0.0",
-          "System.Security.Principal.Windows": "5.0.0"
-        },
-        "compile": {
-          "lib/net5.0/Loupe.Core.NETCore.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net5.0/Loupe.Core.NETCore.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -336,99 +288,10 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
-      },
-      "System.Security.Principal.Windows/5.0.0": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp3.0/System.Security.Principal.Windows.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
-            "assetType": "runtime",
-            "rid": "unix"
-          },
-          "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
-            "assetType": "runtime",
-            "rid": "win"
-          }
-        }
       }
     }
   },
   "libraries": {
-    "Loupe.Agent.Core/4.14.0.11": {
-      "sha512": "DGogd6vvw1/lcdg9hj6YRv3sORv/rgPZxibnfA1KxLI6t24KfBa5HTV9tbBlQ4ck6DmdrFuqErJ4y5GCvfioSg==",
-      "type": "package",
-      "path": "loupe.agent.core/4.14.0.11",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net461/Loupe.Agent.NETCore.dll",
-        "lib/net461/Loupe.Agent.NETCore.xml",
-        "lib/net5.0/Loupe.Agent.NETCore.dll",
-        "lib/net5.0/Loupe.Agent.NETCore.xml",
-        "lib/netstandard2.0/Loupe.Agent.NETCore.dll",
-        "lib/netstandard2.0/Loupe.Agent.NETCore.xml",
-        "loupe-192x192.png",
-        "loupe.agent.core.4.14.0.11.nupkg.sha512",
-        "loupe.agent.core.nuspec"
-      ]
-    },
-    "Loupe.Agent.Core.Extensibility/4.14.0.11": {
-      "sha512": "20TueKkeHT4ETXbvBmLugraohtTD6baCg8//HuqpbtEcelEQF0ZqcW3Z01TkkV1KslBrwtN1/j8tYaKZG11CDw==",
-      "type": "package",
-      "path": "loupe.agent.core.extensibility/4.14.0.11",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net461/Loupe.Extensibility.NETCore.dll",
-        "lib/net461/Loupe.Extensibility.NETCore.xml",
-        "lib/net5.0/Loupe.Extensibility.NETCore.dll",
-        "lib/net5.0/Loupe.Extensibility.NETCore.xml",
-        "lib/netstandard2.0/Loupe.Extensibility.NETCore.dll",
-        "lib/netstandard2.0/Loupe.Extensibility.NETCore.xml",
-        "loupe-192x192.png",
-        "loupe.agent.core.extensibility.4.14.0.11.nupkg.sha512",
-        "loupe.agent.core.extensibility.nuspec"
-      ]
-    },
-    "Loupe.Agent.Core.Internal/4.14.0.11": {
-      "sha512": "YRETOnVBubHMIjUnXjWQlHb0wUltmpihWFuFf7ao/QbBstfBI8iJmyRykxbz0RJrrAyvQa4iTLXxvlLlGPsxDA==",
-      "type": "package",
-      "path": "loupe.agent.core.internal/4.14.0.11",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net461/Loupe.Core.NETCore.dll",
-        "lib/net461/Loupe.Core.NETCore.xml",
-        "lib/net462/Loupe.Core.NETCore.dll",
-        "lib/net462/Loupe.Core.NETCore.xml",
-        "lib/net47/Loupe.Core.NETCore.dll",
-        "lib/net47/Loupe.Core.NETCore.xml",
-        "lib/net471/Loupe.Core.NETCore.dll",
-        "lib/net471/Loupe.Core.NETCore.xml",
-        "lib/net472/Loupe.Core.NETCore.dll",
-        "lib/net472/Loupe.Core.NETCore.xml",
-        "lib/net48/Loupe.Core.NETCore.dll",
-        "lib/net48/Loupe.Core.NETCore.xml",
-        "lib/net5.0/Loupe.Core.NETCore.dll",
-        "lib/net5.0/Loupe.Core.NETCore.xml",
-        "lib/netstandard2.0/Loupe.Core.NETCore.dll",
-        "lib/netstandard2.0/Loupe.Core.NETCore.xml",
-        "lib/netstandard2.1/Loupe.Core.NETCore.dll",
-        "lib/netstandard2.1/Loupe.Core.NETCore.xml",
-        "loupe-192x192.png",
-        "loupe.agent.core.internal.4.14.0.11.nupkg.sha512",
-        "loupe.agent.core.internal.nuspec"
-      ]
-    },
     "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
       "sha512": "qWzV9o+ZRWq+pGm+1dF+R7qTgTYoXvbyowRoBxQJGfqTpqDun2eteerjRQhq5PQ/14S+lqto3Ft4gYaRyl4rdQ==",
       "type": "package",
@@ -856,66 +719,10 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
-    },
-    "System.Security.Principal.Windows/5.0.0": {
-      "sha512": "t0MGLukB5WAVU9bO3MGzvlGnyJPgUlcwerXn1kzBRjwLKixT96XV0Uza41W49gVd8zEMFu9vQEFlv0IOrytICA==",
-      "type": "package",
-      "path": "system.security.principal.windows/5.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net46/System.Security.Principal.Windows.dll",
-        "lib/net461/System.Security.Principal.Windows.dll",
-        "lib/net461/System.Security.Principal.Windows.xml",
-        "lib/netstandard1.3/System.Security.Principal.Windows.dll",
-        "lib/netstandard2.0/System.Security.Principal.Windows.dll",
-        "lib/netstandard2.0/System.Security.Principal.Windows.xml",
-        "lib/uap10.0.16299/_._",
-        "ref/net46/System.Security.Principal.Windows.dll",
-        "ref/net461/System.Security.Principal.Windows.dll",
-        "ref/net461/System.Security.Principal.Windows.xml",
-        "ref/netcoreapp3.0/System.Security.Principal.Windows.dll",
-        "ref/netcoreapp3.0/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/System.Security.Principal.Windows.dll",
-        "ref/netstandard1.3/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/de/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/es/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/fr/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/it/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/ja/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/ko/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/ru/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/zh-hans/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/zh-hant/System.Security.Principal.Windows.xml",
-        "ref/netstandard2.0/System.Security.Principal.Windows.dll",
-        "ref/netstandard2.0/System.Security.Principal.Windows.xml",
-        "ref/uap10.0.16299/_._",
-        "runtimes/unix/lib/netcoreapp2.0/System.Security.Principal.Windows.dll",
-        "runtimes/unix/lib/netcoreapp2.0/System.Security.Principal.Windows.xml",
-        "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll",
-        "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.xml",
-        "runtimes/win/lib/net46/System.Security.Principal.Windows.dll",
-        "runtimes/win/lib/net461/System.Security.Principal.Windows.dll",
-        "runtimes/win/lib/net461/System.Security.Principal.Windows.xml",
-        "runtimes/win/lib/netcoreapp2.0/System.Security.Principal.Windows.dll",
-        "runtimes/win/lib/netcoreapp2.0/System.Security.Principal.Windows.xml",
-        "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll",
-        "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.xml",
-        "runtimes/win/lib/netstandard1.3/System.Security.Principal.Windows.dll",
-        "runtimes/win/lib/uap10.0.16299/_._",
-        "system.security.principal.windows.5.0.0.nupkg.sha512",
-        "system.security.principal.windows.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "Loupe.Agent.Core >= 4.14.0.11",
       "SerialPortLib >= 1.1.1"
     ]
   },
@@ -958,10 +765,6 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
-          "Loupe.Agent.Core": {
-            "target": "Package",
-            "version": "[4.14.0.11, )"
-          },
           "SerialPortLib": {
             "target": "Package",
             "version": "[1.1.1, )"
