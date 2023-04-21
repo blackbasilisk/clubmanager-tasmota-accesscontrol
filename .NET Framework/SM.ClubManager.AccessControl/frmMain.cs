@@ -464,7 +464,7 @@ namespace SM.ClubManager.AccessControl
                 {                   
                     serialOutClient?.Disconnect();                    
 
-                    picConnectionType.Image = (Image)imgWifiConnection.Clone();
+                    picConnectionType.Image = (Image)imgUnchecked.Clone();
                     
                     btnViewLogs.Focus();
                     btnViewLogs.Select();

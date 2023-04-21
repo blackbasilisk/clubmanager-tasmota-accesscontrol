@@ -8,27 +8,27 @@ namespace SM.ClubManager.AccessControl.SDK
 {
     public class SSResponse
     {
-		private ErrorCode _code;
+		private ResponseCode _responsecode;
 
-		public ErrorCode Code
+		public ResponseCode ResponseCode
 		{
-			get { return _code; }	
-            internal set { _code = value; }
+			get { return _responsecode; }	
+            internal set { _responsecode = value; }
 		}
 
-        private string? _errorMessage;
+        private string? _message;
 
-        public string ErrorMessage
+        public string Message
         {
-            get { return _errorMessage; }
-            internal set { _errorMessage = value; }
+            get { return _message; }
+            internal set { _message = value; }
         }
 
-        public static SSResponse Create(ErrorCode errorCode = ErrorCode.Success, string errorMessage = "" )
+        public static SSResponse Create(ResponseCode errorCode = ResponseCode.Success, string message = "" )
 		{
             SSResponse response = new SSResponse();
-            response.Code = errorCode;
-            response.ErrorMessage = errorMessage;
+            response.ResponseCode = errorCode;
+            response.Message = message;
 
             return response;
 		}

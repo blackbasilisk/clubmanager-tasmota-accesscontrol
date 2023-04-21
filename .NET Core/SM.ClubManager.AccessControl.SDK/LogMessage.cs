@@ -8,6 +8,14 @@ namespace SM.ClubManager.AccessControl.SDK
 {	
 	public class SSLogMessage
     {
+        private bool _isDebug;
+
+        public bool IsDebug
+        {
+            get { return _isDebug; }
+            set { _isDebug = value; }
+        }
+
         private bool _isError;
 
         public bool IsError
@@ -26,9 +34,9 @@ namespace SM.ClubManager.AccessControl.SDK
 
         internal SSLogMessage() { }
 
-        internal static SSLogMessage GetNewLogMessage(string message, bool isError = false) 
+        internal static SSLogMessage GetNewLogMessage(string message, bool isError = false, bool isDebug = false) 
         {
-            return new SSLogMessage() { Message = message, IsError = isError };
+            return new SSLogMessage() { Message = message, IsError = isError, IsDebug = isDebug };
         }
     }
 }

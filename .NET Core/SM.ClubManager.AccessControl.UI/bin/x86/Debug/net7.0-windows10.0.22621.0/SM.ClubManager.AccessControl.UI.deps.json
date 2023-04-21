@@ -18,6 +18,7 @@
           "SIS.Library.Base": "1.0.0",
           "SIS.Library.WinFormsBase": "1.0.0",
           "SM.ClubManager.AccessControl.Config": "1.0.0",
+          "SM.ClubManager.AccessControl.SDK": "1.0.0",
           "SerialPortLib": "1.1.1",
           "Syncfusion.GridHelperClasses.Windows": "21.1.39",
           "System.Resources.Extensions": "7.0.0",
@@ -1071,6 +1072,15 @@
         "runtime": {
           "SM.ClubManager.AccessControl.Repository.dll": {}
         }
+      },
+      "SM.ClubManager.AccessControl.SDK/1.0.0": {
+        "dependencies": {
+          "Loupe.Agent.Core": "4.14.0.11",
+          "SerialPortLib": "1.1.1"
+        },
+        "runtime": {
+          "SM.ClubManager.AccessControl.SDK.dll": {}
+        }
       }
     }
   },
@@ -1739,6 +1749,11 @@
       "sha512": ""
     },
     "SM.ClubManager.AccessControl.Repository/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SM.ClubManager.AccessControl.SDK/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

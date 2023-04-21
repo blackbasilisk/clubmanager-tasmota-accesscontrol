@@ -1597,6 +1597,14 @@
         "runtime": {},
         "runtimeTargets": {}
       },
+      "SM.ClubManager.AccessControl.SDK/1.0.0": {
+        "dependencies": {
+          "Loupe.Agent.Core": "4.14.0.11",
+          "SerialPortLib": "1.1.1"
+        },
+        "runtime": {},
+        "runtimeTargets": {}
+      },
       "Microsoft.NETCore.Platforms/3.1.0": {
         "dependencies": {},
         "runtime": {},
@@ -2639,6 +2647,13 @@
       "hashPath": ""
     },
     "SM.ClubManager.AccessControl.Repository/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": "",
+      "path": "",
+      "hashPath": ""
+    },
+    "SM.ClubManager.AccessControl.SDK/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": "",

@@ -79,10 +79,24 @@ namespace SM.ClubManager.AccessControl.SDK
             Initialize();
         }
 
-        private void Initialize()
-        {           
-            StartCommandQueueConsumer();           
+        public SimplySwitch()
+        {
+            Initialize();
         }
+
+            private void Initialize()
+        {           
+            StartCommandQueueConsumer();
+
+            if(serialOutClient == null)
+            {
+                serialOutClient = new SerialPortInput();
+            }
+            serialOutClient.ConnectionStatusChanged += SerialOutClient_ConnectionStatusChanged;
+            serialOutClient.MessageReceived += SerialOutClient_MessageReceived;            
+        }
+
+     
         #endregion
 
         #region Public Methods
@@ -93,12 +107,12 @@ namespace SM.ClubManager.AccessControl.SDK
                 //The command is close because it closes the relay, but from the consumer perspective it 'opens' the gate 
                 SSRelayCommand command = SSRelayCommand.Create(SSRelayCommand.CommandType.Close, preExecutionDelayMs);
                 commandQueue?.Add(command);
-                return SSResponse.Create(ErrorCode.Success);
+                return SSResponse.Create(ResponseCode.Success);
             }
             catch (Exception)
             {
                 Log("Error adding command close relay command to command queue", true);
-                return SSResponse.Create(ErrorCode.Unknown);                
+                return SSResponse.Create(ResponseCode.Unknown);                
             }                    
         }
 
@@ -109,12 +123,12 @@ namespace SM.ClubManager.AccessControl.SDK
                 //The command is open because it opens the relay, but from the consumer perspective it 'closes' the gate 
                 SSRelayCommand command = SSRelayCommand.Create(SSRelayCommand.CommandType.Open, preExecutionDelayMs);
                 commandQueue?.Add(command);
-                return SSResponse.Create(ErrorCode.Success);
+                return SSResponse.Create(ResponseCode.Success);
             }
             catch (Exception)
             {
                 Log("Error adding command close relay command to command queue", true);
-                return SSResponse.Create(ErrorCode.Unknown);
+                return SSResponse.Create(ResponseCode.Unknown);
             }
         }
 
@@ -129,12 +143,12 @@ namespace SM.ClubManager.AccessControl.SDK
             {              
                 SSRelayCommand command = SSRelayCommand.Create(SSRelayCommand.CommandType.Restart);
                 commandQueue?.Add(command);
-                return SSResponse.Create(ErrorCode.Success);
+                return SSResponse.Create(ResponseCode.Success);
             }
             catch (Exception)
             {
                 Log("Error adding restart command to command queue", true);
-                return SSResponse.Create(ErrorCode.Unknown);
+                return SSResponse.Create(ResponseCode.Unknown);
             }
         }
       
@@ -144,12 +158,12 @@ namespace SM.ClubManager.AccessControl.SDK
             {
                 Log("Closing port " + _serialPort);
                 EnableDisableConnection(false);
-                return SSResponse.Create(ErrorCode.Success, "");
+                return SSResponse.Create(ResponseCode.Success, "");
             }
             catch (Exception ex)
             {
                 Log(ex.Message, true);                
-                return SSResponse.Create(ErrorCode.Unknown, "Error when trying to close serial port");
+                return SSResponse.Create(ResponseCode.Unknown, "Error when trying to close serial port");
             }
         }
 
@@ -157,15 +171,23 @@ namespace SM.ClubManager.AccessControl.SDK
         {
             try
             {
+                if(_serialPort == null || _serialPort == "")
+                {
+                    throw new InvalidOperationException("SerialPort has not been set");
+                }
+                if (_serialBaudRate <= 0)
+                {
+                    throw new InvalidOperationException("BaudRate has not been set");
+                }
                 Log("Opening port " + _serialPort);
                 EnableDisableConnection(true);
-                return SSResponse.Create(ErrorCode.Success, "");
+                return SSResponse.Create(ResponseCode.Success, "");
             }
             catch (Exception ex)
             {
                 Log(ex.Message, true);
                 EnableDisableConnection(false);
-                return SSResponse.Create(ErrorCode.Unknown, "Failed to open serial port");
+                return SSResponse.Create(ResponseCode.InitializeError, "Failed to open serial port");
             }
         }
       
@@ -214,7 +236,7 @@ namespace SM.ClubManager.AccessControl.SDK
             
             if (serialOutClient != null)
             {
-                serialOutClient.Disconnect();
+                serialOutClient.Disconnect();                
                 serialOutClient.ConnectionStatusChanged -= SerialOutClient_ConnectionStatusChanged;
                 serialOutClient.MessageReceived -= SerialOutClient_MessageReceived;
                 serialOutClient = null;
@@ -244,7 +266,7 @@ namespace SM.ClubManager.AccessControl.SDK
                 Gibraltar.Agent.Log.Information("General", msg, "");
             }
 
-            OnLogMessage?.Invoke(this, SSLogMessage.GetNewLogMessage(msg, isError));
+            OnLogMessage?.Invoke(this, SSLogMessage.GetNewLogMessage(msg, isError, isDebug));
         }
 
         private void SerialOutClient_ConnectionStatusChanged(object sender, ConnectionStatusChangedEventArgs args)
@@ -257,7 +279,7 @@ namespace SM.ClubManager.AccessControl.SDK
             else {
                 OnDisconnected?.Invoke(this, new EventArgs());  
             }
-            Log("USB port " + statusString);
+            Log("Port " + statusString);
 
             //Set internal connection status var based on statusString
             _isConnected = args.Connected;
@@ -276,7 +298,7 @@ namespace SM.ClubManager.AccessControl.SDK
                 if (args.Data != null && args.Data.Length > 0)
                 {
                     string s = Encoding.UTF8.GetString(args.Data);
-                    Console.Write(s);
+                    Log(s, false, true);                    
                 }
             }
             catch (Exception ex)
@@ -287,7 +309,6 @@ namespace SM.ClubManager.AccessControl.SDK
 
         private void StartCommandQueueConsumer()
         {
-
             try
             {
                 commandQueue = new BlockingCollection<SSRelayCommand>();
@@ -386,13 +407,13 @@ namespace SM.ClubManager.AccessControl.SDK
                         Log(string.Format("Port {0} opened OK", portName));                        
                     }
                     else
-                    {                       
-                        Log(string.Format("ERROR opening port {0}", portName), true);
+                    {                                               
+                        throw new Exception(string.Format("ERROR opening port {0}. Check serial port parameters.", portName));
                     }
                 }
                 catch (Exception serialEx)
                 {
-                    Log("Error opening COM port: " + serialEx.Message, true);
+                    throw;
                 }
             }
             catch (Exception ex)

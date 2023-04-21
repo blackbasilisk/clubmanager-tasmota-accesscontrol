@@ -53,6 +53,7 @@ namespace SM.ClubManager.AccessControl
             btnUsbCommandOff = new Button();
             btnUsbCommandOn = new Button();
             pictureBox2 = new PictureBox();
+            btnRestart = new Button();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picScanResult).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textBoxExt2).BeginInit();
@@ -128,7 +129,7 @@ namespace SM.ClubManager.AccessControl
             textBoxExt2.Margin = new Padding(4, 3, 4, 3);
             textBoxExt2.Multiline = true;
             textBoxExt2.Name = "textBoxExt2";
-            textBoxExt2.Size = new Size(164, 27);
+            textBoxExt2.Size = new Size(129, 27);
             textBoxExt2.TabIndex = 99;
             textBoxExt2.Text = "Device Connection";
             // 
@@ -258,6 +259,7 @@ namespace SM.ClubManager.AccessControl
             // 
             // grpUsbCommandPanel
             // 
+            grpUsbCommandPanel.Controls.Add(btnRestart);
             grpUsbCommandPanel.Controls.Add(btnUsbCommandOff);
             grpUsbCommandPanel.Controls.Add(btnUsbCommandOn);
             grpUsbCommandPanel.Controls.Add(txtUsbCommand);
@@ -307,6 +309,18 @@ namespace SM.ClubManager.AccessControl
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 15;
             pictureBox2.TabStop = false;
+            // 
+            // btnRestart
+            // 
+            btnRestart.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnRestart.Location = new Point(113, 90);
+            btnRestart.Margin = new Padding(4, 3, 4, 3);
+            btnRestart.Name = "btnRestart";
+            btnRestart.Size = new Size(86, 27);
+            btnRestart.TabIndex = 7;
+            btnRestart.Text = "RESTART";
+            btnRestart.UseVisualStyleBackColor = true;
+            btnRestart.Click += btnRestart_Click;
             // 
             // frmMain
             // 
@@ -369,6 +383,7 @@ namespace SM.ClubManager.AccessControl
         private System.Windows.Forms.Button btnUsbCommandOn;
         private System.Windows.Forms.PictureBox picScanResult;
         private SIS.Library.Base.Controls.ListViewExt lstLog;
+        private Button btnRestart;
     }
 }
 

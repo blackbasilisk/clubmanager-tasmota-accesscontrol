@@ -20,6 +20,7 @@ using System.Runtime.InteropServices;
 using Gibraltar.Agent;
 using System.Collections.Concurrent;
 using SM.ClubManager.AccessControl.SDK;
+using SIS.Library.Base.Infrastructure.Extensions;
 
 namespace SM.ClubManager.AccessControl
 {
@@ -45,10 +46,10 @@ namespace SM.ClubManager.AccessControl
         //string commandSerialRelayOpenStringFormat = "";
         //string commandSerialRelayCloseStringFormat = "";
 
-        
+
         SerialPortInput serialInClient = null;//new SerialPortInput();
-        SimplySwitch simplySwitchClient;//serialOutClient = null;//new SerialPortInput();
-       
+        SimplySwitch simplySwitchClient = new SimplySwitch();//serialOutClient = null;//new SerialPortInput();
+
         frmSettings settingsForm = new frmSettings();
         frmNewLoading newLoadingForm = new frmNewLoading();
         List<byte> messageBuffer = null;
@@ -101,7 +102,14 @@ namespace SM.ClubManager.AccessControl
             newLoadingForm.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width / 2) - (newLoadingForm.Width / 2), Screen.PrimaryScreen.WorkingArea.Height - newLoadingForm.Height - 50);
 
             //StartCommandQueueConsumer();
-
+                       
+            if (simplySwitchClient == null)
+            {
+                simplySwitchClient = new SimplySwitch();         
+            }
+            simplySwitchClient.OnLogMessage += SimplySwitchClient_OnLogMessage;
+            simplySwitchClient.OnConnected += SimplySwitchClient_OnConnected;
+            simplySwitchClient.OnDisconnected += SimplySwitchClient_OnDisconnected;
             Log("Startup completed");
         }
 
@@ -144,10 +152,12 @@ namespace SM.ClubManager.AccessControl
 
             OpenComPort(serialInClient, portName, portBaudRate, picInSerialConnection);
 
-            simplySwitchClient = new SimplySwitch("COM5");
-            simplySwitchClient.OnLogMessage += SimplySwitchClient_OnLogMessage;
-            simplySwitchClient.OnConnected += SimplySwitchClient_OnConnected;
-            simplySwitchClient.OnDisconnected += SimplySwitchClient_OnDisconnected;            
+            if(!simplySwitchClient.IsConnected)
+            {
+                simplySwitchClient.SerialPort = ApplicationSettings.Instance.SerialOutPort;
+                simplySwitchClient.SerialBaudRate = ApplicationSettings.Instance.SerialOutBaudRate;
+                simplySwitchClient.SConnect();
+            }           
         }
 
 
@@ -156,6 +166,11 @@ namespace SM.ClubManager.AccessControl
             string statusString = isConnectedEvent ? "opened" : "closed"; //args.Connected.ToString();
             Log("USB port " + statusString);
             DisplayNotificationBalloon("Simply Switch", "USB connection " + statusString, isConnectedEvent ? NotificationType.Info : NotificationType.Warning);
+
+            if (picConnectionType != null)
+            {
+                SetConnectionDisplayEnabledDisabled(picConnectionType, isConnectedEvent);
+            }
 
             if (!isConnectedEvent)
             {
@@ -192,7 +207,22 @@ namespace SM.ClubManager.AccessControl
 
         private void SimplySwitchClient_OnLogMessage(object? sender, SSLogMessage e)
         {
-            Log(e.Message, e.IsError);
+
+            if (e.IsDebug)
+            {
+                rtbUsbOutput.InvokeIfRequired(r =>
+                {
+                    r.AppendText(e.Message);
+                    if (r.Lines.Length > 100)
+                    {
+                        r.Clear();
+                    }
+                });
+            }
+            else
+            {
+                Log(e.Message, e.IsError);
+            }
         }
 
         public static Image LoadImageFromResource(string resourceName)
@@ -243,11 +273,11 @@ namespace SM.ClubManager.AccessControl
                 return null;
             }
         }
-             
+
         #endregion
 
         #region Private methods
-     
+
         private void DisplayNotificationBalloon(string header, string message, NotificationType notificationType = NotificationType.Info)
         {
             Icon icon = this.Icon;
@@ -256,11 +286,11 @@ namespace SM.ClubManager.AccessControl
             switch (notificationType)
             {
                 case NotificationType.Error:
-                    
+
                     ttIcon = ToolTipIcon.Error;
                     break;
                 case NotificationType.Info:
-                 
+
                     ttIcon = ToolTipIcon.Info;
                     break;
                 default:
@@ -382,7 +412,7 @@ namespace SM.ClubManager.AccessControl
                 throw;
             }
         }
-     
+
         private void SetConnectionDisplayEnabledDisabled(PictureBox picBox, bool isChecked = false)
         {
             if (isChecked)
@@ -428,6 +458,12 @@ namespace SM.ClubManager.AccessControl
 
                 serialInClient = null;
             }
+
+            simplySwitchClient.OnLogMessage -= SimplySwitchClient_OnLogMessage;
+            simplySwitchClient.OnConnected -= SimplySwitchClient_OnConnected;
+            simplySwitchClient.OnDisconnected -= SimplySwitchClient_OnDisconnected;
+
+            simplySwitchClient.Dispose();
 
             lstLog.Dispose();
             lstLog = null;
@@ -549,7 +585,7 @@ namespace SM.ClubManager.AccessControl
                 Log(ex.Message, true);
             }
         }
-       
+
         private void InitializeSerialInConnection()
         {
             try
@@ -565,7 +601,7 @@ namespace SM.ClubManager.AccessControl
                     messageBuffer = new List<byte>();
                 }
 
-              
+
             }
             catch (Exception ex)
             {
@@ -686,7 +722,7 @@ namespace SM.ClubManager.AccessControl
                     frmLoading.ShowLoadingForm();
                     comThread.Interrupt();
                     //comThread.Abort();
-                    comThread.Join();                    
+                    comThread.Join();
                     //comThread = null;
                     frmLoading.CloseForm();
                 }
@@ -699,74 +735,7 @@ namespace SM.ClubManager.AccessControl
         }
         #endregion
 
-        private void SerialOutClient_ConnectionStatusChanged(object sender, ConnectionStatusChangedEventArgs args)
-        {
-            string statusString = args.Connected ? "opened" : "closed"; //args.Connected.ToString();
-            Log("USB port " + statusString);
-            DisplayNotificationBalloon("Simply Switch", "USB connection " + statusString, args.Connected ? NotificationType.Info : NotificationType.Warning);
 
-            if (!args.Connected)
-            {
-                rtbUsbOutput.BackColor = Color.White;
-                rtbUsbOutput.ForeColor = Color.Black;
-                txtUsbCommand.Select();
-                txtUsbCommand.Focus();
-                rtbUsbOutput.InvokeIfRequired(t => t.Clear());
-            }
-            else
-            {
-                grpUsbCommandPanel.InvokeIfRequired(t => t.Enabled = true);
-                rtbUsbOutput.BackColor = Color.Black;
-                rtbUsbOutput.ForeColor = Color.LimeGreen;
-            }
-
-            picScanResult.InvokeIfRequired(t => t.Visible = false);
-        }
-
-        private void SerialOutClient_MessageReceived(object sender, MessageReceivedEventArgs args)
-        {
-            try
-            {
-                //add data to the messagebuffer.            
-                if (args.Data != null && args.Data.Count() > 0)
-                {
-                    string s = Encoding.UTF8.GetString(args.Data);
-
-                    rtbUsbOutput.InvokeIfRequired(r =>
-                    {
-                        r.AppendText(s);
-                        if (r.Lines.Length > 100)
-                        {
-                            r.Clear();
-                        }
-                    });
-
-                    //foreach (var item in args.Data)
-                    //{
-                    //    messageBuffer.Add(item);
-                    //}
-                    //string msgEofString = "\r\n";
-                    ////put entire buffer into string variable, then we look for the EOF byte sequence i.e. char(10)char(13)char(10) i.e. "\n\r\n"
-                    //List<ISerialMessage> serialMessages = GetMessagesFromBuffer(ref usbMessageBuffer, msgEofString);
-
-                    //if (serialMessages != null && serialMessages.Count() > 0)
-                    //{                        
-                    //    foreach (var item in serialMessages)
-                    //    {
-                    //        rtbUsbOutput.AppendText(item.ToString());
-                    //        if(rtbUsbOutput.Lines.Length > 30)
-                    //        {
-                    //            rtbUsbOutput.Clear();
-                    //        }
-                    //    }
-                    //}
-                }
-            }
-            catch (Exception ex)
-            {
-                Log(ex.Message, true);
-            }
-        }
 
         private void SerialInClient_ConnectionStatusChanged(object sender, ConnectionStatusChangedEventArgs args)
         {
@@ -839,6 +808,18 @@ namespace SM.ClubManager.AccessControl
 
                 //setup for either wireless / wired comms to device
                 //EnableDisableWirelessComms();
+
+                simplySwitchClient.SerialBaudRate = ApplicationSettings.Instance.SerialOutBaudRate;
+                simplySwitchClient.SerialPort = ApplicationSettings.Instance.SerialOutPort; 
+                var r = simplySwitchClient.SConnect();
+                if(r.ResponseCode == ResponseCode.Success)
+                {
+                    Log("SimplySwitch connected on " + simplySwitchClient.SerialPort);
+                }
+                else
+                {
+                    Log("Simply Switch failed to connect. " + r.Message, true);
+                }                              
             }
             else
             {
@@ -945,7 +926,7 @@ namespace SM.ClubManager.AccessControl
         {
             try
             {
-                Log("THIS FEATURE HAS BEEN DISABLED FOR NOW",true);
+                Log("THIS FEATURE HAS BEEN DISABLED FOR NOW", true);
                 return;
 
                 //if (serialOutClient != null && serialOutClient.IsConnected && !string.IsNullOrEmpty(txtUsbCommand.Text.Trim()))
@@ -967,27 +948,22 @@ namespace SM.ClubManager.AccessControl
 
         private void btnUsbCommandOn_Click(object sender, EventArgs e)
         {
-            Log("THIS FEATURE HAS BEEN DISABLED FOR NOW", true);
-            return;
 
-            //string command = "POWER1 ON";
-            //Log("Manual USB command executed");
-            //txtUsbCommand.Text = command;
-            //btnUsbCommand.PerformClick();
-            //btnUsbCommand_Click(null, null);
+            var r = simplySwitchClient?.SClose();
+            if (r != null && r.ResponseCode != ResponseCode.Success)
+            {
+                Log(r.Message, true);
+            }                                  
         }
 
         private void btnUsbCommandOff_Click(object sender, EventArgs e)
         {
-            Log("THIS FEATURE HAS BEEN DISABLED FOR NOW", true);
-            return;
-
-            //Log("Manual USB command executed");
-            //string command = "POWER1 OFF";
-            //txtUsbCommand.Text = command;
-            //btnUsbCommand.PerformClick();
+            var r = simplySwitchClient?.SOpen();
+            if (r != null && r.ResponseCode != ResponseCode.Success)
+            {
+                Log(r.Message, true);
+            }                                             
         }
-
 
         //private void SerialInClient_DataReceived(object sender, SerialDataReceivedEventArgs e)
         //{
@@ -1241,6 +1217,83 @@ namespace SM.ClubManager.AccessControl
         //        //frmLoading.CloseForm();
         //    }
         //}
+
+
+        //private void SerialOutClient_ConnectionStatusChanged(object sender, ConnectionStatusChangedEventArgs args)
+        //{
+        //    string statusString = args.Connected ? "opened" : "closed"; //args.Connected.ToString();
+        //    Log("USB port " + statusString);
+        //    DisplayNotificationBalloon("Simply Switch", "USB connection " + statusString, args.Connected ? NotificationType.Info : NotificationType.Warning);
+
+        //    if (!args.Connected)
+        //    {
+        //        rtbUsbOutput.BackColor = Color.White;
+        //        rtbUsbOutput.ForeColor = Color.Black;
+        //        txtUsbCommand.Select();
+        //        txtUsbCommand.Focus();
+        //        rtbUsbOutput.InvokeIfRequired(t => t.Clear());
+        //    }
+        //    else
+        //    {
+        //        grpUsbCommandPanel.InvokeIfRequired(t => t.Enabled = true);
+        //        rtbUsbOutput.BackColor = Color.Black;
+        //        rtbUsbOutput.ForeColor = Color.LimeGreen;
+        //    }
+
+        //    picScanResult.InvokeIfRequired(t => t.Visible = false);
+        //}
+
+        //private void SerialOutClient_MessageReceived(object sender, MessageReceivedEventArgs args)
+        //{
+        //    try
+        //    {
+        //        //add data to the messagebuffer.            
+        //        if (args.Data != null && args.Data.Count() > 0)
+        //        {
+        //            string s = Encoding.UTF8.GetString(args.Data);
+
+        //            rtbUsbOutput.InvokeIfRequired(r =>
+        //            {
+        //                r.AppendText(s);
+        //                if (r.Lines.Length > 100)
+        //                {
+        //                    r.Clear();
+        //                }
+        //            });
+
+        //            //foreach (var item in args.Data)
+        //            //{
+        //            //    messageBuffer.Add(item);
+        //            //}
+        //            //string msgEofString = "\r\n";
+        //            ////put entire buffer into string variable, then we look for the EOF byte sequence i.e. char(10)char(13)char(10) i.e. "\n\r\n"
+        //            //List<ISerialMessage> serialMessages = GetMessagesFromBuffer(ref usbMessageBuffer, msgEofString);
+
+        //            //if (serialMessages != null && serialMessages.Count() > 0)
+        //            //{                        
+        //            //    foreach (var item in serialMessages)
+        //            //    {
+        //            //        rtbUsbOutput.AppendText(item.ToString());
+        //            //        if(rtbUsbOutput.Lines.Length > 30)
+        //            //        {
+        //            //            rtbUsbOutput.Clear();
+        //            //        }
+        //            //    }
+        //            //}
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log(ex.Message, true);
+        //    }
+        //}
         #endregion
+
+        private void btnRestart_Click(object sender, EventArgs e)
+        {
+            var r = simplySwitchClient?.Restart();
+            Log(r.Message, r.ResponseCode != ResponseCode.Success);
+
+        }
     }
 }

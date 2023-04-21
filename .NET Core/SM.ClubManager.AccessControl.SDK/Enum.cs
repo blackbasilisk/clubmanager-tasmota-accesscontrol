@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SM.ClubManager.AccessControl.SDK
 {  
-        public enum ErrorCode
+        public enum ResponseCode
         {
             Success = 0,
             GenericError = 1,
+            InitializeError = 2,
             Unknown = 99
         }
 }
