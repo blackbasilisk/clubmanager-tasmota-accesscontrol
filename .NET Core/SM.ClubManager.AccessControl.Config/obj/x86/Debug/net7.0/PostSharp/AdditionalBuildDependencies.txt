@@ -1,1 +1,0 @@
-C:\Source\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.Config\obj\x86\Debug\net7.0\PostSharp\PostSharp.Compiler.Engine.dll
