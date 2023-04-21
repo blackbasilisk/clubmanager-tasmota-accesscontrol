@@ -16,6 +16,7 @@
 SimplySwitch simplySwitch = new SimplySwitch();
 simplySwitch.SerialPort = "COM5";
 simplySwitch.SerialBaudRate = 115200;
+```
 
 simplySwitch.SConnect();
 simplySwitch.SActivate();
