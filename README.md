@@ -1,23 +1,26 @@
-![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
+![Logo of the project](https://raw.githubusercontent.com/blackbasilisk/clubmanager-tasmota-accesscontrol/blob/dev/SimplySwitchLogo.png)
+# Simply Switch SDK
+> Just switch it
 
-# Name of the project
-> Additional information or tagline
-
-A brief description of your project, what it is used for and how does life get
-awesome when someone starts to use it.
+.NET Core library to manage communication with Simply Switch device
 
 ## Installing / Getting started
 
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
+1. Add a reference to the library in your project
+2. Create new instance
+3. Assign values to SerialPort and SerialBaudrate properties
+4. Call SConnect()
+5. Call SOpen()
 
-```shell
-packagemanager install awesome-project
-awesome-project start
-awesome-project "Do something!"  # prints "Nah."
+```csharp
+SimplySwitch simplySwitch = new SimplySwitch();
+simplySwitch.SerialPort = "COM5";
+simplySwitch.SerialBaudRate = 115200;
+
+simplySwitch.SConnect();
+simplySwitch.SActivate();
 ```
-
-Here you should say what actually happens when you execute the code above.
+The above code will create a new instance of the SimplySwitch class, connect and activate the relay of the device
 
 ### Initial Configuration
 
@@ -114,15 +117,10 @@ Even though this information can be found inside the project on machine-readable
 format like in a .json file, it's good to include a summary of most useful
 links to humans using your project. You can include links like:
 
-- Project homepage: https://your.github.com/awesome-project/
-- Repository: https://github.com/your/awesome-project/
-- Issue tracker: https://github.com/your/awesome-project/issues
-  - In case of sensitive bugs like security vulnerabilities, please contact
-    my@email.com directly instead of using issue tracker. We value your effort
-    to improve the security and privacy of this project!
-- Related projects:
-  - Your other project: https://github.com/your/other-project/
-  - Someone else's project: https://github.com/someones/awesome-project/
+- Project homepage: https://github.com/blackbasilisk/clubmanager-tasmota-accesscontrol/
+- Repository: https://github.com/blackbasilisk/clubmanager-tasmota-accesscontrol
+- Issue tracker: https://github.com/blackbasilisk/clubmanager-tasmota-accesscontrol/issues
+  - In case of sensitive bugs like security vulnerabilities, please create an issue stating such and the author will get in touch ASAP. We value your effort
 
 
 ## Licensing

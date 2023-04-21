@@ -100,7 +100,7 @@ namespace SM.ClubManager.AccessControl.SDK
         #endregion
 
         #region Public Methods
-        public SSResponse SOpen(ushort preExecutionDelayMs = 0)
+        public SSResponse SActivate(ushort preExecutionDelayMs = 0)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace SM.ClubManager.AccessControl.SDK
             }                    
         }
 
-        public SSResponse SClose(ushort preExecutionDelayMs = 0)
+        public SSResponse SDeactivate(ushort preExecutionDelayMs = 0)
         {
             try
             {
