@@ -19,10 +19,8 @@ simplySwitch.SerialBaudRate = 115200;
 
 simplySwitch.SConnect();
 simplySwitch.SActivate();
-```
-The above code will create a new instance of the SimplySwitch class, connect and activate the relay of the device
 
-### Initial Configuration
+simplySwitch.SDisconnect();
 
 Make sure you add the following Nuget packages. They will add their own dependencies if you do it this way:
 SerialPortLib v1.1.1:  https://github.com/genielabs/serialport-lib-dotnet/
