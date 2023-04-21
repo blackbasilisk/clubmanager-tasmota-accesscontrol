@@ -10,23 +10,25 @@
 2. Create new instance
 3. Assign values to SerialPort and SerialBaudrate properties
 4. Call SConnect()
-5. Call SOpen()
+5. Call SActivate()
+...
 
 ```csharp
 SimplySwitch simplySwitch = new SimplySwitch();
 simplySwitch.SerialPort = "COM5";
 simplySwitch.SerialBaudRate = 115200;
-```
 
 simplySwitch.SConnect();
 simplySwitch.SActivate();
 
 simplySwitch.SDisconnect();
+```
+
+
+## Developing
 
 Make sure you add the following Nuget packages. They will add their own dependencies if you do it this way:
 SerialPortLib v1.1.1:  https://github.com/genielabs/serialport-lib-dotnet/
-
-## Developing
 
 The library has an internal processing queue to process the commands, which means when connecting and disconnecting, 
 the log event might still report serial debugging information. This is normal. 
