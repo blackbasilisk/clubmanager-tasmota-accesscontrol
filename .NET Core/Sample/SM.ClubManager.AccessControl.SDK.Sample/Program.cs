@@ -16,8 +16,10 @@
             sw.SConnect();
             Console.WriteLine("Activating the unit (closing relay)");            
             sw.SActivate();
+            Console.WriteLine("Pausing 2 seconds...");
+            Thread.Sleep(2000);
             Console.WriteLine("Deactivating the unit (opening relay)");            
-            sw.SDeactivate();
+            sw.SRelease();
             Console.WriteLine("Disconnecting... ");
             sw.SDisconnect();
             Console.WriteLine("Press any key to dispose object and exit");
