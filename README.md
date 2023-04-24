@@ -66,9 +66,10 @@ If you'd like to contribute, please fork the repository and use a feature branch
 
 ## Links
 
-*MASSIVE THANK YOU* TO Arendst and all his efforts with the [Tasmota firmware](https://github.com/arendst/Tasmota)! Without him this would not be possible!
+**MASSIVE THANK YOU** TO Arendst and all his efforts with the [Tasmota firmware](https://github.com/arendst/Tasmota).
+Without him this would not be possible!
 
-Also, massive thank you to Generoso Martello for his [SerialPortLib](https://github.com/genielabs/serialport-lib-dotnet) library!
+Also, massive thank you to Generoso Martello for his [SerialPortLib](https://github.com/genielabs/serialport-lib-dotnet) library.
 
 #### Project links
 - Project homepage: https://github.com/blackbasilisk/clubmanager-tasmota-accesscontrol/
@@ -78,4 +79,4 @@ Also, massive thank you to Generoso Martello for his [SerialPortLib](https://git
   
 ## Licensing
 
-This is open source software, licensed under the terms of Apache License 2.0. See the [LICENSE](https://github.com/blackbasilisk/clubmanager-tasmota-accesscontrol/blob/master/LICENSE) file for details.
+This is open source software, licensed under the terms of Apache License 2.0. See the [LICENSE](https://github.com/blackbasilisk/clubmanager-tasmota-accesscontrol/blob/main/LICENSE.md) file for details.
