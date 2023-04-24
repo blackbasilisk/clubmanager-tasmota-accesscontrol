@@ -893,7 +893,7 @@ namespace SM.ClubManager.AccessControl
             }
             catch (Exception ex)
             {
-                Log(ex.Message, true);
+                Log(ex.Message, true); 
             }
         }
 
@@ -958,7 +958,7 @@ namespace SM.ClubManager.AccessControl
 
         private void btnUsbCommandOff_Click(object sender, EventArgs e)
         {
-            var r = simplySwitchClient?.SDeactivate();
+            var r = simplySwitchClient?.SRelease();
             if (r != null && r.ResponseCode != ResponseCode.Success)
             {
                 Log(r.Message, true);

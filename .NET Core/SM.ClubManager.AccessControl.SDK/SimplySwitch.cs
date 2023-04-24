@@ -21,8 +21,8 @@ namespace SM.ClubManager.AccessControl.SDK
         #region Fields 
         bool isDisposing = false;
 
-        readonly string tasmotaCommandOpen = "Power1 on\r\n";
-        readonly string tasmotaCommandClose = "Power1 off\r\n";
+        readonly string tasmotaCommandActivateRelay = "Power1 on\r\n";
+        readonly string tasmotaCommandReleaseRelay = "Power1 off\r\n";
         readonly string tasmotaCommandRestart = "Restart 1\r\n";
 
         //<add key = "Cmd.Format.Serial.RelayClose" value="Power1 on&#xD;&#xA;" />       
@@ -105,7 +105,7 @@ namespace SM.ClubManager.AccessControl.SDK
             try
             {
                 //The command is close because it closes the relay, but from the consumer perspective it 'opens' the gate 
-                SSRelayCommand command = SSRelayCommand.Create(SSRelayCommand.CommandType.Close, preExecutionDelayMs);
+                SSRelayCommand command = SSRelayCommand.Create(SSRelayCommand.CommandType.Activate, preExecutionDelayMs);
                 commandQueue?.Add(command);
                 return SSResponse.Create(ResponseCode.Success);
             }
@@ -116,12 +116,12 @@ namespace SM.ClubManager.AccessControl.SDK
             }                    
         }
 
-        public SSResponse SDeactivate(ushort preExecutionDelayMs = 0)
+        public SSResponse SRelease(ushort preExecutionDelayMs = 0)
         {
             try
             {
                 //The command is open because it opens the relay, but from the consumer perspective it 'closes' the gate 
-                SSRelayCommand command = SSRelayCommand.Create(SSRelayCommand.CommandType.Open, preExecutionDelayMs);
+                SSRelayCommand command = SSRelayCommand.Create(SSRelayCommand.CommandType.Release, preExecutionDelayMs);
                 commandQueue?.Add(command);
                 return SSResponse.Create(ResponseCode.Success);
             }
@@ -358,7 +358,7 @@ namespace SM.ClubManager.AccessControl.SDK
 
         private void ProcessRelayCommand(SSRelayCommand command)
         {
-            if (command.PreExecutionDelayMs > 0 && command.Command == SSRelayCommand.CommandType.Close)
+            if (command.PreExecutionDelayMs > 0 && command.Command == SSRelayCommand.CommandType.Activate)
             {
                 Log(string.Format("Applying pre-activation delay of {0} second", command.PreExecutionDelayMs));
                 ApplyPreActivationDelay(_switchDelay);
@@ -466,14 +466,14 @@ namespace SM.ClubManager.AccessControl.SDK
                         cmd = tasmotaCommandRestart;
                         Log("Sending RESTART command");
                         break;
-                    case SSRelayCommand.CommandType.Open:
-                        cmd = tasmotaCommandOpen;
-                        Log("Sending OPEN command");
+                    case SSRelayCommand.CommandType.Activate:
+                        cmd = tasmotaCommandActivateRelay;
+                        Log("Sending ACTIVATE command");
                         break;
-                    case SSRelayCommand.CommandType.Close:
+                    case SSRelayCommand.CommandType.Release:
                     default:
-                        cmd = tasmotaCommandClose;
-                        Log("Sending CLOSE command");
+                        cmd = tasmotaCommandReleaseRelay;
+                        Log("Sending RELEASE command");
                         break;
                 }
 

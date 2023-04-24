@@ -11,8 +11,8 @@ namespace SM.ClubManager.AccessControl.SDK
         #region Types
         public enum CommandType
         {
-            Close,
-            Open,
+            Release,
+            Activate,
             Restart,
             GetStatus
         }

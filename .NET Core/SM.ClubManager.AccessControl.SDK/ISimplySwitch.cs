@@ -12,7 +12,7 @@ namespace SM.ClubManager.AccessControl.SDK
 
         public SSResponse SActivate(ushort preExecutionDelayMs = 0);
 
-        public SSResponse SDeactivate(ushort preExecutionDelayMs = 0);
+        public SSResponse SRelease(ushort preExecutionDelayMs = 0);
 
         public SSResponse SConnect();
 
