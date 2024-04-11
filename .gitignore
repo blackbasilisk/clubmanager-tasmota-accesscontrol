@@ -3,7 +3,7 @@ bin/
 obj/
 
 # Ignore Visual Studio files
-.vs/
+**/.vs/
 
 # Ignore user-specific files
 *.user
@@ -14,3 +14,22 @@ obj/
 *.nuget/
 *.nupkg
 *.paket/paket.exe
+
+# Ignore build artifacts
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.[Pp]ublish.xml
+*.sw?
+
+# Ignore ReSharper and Rider directories
+_ReSharper*/
+*.resharper
+*.DotSettings.user
+
+# Ignore dotnet core dependency directories
+.bazel/
+.bazelrc
+.bazelignore
+.bazelversion
+.nuget/
+*/project.lock.json
