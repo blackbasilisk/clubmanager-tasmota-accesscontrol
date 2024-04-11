@@ -50,10 +50,10 @@ namespace SM.ClubManager.AccessControl
             btnUsbCommand = new Button();
             txtUsbCommand = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             grpUsbCommandPanel = new GroupBox();
+            btnRestart = new Button();
             btnUsbCommandOff = new Button();
             btnUsbCommandOn = new Button();
             pictureBox2 = new PictureBox();
-            btnRestart = new Button();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picScanResult).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textBoxExt2).BeginInit();
@@ -274,6 +274,18 @@ namespace SM.ClubManager.AccessControl
             grpUsbCommandPanel.TabStop = false;
             grpUsbCommandPanel.Text = "USB Commands";
             // 
+            // btnRestart
+            // 
+            btnRestart.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnRestart.Location = new Point(113, 90);
+            btnRestart.Margin = new Padding(4, 3, 4, 3);
+            btnRestart.Name = "btnRestart";
+            btnRestart.Size = new Size(86, 27);
+            btnRestart.TabIndex = 7;
+            btnRestart.Text = "RESTART";
+            btnRestart.UseVisualStyleBackColor = true;
+            btnRestart.Click += btnRestart_Click;
+            // 
             // btnUsbCommandOff
             // 
             btnUsbCommandOff.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -309,18 +321,8 @@ namespace SM.ClubManager.AccessControl
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 15;
             pictureBox2.TabStop = false;
-            // 
-            // btnRestart
-            // 
-            btnRestart.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnRestart.Location = new Point(113, 90);
-            btnRestart.Margin = new Padding(4, 3, 4, 3);
-            btnRestart.Name = "btnRestart";
-            btnRestart.Size = new Size(86, 27);
-            btnRestart.TabIndex = 7;
-            btnRestart.Text = "RESTART";
-            btnRestart.UseVisualStyleBackColor = true;
-            btnRestart.Click += btnRestart_Click;
+            pictureBox2.Click += pictureBox2_Click;
+            pictureBox2.DoubleClick += pictureBox2_DoubleClick;
             // 
             // frmMain
             // 
@@ -328,7 +330,7 @@ namespace SM.ClubManager.AccessControl
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1174, 591);
+            ClientSize = new Size(700, 591);
             Controls.Add(grpUsbCommandPanel);
             Controls.Add(btnViewLogs);
             Controls.Add(groupBox5);

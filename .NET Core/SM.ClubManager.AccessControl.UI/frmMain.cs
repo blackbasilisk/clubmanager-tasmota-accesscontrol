@@ -22,6 +22,7 @@ using System.Collections.Concurrent;
 using SM.ClubManager.AccessControl.SDK;
 using SIS.Library.Base.Infrastructure.Extensions;
 
+
 namespace SM.ClubManager.AccessControl
 {
 #pragma warning disable IDE1006 // Naming Styles
@@ -34,11 +35,22 @@ namespace SM.ClubManager.AccessControl
         General
     }
 
+    enum FormViewSize
+    {
+        Small = 0,
+        ApplicationLogsOnly = 1,
+        Full = 2
+    }
+
     public partial class frmMain : Form
     {
-        Size smallSize = new Size(279, 307);
-        Size largeSize = new Size(1190, 630);
-        bool isSmallSizeMode = true;
+        //set default view size
+        FormViewSize formViewSize = FormViewSize.Small;
+
+        Size sizeSmall = new Size(279, 307);
+        Size sizeApplicationLogsOnly = new Size(716, 630);
+        Size sizeFull = new Size(1190, 630);
+
         bool isClosing = false;
 
         //string commandWifiRelayOpenStringFormat = "";
@@ -75,8 +87,9 @@ namespace SM.ClubManager.AccessControl
 
         private void Initialize()
         {
-            isSmallSizeMode = true;
-            this.Size = smallSize;
+            formViewSize = FormViewSize.Small;
+                        
+            this.Size = sizeSmall;
 
             Log("Initializing user interface");
             this.ShowInTaskbar = ConfigurationManager.AppSettings["IsDisplayInTaskBar"].ToBool();
@@ -102,10 +115,10 @@ namespace SM.ClubManager.AccessControl
             newLoadingForm.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width / 2) - (newLoadingForm.Width / 2), Screen.PrimaryScreen.WorkingArea.Height - newLoadingForm.Height - 50);
 
             //StartCommandQueueConsumer();
-                       
+
             if (simplySwitchClient == null)
             {
-                simplySwitchClient = new SimplySwitch();         
+                simplySwitchClient = new SimplySwitch();
             }
             simplySwitchClient.OnLogMessage += SimplySwitchClient_OnLogMessage;
             simplySwitchClient.OnConnected += SimplySwitchClient_OnConnected;
@@ -152,12 +165,12 @@ namespace SM.ClubManager.AccessControl
 
             OpenComPort(serialInClient, portName, portBaudRate, picInSerialConnection);
 
-            if(!simplySwitchClient.IsConnected)
+            if (!simplySwitchClient.IsConnected)
             {
                 simplySwitchClient.SerialPort = ApplicationSettings.Instance.SerialOutPort;
                 simplySwitchClient.SerialBaudRate = ApplicationSettings.Instance.SerialOutBaudRate;
                 simplySwitchClient.SConnect();
-            }           
+            }
         }
 
 
@@ -810,16 +823,16 @@ namespace SM.ClubManager.AccessControl
                 //EnableDisableWirelessComms();
 
                 simplySwitchClient.SerialBaudRate = ApplicationSettings.Instance.SerialOutBaudRate;
-                simplySwitchClient.SerialPort = ApplicationSettings.Instance.SerialOutPort; 
+                simplySwitchClient.SerialPort = ApplicationSettings.Instance.SerialOutPort;
                 var r = simplySwitchClient.SConnect();
-                if(r.ResponseCode == ResponseCode.Success)
+                if (r.ResponseCode == ResponseCode.Success)
                 {
                     Log("SimplySwitch connected on " + simplySwitchClient.SerialPort);
                 }
                 else
                 {
                     Log("Simply Switch failed to connect. " + r.Message, true);
-                }                              
+                }
             }
             else
             {
@@ -893,7 +906,7 @@ namespace SM.ClubManager.AccessControl
             }
             catch (Exception ex)
             {
-                Log(ex.Message, true); 
+                Log(ex.Message, true);
             }
         }
 
@@ -904,21 +917,27 @@ namespace SM.ClubManager.AccessControl
 
         private void btnViewLogs_Click(object sender, EventArgs e)
         {
-            isSmallSizeMode = !isSmallSizeMode;
-            if (isSmallSizeMode)
+            switch (formViewSize)
             {
-                this.Size = smallSize;
-                btnViewLogs.Focus();
-                btnViewLogs.Select();
-            }
-            else
-            {
-                this.Size = largeSize;
-                if (ApplicationSettings.Instance.IsTargetWireless)
-                {
-                    txtUsbCommand.Focus();
-                    txtUsbCommand.Select();
-                }
+                case FormViewSize.Small:
+                    this.Size = sizeApplicationLogsOnly;
+
+                    if (ApplicationSettings.Instance.IsTargetWireless)
+                    {
+                        txtUsbCommand.Focus();
+                        txtUsbCommand.Select();
+                    }
+
+                    formViewSize = FormViewSize.ApplicationLogsOnly;
+                    break;
+                case FormViewSize.ApplicationLogsOnly:
+                case FormViewSize.Full:
+                    this.Size = sizeSmall;
+                    btnViewLogs.Focus();
+                    btnViewLogs.Select();
+
+                    formViewSize = FormViewSize.Small;
+                    break;
             }
         }
 
@@ -953,7 +972,7 @@ namespace SM.ClubManager.AccessControl
             if (r != null && r.ResponseCode != ResponseCode.Success)
             {
                 Log(r.Message, true);
-            }                                  
+            }
         }
 
         private void btnUsbCommandOff_Click(object sender, EventArgs e)
@@ -962,7 +981,7 @@ namespace SM.ClubManager.AccessControl
             if (r != null && r.ResponseCode != ResponseCode.Success)
             {
                 Log(r.Message, true);
-            }                                             
+            }
         }
 
         //private void SerialInClient_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -1293,6 +1312,36 @@ namespace SM.ClubManager.AccessControl
         {
             var r = simplySwitchClient?.Restart();
             Log(r.Message, r.ResponseCode != ResponseCode.Success);
+
+        }
+
+        private void pictureBox2_DoubleClick(object sender, EventArgs e)
+        {
+            switch (formViewSize)
+            {
+                case FormViewSize.Small:
+                case FormViewSize.ApplicationLogsOnly:
+                    this.Size = sizeFull;
+
+                    if (ApplicationSettings.Instance.IsTargetWireless)
+                    {
+                        txtUsbCommand.Focus();
+                        txtUsbCommand.Select();
+                    }
+
+                    formViewSize = FormViewSize.ApplicationLogsOnly;
+                    break;                
+                case FormViewSize.Full:
+                    this.Size = sizeSmall;
+                    btnViewLogs.Focus();
+                    btnViewLogs.Select();
+                    formViewSize = FormViewSize.Small;
+                    break;
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
 
         }
     }

@@ -1,7 +1,7 @@
 using SM.ClubManager.AccessControl.Model;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
 
 namespace SM.ClubManager.AccessControl.Database
 {
@@ -25,8 +25,8 @@ namespace SM.ClubManager.AccessControl.Database
         }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-      => optionsBuilder.UseSqlite("Data Source=products.db");
+      //  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+      //=> optionsBuilder.UseSqlite("Data Source=products.db");
 
         public static MainContext Create()
         {

@@ -16,7 +16,7 @@ using SM.ClubManager.AccessControl.Config;
 using System.Reflection;
 using System.IO;
 using SM.ClubManager.AccessControl.Infrastructure;
-using System.Runtime.InteropServices;S
+using System.Runtime.InteropServices;
 using Gibraltar.Agent;
 using System.Collections.Concurrent;
 
