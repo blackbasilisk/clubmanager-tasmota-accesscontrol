@@ -21,6 +21,11 @@ using Gibraltar.Agent;
 using System.Collections.Concurrent;
 using SM.ClubManager.AccessControl.SDK;
 using SIS.Library.Base.Infrastructure.Extensions;
+using SM.ClubManager.AccessControl.Model;
+using SM.ClubManager.AccessControl.UI.Infrastructure;
+using SM.ClubManager.AccessControl.Repository;
+using SM.ClubManager.AccessControl.PortScanner;
+using Syncfusion.Windows.Forms.Tools;
 
 
 namespace SM.ClubManager.AccessControl
@@ -47,9 +52,9 @@ namespace SM.ClubManager.AccessControl
         //set default view size
         FormViewSize formViewSize = FormViewSize.Small;
 
-        Size sizeSmall = new Size(279, 307);
-        Size sizeApplicationLogsOnly = new Size(716, 630);
-        Size sizeFull = new Size(1190, 630);
+        Size sizeSmall = new Size(279, 325);
+        Size sizeApplicationLogsOnly = new Size(716, 648);
+        Size sizeFull = new Size(1190, 648);
 
         bool isClosing = false;
 
@@ -59,10 +64,10 @@ namespace SM.ClubManager.AccessControl
         //string commandSerialRelayCloseStringFormat = "";
 
 
-        SerialPortInput serialInClient = null;//new SerialPortInput();
-        SimplySwitch simplySwitchClient = new SimplySwitch();//serialOutClient = null;//new SerialPortInput();
+        SerialPortInput serialPort2 = null;//new SerialPortInput();
+        internal SimplySwitch simplySwitchClient = new SimplySwitch();//serialOutClient = null;//new SerialPortInput();
 
-        frmSettings settingsForm = new frmSettings();
+        frmSettings settingsForm;
         frmNewLoading newLoadingForm = new frmNewLoading();
         List<byte> messageBuffer = null;
         //List<byte> usbMessageBuffer = null;
@@ -80,7 +85,94 @@ namespace SM.ClubManager.AccessControl
         {
             InitializeComponent();
 
-            Initialize();
+            InitializeDefaultValues();
+
+            Initialize();           
+        }
+
+        private void CheckSimplySwitchConnectionAndAutoDetect()
+        {          
+            if(!simplySwitchClient.IsConnected)            
+            {
+                if (ApplicationSettings.Instance.isAutoConfigSimplySwitchPort)
+                {
+                    string msg = "System could not connect to the Simply Switch controller. Do you want to try to detect the port automatically?";
+                    string caption = "Do you want to continue?";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    MessageBoxIcon icon = MessageBoxIcon.Question;
+
+                    DialogResult result = MessageBox.Show(msg, caption, buttons, icon);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        
+                        DialogResult scanConfirmation = DialogResult.Yes;
+                        bool isDetected = false;
+                        while (!isDetected && scanConfirmation == DialogResult.Yes)
+                        {
+                            frmSplash.ShowSplashScreen("Detecting controller..");
+
+                            var ports = PortUtilities.GetComPortsInUseAsStrings();
+                            Scanner scanner = new Scanner();                            
+                            string port = scanner.FindDeviceByPort(ports);
+
+                            frmSplash.CloseForm();
+
+                            if (string.IsNullOrEmpty(port))
+                            {
+                                msg = "No controller detected. Make sure it's powered on and plugged in. Do you want to try again?";
+                                caption = "Controller not found";
+                                icon = MessageBoxIcon.Error;
+
+                                MessageBox.Show(msg, caption,buttons, icon);                                
+                            }
+                            else
+                            {
+                                ApplicationSettings.Instance.SerialPortSimplySwitchName = port;
+                                scanConfirmation = DialogResult.No;
+                                isDetected = true;
+                            }
+
+                            if(isDetected)
+                            {
+                                InitializeSimplySwitchClient();
+                                SimplySwitchConnect();
+                            }
+                        }                                               
+                    }
+                }                                               
+            }           
+        }
+
+        private void InitializeDefaultValues()
+        {
+            if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialPort1Name))
+            {
+                ApplicationSettings.Instance.SerialPort1Name = "COM3";
+            }
+
+            if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialPort2Name))
+            {
+                ApplicationSettings.Instance.SerialPort2Name = "COM4";
+            }
+
+            try
+            {
+                int i = ApplicationSettings.Instance.SerialPortPairBaudRate;
+            }
+            catch (UnableToRetrieveConfigurationValueException ex)
+            {
+                ApplicationSettings.Instance.SerialPortPairBaudRate = 9600;
+            }
+
+            try
+            {
+                int i = ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate; 
+            }
+            catch (UnableToRetrieveConfigurationValueException ex)
+            {
+                ApplicationSettings.Instance.SerialPortPairBaudRate = 115200;                
+            }
         }
 
         #region Init Methods
@@ -93,7 +185,18 @@ namespace SM.ClubManager.AccessControl
 
             Log("Initializing user interface");
             this.ShowInTaskbar = ConfigurationManager.AppSettings["IsDisplayInTaskBar"].ToBool();
+            
+            //VSPEManager.KillProcess();
 
+            VSPEManager vSPEManager = new VSPEManager();
+            
+            if(!vSPEManager.IsVSPEConfigExists(ApplicationSettings.Instance.VSPEConfigPath))
+            {                
+                MessageBox.Show("No valid VSPE config exists. Recreate VSPE configuration under 'Settings'.");                
+            }
+            //vSPEManager.CreateVSPEConfig(ApplicationSettings.Instance.SerialPort1Name, ApplicationSettings.Instance.SerialPort2Name, ApplicationSettings.Instance.VSPEConfigPath);
+            vSPEManager.StartVSPE();
+            settingsForm = new frmSettings();
             //Log("Intializing database");
             //System.Data.Entity.Database.SetInitializer(new DatabaseInitializer());
 
@@ -116,14 +219,32 @@ namespace SM.ClubManager.AccessControl
 
             //StartCommandQueueConsumer();
 
-            if (simplySwitchClient == null)
+            //if (simplySwitchClient == null)
+            //{
+            //    simplySwitchClient = new SimplySwitch();
+            //}
+            //simplySwitchClient.OnLogMessage += SimplySwitchClient_OnLogMessage;
+            //simplySwitchClient.OnConnected += SimplySwitchClient_OnConnected;
+            //simplySwitchClient.OnDisconnected += SimplySwitchClient_OnDisconnected;
+            InitializeSimplySwitchClient();
+            Log("Startup completed");
+        }
+
+        private void InitializeSimplySwitchClient()
+        {
+            if (simplySwitchClient != null)
             {
-                simplySwitchClient = new SimplySwitch();
+                simplySwitchClient.SDisconnect();
+                simplySwitchClient.OnLogMessage -= SimplySwitchClient_OnLogMessage;
+                simplySwitchClient.OnConnected -= SimplySwitchClient_OnConnected;
+                simplySwitchClient.OnDisconnected -= SimplySwitchClient_OnDisconnected;
+                simplySwitchClient.Dispose();
+                simplySwitchClient = null;
             }
+            simplySwitchClient = new SimplySwitch();
             simplySwitchClient.OnLogMessage += SimplySwitchClient_OnLogMessage;
             simplySwitchClient.OnConnected += SimplySwitchClient_OnConnected;
             simplySwitchClient.OnDisconnected += SimplySwitchClient_OnDisconnected;
-            Log("Startup completed");
         }
 
         private void AssignResources()
@@ -153,26 +274,43 @@ namespace SM.ClubManager.AccessControl
                 Log(ex.Message, true);
             }
         }
+        
+        private SSResponse SimplySwitchConnect()
+        {
+            SSResponse response = null;
+            try
+            {
+                simplySwitchClient.SerialPort = ApplicationSettings.Instance.SerialPortSimplySwitchName;
+                simplySwitchClient.SerialBaudRate = ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate;
+                response = simplySwitchClient.SConnect();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return response;
+        }
 
         private void InitSerialComms()
         {
             //InitializeSerialOutConnection();
 
-            InitializeSerialInConnection();
+            InitializeSerialPort2Connection();
 
-            string portName = ApplicationSettings.Instance.SerialInPort;
-            int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
+            string portName = ApplicationSettings.Instance.SerialPort2Name;
+            int portBaudRate = ApplicationSettings.Instance.SerialPortPairBaudRate;
 
-            OpenComPort(serialInClient, portName, portBaudRate, picInSerialConnection);
+            OpenComPort(serialPort2, portName, portBaudRate, picInSerialConnection);
+
+            InitializeSimplySwitchClient();
 
             if (!simplySwitchClient.IsConnected)
             {
-                simplySwitchClient.SerialPort = ApplicationSettings.Instance.SerialOutPort;
-                simplySwitchClient.SerialBaudRate = ApplicationSettings.Instance.SerialOutBaudRate;
+                simplySwitchClient.SerialPort = ApplicationSettings.Instance.SerialPortSimplySwitchName;
+                simplySwitchClient.SerialBaudRate = ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate;
                 simplySwitchClient.SConnect();
             }
         }
-
 
         private void HandleSimplySwitchClientConnectionEvent(bool isConnectedEvent)
         {
@@ -187,8 +325,8 @@ namespace SM.ClubManager.AccessControl
 
             if (!isConnectedEvent)
             {
-                rtbUsbOutput.BackColor = Color.White;
-                rtbUsbOutput.ForeColor = Color.Black;
+                rtbUsbOutput.InvokeIfRequired(t => t.BackColor = Color.White);
+                rtbUsbOutput.InvokeIfRequired(t => t.ForeColor = Color.Black);
                 txtUsbCommand.Select();
                 txtUsbCommand.Focus();
                 rtbUsbOutput.InvokeIfRequired(t => t.Clear());
@@ -196,8 +334,8 @@ namespace SM.ClubManager.AccessControl
             else
             {
                 grpUsbCommandPanel.InvokeIfRequired(t => t.Enabled = true);
-                rtbUsbOutput.BackColor = Color.Black;
-                rtbUsbOutput.ForeColor = Color.LimeGreen;
+                rtbUsbOutput.InvokeIfRequired(t => t.BackColor = Color.Black);
+                rtbUsbOutput.InvokeIfRequired(t => t.ForeColor = Color.LimeGreen);
             }
 
             //usbMessageBuffer?.Clear();
@@ -207,7 +345,7 @@ namespace SM.ClubManager.AccessControl
 
             picScanResult.InvokeIfRequired(t => t.Visible = false);
         }
-
+        
         private void SimplySwitchClient_OnConnected(object? sender, EventArgs e)
         {
             HandleSimplySwitchClientConnectionEvent(true);
@@ -296,40 +434,44 @@ namespace SM.ClubManager.AccessControl
             Icon icon = this.Icon;
             ToolTipIcon ttIcon = ToolTipIcon.Info;
 
-            switch (notificationType)
-            {
-                case NotificationType.Error:
+            //switch (notificationType)
+            //{
+            //    case NotificationType.Error:
 
-                    ttIcon = ToolTipIcon.Error;
-                    break;
-                case NotificationType.Info:
+            //        ttIcon = ToolTipIcon.Error;
+            //        break;
+            //    case NotificationType.Info:
 
-                    ttIcon = ToolTipIcon.Info;
-                    break;
-                default:
-                    ttIcon = ToolTipIcon.None;
-                    break;
-            }
+            //        ttIcon = ToolTipIcon.Info;
+            //        break;
+            //    default:
+            //        ttIcon = ToolTipIcon.None;
+            //        break;
+            //}
+            
+            toolStripStatusLabel1.Text = header;
+            toolStripStatusLabel2.Text = " - ";
+            toolStripStatusLabel3.Text = message;
 
-            NotifyIcon notifyIcon = new NotifyIcon
-            {
-                Visible = true,
-                Icon = icon,
-                BalloonTipIcon = ttIcon,
-                Text = ""
-            };
-            if (header != null)
-            {
-                notifyIcon.BalloonTipTitle = header;
-            }
-            if (message != null)
-            {
-                notifyIcon.BalloonTipText = message;
-            }
+            //NotifyIcon notifyIcon = new NotifyIcon
+            //{
+            //    Visible = true,
+            //    Icon = icon,
+            //    BalloonTipIcon = ttIcon,
+            //    Text = ""
+            //};
+            //if (header != null)
+            //{
+            //    notifyIcon.BalloonTipTitle = header;
+            //}
+            //if (message != null)
+            //{
+            //    notifyIcon.BalloonTipText = message;
+            //}
 
-            notifyIcon.BalloonTipClosed += (sender, args) => DisposeNotification(notifyIcon);
-            notifyIcon.BalloonTipClicked += (sender, args) => DisposeNotification(notifyIcon);
-            notifyIcon.ShowBalloonTip(0);
+            //notifyIcon.BalloonTipClosed += (sender, args) => DisposeNotification(notifyIcon);
+            //notifyIcon.BalloonTipClicked += (sender, args) => DisposeNotification(notifyIcon);
+            //notifyIcon.ShowBalloonTip(0);
         }
 
         private void DisposeNotification(NotifyIcon notifyIcon)
@@ -448,6 +590,8 @@ namespace SM.ClubManager.AccessControl
             //    item.Dispose();
             //}
             //items = null;
+            
+            VSPEManager.KillProcess();
 
             if (settingsForm != null)
             {
@@ -463,27 +607,31 @@ namespace SM.ClubManager.AccessControl
                 newLoadingForm = null;
             }
 
-            if (serialInClient != null)
+            if (serialPort2 != null)
             {
-                serialInClient.Disconnect();
-                serialInClient.ConnectionStatusChanged -= SerialInClient_ConnectionStatusChanged;
-                serialInClient.MessageReceived -= SerialInClient_MessageReceived;
+                serialPort2.Disconnect();
+                serialPort2.ConnectionStatusChanged -= SerialInClient_ConnectionStatusChanged;
+                serialPort2.MessageReceived -= SerialInClient_MessageReceived;
 
-                serialInClient = null;
+                serialPort2 = null;
             }
 
-            simplySwitchClient.OnLogMessage -= SimplySwitchClient_OnLogMessage;
-            simplySwitchClient.OnConnected -= SimplySwitchClient_OnConnected;
-            simplySwitchClient.OnDisconnected -= SimplySwitchClient_OnDisconnected;
+            if(simplySwitchClient != null)
+            {
+                simplySwitchClient.OnLogMessage -= SimplySwitchClient_OnLogMessage;
+                simplySwitchClient.OnConnected -= SimplySwitchClient_OnConnected;
+                simplySwitchClient.OnDisconnected -= SimplySwitchClient_OnDisconnected;
 
-            simplySwitchClient.Dispose();
+                simplySwitchClient.Dispose();
+                simplySwitchClient = null;
+            }
+            
 
             lstLog.Dispose();
             lstLog = null;
             //commandQueue.Dispose();
             //commandQueue = null;
         }
-
 
         private void ShowNewLoadingForm(bool displayLoader)
         {
@@ -599,22 +747,33 @@ namespace SM.ClubManager.AccessControl
             }
         }
 
-        private void InitializeSerialInConnection()
+        private void InitializeSerialPort2Connection()
         {
             try
             {
                 Log("Initializing serial IN connection object...");
 
-                if (serialInClient == null)
+                if (serialPort2 != null)
                 {
-                    serialInClient = new SerialPortInput();
-                    serialInClient.ConnectionStatusChanged += SerialInClient_ConnectionStatusChanged;
-                    serialInClient.MessageReceived += SerialInClient_MessageReceived;
 
+                    serialPort2.Disconnect();
+                    serialPort2.MessageReceived -= SerialInClient_MessageReceived;
+                    serialPort2.ConnectionStatusChanged -= SerialInClient_ConnectionStatusChanged;
+                    serialPort2 = null;
+                }
+                    serialPort2 = new SerialPortInput();
+                    serialPort2.ConnectionStatusChanged += SerialInClient_ConnectionStatusChanged;
+                    serialPort2.MessageReceived += SerialInClient_MessageReceived;                                  
+                
+                
+                if (messageBuffer != null)
+                {
+                    messageBuffer.Clear();
+                }
+                else
+                {
                     messageBuffer = new List<byte>();
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -627,14 +786,14 @@ namespace SM.ClubManager.AccessControl
         {
             try
             {
-                if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialInPort))
+                if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialPort2Name))
                 {
-                    ApplicationSettings.Instance.SerialInPort = "COM1";
+                    ApplicationSettings.Instance.SerialPort2Name = "COM1";
                 }
 
-                if (ApplicationSettings.Instance.SerialInBaudRate == default || ApplicationSettings.Instance.SerialInBaudRate <= 0)
+                if (ApplicationSettings.Instance.SerialPortPairBaudRate == default || ApplicationSettings.Instance.SerialPortPairBaudRate <= 0)
                 {
-                    ApplicationSettings.Instance.SerialInBaudRate = 9600;
+                    ApplicationSettings.Instance.SerialPortPairBaudRate = 9600;
                 }
 
                 if (string.IsNullOrEmpty(ApplicationSettings.Instance.WirelessDeviceIPAddress))
@@ -652,14 +811,14 @@ namespace SM.ClubManager.AccessControl
                     ApplicationSettings.Instance.InchingDelay = 0;
                 }
 
-                if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialOutPort))
+                if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialPortSimplySwitchName))
                 {
-                    ApplicationSettings.Instance.SerialOutPort = "COM3";
+                    ApplicationSettings.Instance.SerialPortSimplySwitchName = "COM3";
                 }
 
-                if (ApplicationSettings.Instance.SerialOutBaudRate == default || ApplicationSettings.Instance.SerialOutBaudRate <= 0)
+                if (ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate == default || ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate <= 0)
                 {
-                    ApplicationSettings.Instance.SerialOutBaudRate = 115200;
+                    ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate = 115200;
                 }
 
                 ApplicationSettings.Instance.IsServiceMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsServiceMode"]);
@@ -720,12 +879,12 @@ namespace SM.ClubManager.AccessControl
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var window = MessageBox.Show(
-                    "Are you sure you want to close the SimplySwitch Manager?",
-                    "Please confirm",
-                    MessageBoxButtons.YesNo);
+            //var window = MessageBox.Show(
+            //        "Are you sure you want to close the SimplySwitch Manager?",
+            //        "Please confirm",
+            //        MessageBoxButtons.YesNo);
 
-            e.Cancel = (window == DialogResult.No);
+            //e.Cancel = (window == DialogResult.No);
 
             try
             {
@@ -807,24 +966,34 @@ namespace SM.ClubManager.AccessControl
         private void btnSettings_Click(object sender, EventArgs e)
         {
             Log("Opening system configuration");
-            DialogResult result = settingsForm.ShowDialog();
 
+            DialogResult result = settingsForm.ShowDialog(this);
+            
             if (result == DialogResult.OK)
             {
+                InitializeSerialPort2Connection();
+
+                VSPEManager v = new VSPEManager();
+                if(!v.IsProcessRunning())
+                {
+                    MessageBox.Show("VSPE was closed in the background. The application needs to close. You will need to run the software again.");
+                    Application.Exit();
+                }
+//                v.StartVSPE();
+
                 Log("New configuration values loaded");
 
-                string portName = ApplicationSettings.Instance.SerialInPort;
-                int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
+                string portName = ApplicationSettings.Instance.SerialPort2Name;
+                int portBaudRate = ApplicationSettings.Instance.SerialPortPairBaudRate;
 
                 //reconnect to the incoming serial port
-                OpenComPort(serialInClient, portName, portBaudRate, picInSerialConnection);
+                OpenComPort(serialPort2, portName, portBaudRate, picInSerialConnection);
 
                 //setup for either wireless / wired comms to device
                 //EnableDisableWirelessComms();
 
-                simplySwitchClient.SerialBaudRate = ApplicationSettings.Instance.SerialOutBaudRate;
-                simplySwitchClient.SerialPort = ApplicationSettings.Instance.SerialOutPort;
-                var r = simplySwitchClient.SConnect();
+                InitializeSimplySwitchClient();
+                var r = SimplySwitchConnect();
                 if (r.ResponseCode == ResponseCode.Success)
                 {
                     Log("SimplySwitch connected on " + simplySwitchClient.SerialPort);
@@ -842,9 +1011,9 @@ namespace SM.ClubManager.AccessControl
 
         private void btnResetCOM_Click(object sender, EventArgs e)
         {
-            string portName = ApplicationSettings.Instance.SerialInPort;
-            int portBaudRate = ApplicationSettings.Instance.SerialInBaudRate;
-            OpenComPort(serialInClient, portName, portBaudRate, picInSerialConnection);
+            string portName = ApplicationSettings.Instance.SerialPort2Name;
+            int portBaudRate = ApplicationSettings.Instance.SerialPortPairBaudRate;
+            OpenComPort(serialPort2, portName, portBaudRate, picInSerialConnection);
         }
 
         private void frmMain_Shown(object sender, EventArgs e)
@@ -864,6 +1033,8 @@ namespace SM.ClubManager.AccessControl
             InitSerialComms();
 
             ConfigureSystem();
+
+            CheckSimplySwitchConnectionAndAutoDetect();
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -996,8 +1167,8 @@ namespace SM.ClubManager.AccessControl
         //    try
         //    {
         //        Log("Saving configuration");
-        //        //ApplicationSettings.Instance.SerialInPort = txtSwOutPort.Text;
-        //        //ApplicationSettings.Instance.SerialInBaudRate = Convert.ToInt32(txtSerialInBaudrate.Text);
+        //        //ApplicationSettings.Instance.SerialPort2Name = txtSwOutPort.Text;
+        //        //ApplicationSettings.Instance.SerialPortPairBaudRate = Convert.ToInt32(txtSerialPortPairBaudrate.Text);
         //        //ApplicationSettings.Instance.WirelessDeviceIPAddress = txtIPAddress.Text;
         //        //ApplicationSettings.Instance.WirelessDevicePort = txtPort.Text;
         //        //ApplicationSettings.Instance.IsTargetWireless = rdoWirelessComms.Checked;
@@ -1016,7 +1187,7 @@ namespace SM.ClubManager.AccessControl
         //{
         //    try
         //    {
-        //        string port = ApplicationSettings.Instance.SerialInBaudRate;
+        //        string port = ApplicationSettings.Instance.SerialPortPairBaudRate;
 
         //        Log(string.Format("Executing wired command {0} on relay {1} on serial port {2}", commandType, portNumber.ToString(), port));
         //        using (SimpleSerialClient serial = new SimpleSerialClient(port))
@@ -1060,7 +1231,7 @@ namespace SM.ClubManager.AccessControl
 
         //        if (!isTargetWireless)
         //        {
-        //            OpenComPort(serialOutClient, ApplicationSettings.Instance.SerialOutPort, ApplicationSettings.Instance.SerialOutBaudRate);
+        //            OpenComPort(serialOutClient, ApplicationSettings.Instance.SerialPortSimplySwitchName, ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate);
         //            picConnectionType.Image = (Image)imgUsbConnection.Clone();
 
         //            txtUsbCommand.Focus();

@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "NktAGDzQrJBUh8Oflz+UbHVQa3jIEpkBQlyn0WgOxaAPG7Lpb7kt2E7DAadF2hMTnO4+s4ZQRH7sa/xT1K5bEA==",
+  "dgSpecHash": "biSdK/76Ec631ofJp+mFfkbFmA9fZkiOIwJRCf3U3nc70NSwbjjlONSLtPQ0nYAUkWQn/5H9eIbDBsj6hb+5/Q==",
   "success": true,
   "projectFilePath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Config\\SM.ClubManager.AccessControl.Config.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Dave\\.nuget\\packages\\cauldron.basicinterceptors\\3.2.3\\cauldron.basicinterceptors.3.2.3.nupkg.sha512",
+    "C:\\Users\\Dave\\.nuget\\packages\\cauldron.interception.fody\\3.2.3\\cauldron.interception.fody.3.2.3.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\Dave\\.nuget\\packages\\fody\\3.2.10\\fody.3.2.10.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.5\\microsoft.data.sqlite.core.7.0.5.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.5\\microsoft.entityframeworkcore.7.0.5.nupkg.sha512",
@@ -26,8 +29,6 @@
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\postsharp\\2023.0.4\\postsharp.2023.0.4.nupkg.sha512",
-    "C:\\Users\\Dave\\.nuget\\packages\\postsharp.redist\\2023.0.4\\postsharp.redist.2023.0.4.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Dave\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

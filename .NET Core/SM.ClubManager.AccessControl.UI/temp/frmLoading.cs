@@ -1,5 +1,5 @@
-﻿using SIS.Library.Base.Infrastructure.WindowsFormsExtensions;
-
+﻿
+using SM.ClubManager.AccessControl.Infrastructure;
 using Syncfusion.Windows.Forms;
 using System;
 using System.Collections.Generic;
@@ -61,10 +61,13 @@ namespace SM.ClubManager.AccessControl
         {
             if(loadingForm == null)
             {
-                //if (loadingForm.Handle == null || !loadingForm.IsHandleCreated)
+               // if (loadingForm.Handle == null || !loadingForm.IsHandleCreated)
                 //{
                     loadingForm = new frmLoading(defaultMessage);
+                    loadingForm.TopMost = true;                
                     Application.Run(loadingForm);
+                    
+                    loadingForm.Focus();
                 //}               
             }       
         }

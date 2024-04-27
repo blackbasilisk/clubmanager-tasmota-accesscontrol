@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {
+    "net7.0-windows8.0": {
       "EntityFramework/6.4.4": {
         "type": "package",
         "dependencies": {
@@ -570,10 +570,10 @@
           "SQLitePCLRaw.core": "2.1.4"
         },
         "compile": {
-          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         },
         "runtime": {
-          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
       "System.CodeDom/4.7.0": {
@@ -2255,7 +2255,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0": [
+    "net7.0-windows8.0": [
       "EntityFramework >= 6.4.4",
       "SM.ClubManager.AccessControl.Database >= 1.0.0",
       "SM.ClubManager.AccessControl.Model >= 1.0.0"
@@ -2283,15 +2283,15 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net7.0-windows8.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "projectReferences": {
             "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Database\\SM.ClubManager.AccessControl.Database.csproj": {
               "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Database\\SM.ClubManager.AccessControl.Database.csproj"
@@ -2306,11 +2306,16 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net7.0-windows8.0": {
+        "targetAlias": "net7.0-windows8.0",
         "dependencies": {
           "EntityFramework": {
             "target": "Package",
@@ -2333,7 +2338,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
       }
     }
   }

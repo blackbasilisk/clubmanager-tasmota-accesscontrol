@@ -34,33 +34,41 @@
 
         #endregion
 
-        #region Database properties    
+        #region Database properties   
+        [InterceptorGetAttribute]
+        public bool isAutoConfigSimplySwitchPort { get; set; }       
 
-        [ApplicationSettingGetSet]
-        public string SerialInPort { get; set; }
+        [InterceptorGetAttribute]
+        public string VSPEConfigPath { get; set; }
 
-        [ApplicationSettingGetSet]
-        public int SerialInBaudRate { get; set; }
+        [InterceptorGetAttribute]
+        public string SerialPort1Name { get; set; }
+ 
+        [InterceptorGetAttribute]
+        public string SerialPort2Name { get; set; }
 
-        [ApplicationSettingGetSet]
-        public string SerialOutPort { get; set; }
+        [InterceptorGetAttribute]
+        public int SerialPortPairBaudRate { get; set; }
 
-        [ApplicationSettingGetSet]
-        public int SerialOutBaudRate { get; set; }
+        [InterceptorGetAttribute]
+        public string SerialPortSimplySwitchName { get; set; }
 
-        [ApplicationSettingGetSet]
+        [InterceptorGetAttribute]
+        public int SerialPortSimplySwitchBaudRate { get; set; }
+
+        [InterceptorGetAttribute]
         public string WirelessDeviceIPAddress { get; set; }
        
-        [ApplicationSettingGetSet]
+        [InterceptorGetAttribute]
         public string WirelessDevicePort { get; set; }
 
-        [ApplicationSettingGetSet]
+        [InterceptorGetAttribute]
         public bool IsTargetWireless { get; set; }
 
-        [ApplicationSettingGetSet]
+        [InterceptorGetAttribute]
         public int InchingDelay { get; set; }
 
-        [ApplicationSettingGetSet]
+        [InterceptorGetAttribute]
         public bool IsServiceMode { get; set; }
         #endregion
     }

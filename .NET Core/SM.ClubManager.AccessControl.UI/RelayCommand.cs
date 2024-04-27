@@ -1,4 +1,5 @@
 ﻿using SM.ClubManager.AccessControl.Infrastructure;
+using SM.ClubManager.AccessControl.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

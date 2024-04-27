@@ -2,12 +2,19 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
+    <TargetFramework>net7.0-windows8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x86</Platforms>
+    <SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="temp\**" />
+    <EmbeddedResource Remove="temp\**" />
+    <None Remove="temp\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Resources\access-granted.png" />
@@ -37,10 +44,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="PostSharp" Version="2023.0.4" />
-        <PackageReference Include="PostSharp.Patterns.Common.Redist" Version="2023.0.4" />
-        <PackageReference Include="PostSharp.Redist" Version="2023.0.4" />
-        <PackageReference Include="SerialPortLib" Version="1.1.1" />
+        <PackageReference Include="SerialPortLib" Version="1.1.2" />
         <PackageReference Include="Syncfusion.GridHelperClasses.Windows" Version="21.1.39" />
         <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
     </ItemGroup>
@@ -50,6 +54,7 @@
       <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.WinFormsBase\SIS.Library.WinFormsBase.csproj" />
       <ProjectReference Include="..\SM.ClubManager.AccessControl.Config\SM.ClubManager.AccessControl.Config.csproj" />
       <ProjectReference Include="..\SM.ClubManager.AccessControl.SDK\SM.ClubManager.AccessControl.SDK.csproj" />
+      <ProjectReference Include="..\SM.ClubManager.AccessControl\SM.ClubManager.AccessControl.PortScanner\SM.ClubManager.AccessControl.PortScanner.csproj" />
     </ItemGroup>
 
     <ItemGroup>

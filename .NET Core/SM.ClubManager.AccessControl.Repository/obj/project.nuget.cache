@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2udTD/nHRzMNBGWZWPVXQ4bU/LykAljUzUuGH3IXB2guVGo18DWCUnyRohek8VJX19aq9hL9HoYgIG9HIMrZPw==",
+  "dgSpecHash": "+DS6/rEVp1SAaVVNixkHUqk33Ts49mifaVcuxPZ0+Nd/vF7Iz5/owf8FUHwfyutlweT42VJiNNmRJf0pqCPQVw==",
   "success": true,
   "projectFilePath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Repository\\SM.ClubManager.AccessControl.Repository.csproj",
   "expectedPackageFiles": [

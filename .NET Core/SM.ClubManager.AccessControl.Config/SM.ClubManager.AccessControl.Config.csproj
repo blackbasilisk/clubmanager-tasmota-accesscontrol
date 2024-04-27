@@ -1,15 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net7.0-windows8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PostSharp" Version="2023.0.4" />
-    <PackageReference Include="PostSharp.Redist" Version="2023.0.4" />
+    <PackageReference Include="Cauldron.BasicInterceptors" Version="3.2.3" />
   </ItemGroup>
 
   <ItemGroup>

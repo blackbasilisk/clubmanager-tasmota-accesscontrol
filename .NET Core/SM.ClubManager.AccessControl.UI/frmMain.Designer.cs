@@ -1,6 +1,6 @@
 ﻿
 using Syncfusion.XPS;
-using WinRT;
+
 
 namespace SM.ClubManager.AccessControl
 {
@@ -54,6 +54,10 @@ namespace SM.ClubManager.AccessControl
             btnUsbCommandOff = new Button();
             btnUsbCommandOn = new Button();
             pictureBox2 = new PictureBox();
+            statusStrip1 = new StatusStrip();
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            toolStripStatusLabel2 = new ToolStripStatusLabel();
+            toolStripStatusLabel3 = new ToolStripStatusLabel();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picScanResult).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textBoxExt2).BeginInit();
@@ -65,6 +69,7 @@ namespace SM.ClubManager.AccessControl
             ((System.ComponentModel.ISupportInitialize)txtUsbCommand).BeginInit();
             grpUsbCommandPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // lstLog
@@ -84,7 +89,7 @@ namespace SM.ClubManager.AccessControl
             lstLog.Name = "lstLog";
             lstLog.SelectedItemBackgroundColor = Color.White;
             lstLog.SelectedItemForegroundColor = Color.AliceBlue;
-            lstLog.Size = new Size(416, 539);
+            lstLog.Size = new Size(416, 532);
             lstLog.TabIndex = 99;
             lstLog.UseCompatibleStateImageBehavior = false;
             lstLog.View = View.Details;
@@ -200,11 +205,11 @@ namespace SM.ClubManager.AccessControl
             // groupBox2
             // 
             groupBox2.Controls.Add(lstLog);
-            groupBox2.Location = new Point(262, 14);
+            groupBox2.Location = new Point(262, 12);
             groupBox2.Margin = new Padding(4, 3, 4, 3);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(4, 3, 4, 3);
-            groupBox2.Size = new Size(430, 569);
+            groupBox2.Size = new Size(430, 571);
             groupBox2.TabIndex = 99;
             groupBox2.TabStop = false;
             groupBox2.Text = "Application Events";
@@ -265,7 +270,7 @@ namespace SM.ClubManager.AccessControl
             grpUsbCommandPanel.Controls.Add(txtUsbCommand);
             grpUsbCommandPanel.Controls.Add(btnUsbCommand);
             grpUsbCommandPanel.Enabled = false;
-            grpUsbCommandPanel.Location = new Point(15, 459);
+            grpUsbCommandPanel.Location = new Point(13, 443);
             grpUsbCommandPanel.Margin = new Padding(4, 3, 4, 3);
             grpUsbCommandPanel.Name = "grpUsbCommandPanel";
             grpUsbCommandPanel.Padding = new Padding(4, 3, 4, 3);
@@ -324,6 +329,34 @@ namespace SM.ClubManager.AccessControl
             pictureBox2.Click += pictureBox2_Click;
             pictureBox2.DoubleClick += pictureBox2_DoubleClick;
             // 
+            // statusStrip1
+            // 
+            statusStrip1.BackColor = SystemColors.Control;
+            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, toolStripStatusLabel2, toolStripStatusLabel3 });
+            statusStrip1.Location = new Point(0, 569);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(700, 22);
+            statusStrip1.TabIndex = 100;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(118, 17);
+            toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            toolStripStatusLabel2.Size = new Size(118, 17);
+            toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            // 
+            // toolStripStatusLabel3
+            // 
+            toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            toolStripStatusLabel3.Size = new Size(118, 17);
+            toolStripStatusLabel3.Text = "toolStripStatusLabel3";
+            // 
             // frmMain
             // 
             AcceptButton = btnUsbCommand;
@@ -331,6 +364,7 @@ namespace SM.ClubManager.AccessControl
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(700, 591);
+            Controls.Add(statusStrip1);
             Controls.Add(grpUsbCommandPanel);
             Controls.Add(btnViewLogs);
             Controls.Add(groupBox5);
@@ -362,7 +396,10 @@ namespace SM.ClubManager.AccessControl
             grpUsbCommandPanel.ResumeLayout(false);
             grpUsbCommandPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -386,6 +423,10 @@ namespace SM.ClubManager.AccessControl
         private System.Windows.Forms.PictureBox picScanResult;
         private SIS.Library.Base.Controls.ListViewExt lstLog;
         private Button btnRestart;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripStatusLabel toolStripStatusLabel2;
+        private ToolStripStatusLabel toolStripStatusLabel3;
     }
 }
 

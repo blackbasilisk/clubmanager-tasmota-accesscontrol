@@ -22,15 +22,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Repository\\SM.ClubManager.AccessControl.Repository.csproj": {
                 "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Repository\\SM.ClubManager.AccessControl.Repository.csproj"
@@ -42,19 +42,20 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
-            "PostSharp": {
+            "Cauldron.BasicInterceptors": {
               "target": "Package",
-              "version": "[2023.0.4, )"
-            },
-            "PostSharp.Redist": {
-              "target": "Package",
-              "version": "[2023.0.4, )"
+              "version": "[3.2.3, )"
             }
           },
           "imports": [
@@ -73,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -95,15 +96,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj": {
                 "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj"
@@ -115,11 +116,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
             "EntityFramework": {
               "target": "Package",
@@ -156,7 +162,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -178,15 +184,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Modelbase\\SIS.Library.Modelbase.csproj": {
                 "projectPath": "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Modelbase\\SIS.Library.Modelbase.csproj"
@@ -198,11 +204,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "imports": [
             "net461",
             "net462",
@@ -219,7 +230,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -241,15 +252,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Database\\SM.ClubManager.AccessControl.Database.csproj": {
                 "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Database\\SM.ClubManager.AccessControl.Database.csproj"
@@ -264,11 +275,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
             "EntityFramework": {
               "target": "Package",
@@ -291,7 +307,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -313,15 +329,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {}
           }
         },
@@ -329,11 +345,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
             "SerialPortLib": {
               "target": "Package",
@@ -356,7 +377,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -378,21 +399,24 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0-windows10.0.22621.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0-windows10.0.22621": {
-            "targetAlias": "net7.0-windows10.0.22621.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Config\\SM.ClubManager.AccessControl.Config.csproj": {
                 "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Config\\SM.ClubManager.AccessControl.Config.csproj"
               },
               "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.SDK\\SM.ClubManager.AccessControl.SDK.csproj": {
                 "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.SDK\\SM.ClubManager.AccessControl.SDK.csproj"
+              },
+              "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl\\SM.ClubManager.AccessControl.PortScanner\\SM.ClubManager.AccessControl.PortScanner.csproj": {
+                "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl\\SM.ClubManager.AccessControl.PortScanner\\SM.ClubManager.AccessControl.PortScanner.csproj"
               },
               "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Base\\SIS.Library.Base.csproj": {
                 "projectPath": "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Base\\SIS.Library.Base.csproj"
@@ -407,11 +431,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0-windows10.0.22621": {
-          "targetAlias": "net7.0-windows10.0.22621.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
             "Loupe.Agent.Core": {
               "target": "Package",
@@ -431,21 +460,9 @@
               "target": "Package",
               "version": "[7.0.5, )"
             },
-            "PostSharp": {
-              "target": "Package",
-              "version": "[2023.0.4, )"
-            },
-            "PostSharp.Patterns.Common.Redist": {
-              "target": "Package",
-              "version": "[2023.0.4, )"
-            },
-            "PostSharp.Redist": {
-              "target": "Package",
-              "version": "[2023.0.4, )"
-            },
             "SerialPortLib": {
               "target": "Package",
-              "version": "[1.1.1, )"
+              "version": "[1.1.2, )"
             },
             "Syncfusion.GridHelperClasses.Windows": {
               "target": "Package",
@@ -467,24 +484,89 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.Windows.SDK.NET.Ref",
-              "version": "[10.0.22621.28, 10.0.22621.28]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            },
-            "Microsoft.Windows.SDK.NET.Ref": {
               "privateAssets": "all"
             },
             "Microsoft.WindowsDesktop.App.WindowsForms": {
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl\\SM.ClubManager.AccessControl.PortScanner\\SM.ClubManager.AccessControl.PortScanner.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl\\SM.ClubManager.AccessControl.PortScanner\\SM.ClubManager.AccessControl.PortScanner.csproj",
+        "projectName": "SM.ClubManager.AccessControl.PortScanner",
+        "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl\\SM.ClubManager.AccessControl.PortScanner\\SM.ClubManager.AccessControl.PortScanner.csproj",
+        "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
+        "outputPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl\\SM.ClubManager.AccessControl.PortScanner\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0-windows8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
+            "projectReferences": {
+              "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj": {
+                "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
+          "dependencies": {
+            "SerialPortLib": {
+              "target": "Package",
+              "version": "[1.1.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -522,6 +604,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -535,10 +622,6 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
-            },
-            "PostSharp.Redist": {
-              "target": "Package",
-              "version": "[2023.0.4, )"
             },
             "System.Diagnostics.EventLog": {
               "target": "Package",
@@ -577,7 +660,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -599,15 +682,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {}
           }
         },
@@ -615,11 +698,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "imports": [
             "net461",
             "net462",
@@ -636,7 +724,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -658,15 +746,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0-windows10.0.22621.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0-windows10.0.22621": {
-            "targetAlias": "net7.0-windows10.0.22621.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Base\\SIS.Library.Base.csproj": {
                 "projectPath": "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Base\\SIS.Library.Base.csproj"
@@ -678,11 +766,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0-windows10.0.22621": {
-          "targetAlias": "net7.0-windows10.0.22621.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "imports": [
             "net461",
             "net462",
@@ -694,24 +787,15 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.Windows.SDK.NET.Ref",
-              "version": "[10.0.22621.28, 10.0.22621.28]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            },
-            "Microsoft.Windows.SDK.NET.Ref": {
               "privateAssets": "all"
             },
             "Microsoft.WindowsDesktop.App.WindowsForms": {
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     }
