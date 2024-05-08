@@ -189,8 +189,13 @@ namespace SM.ClubManager.AccessControl
             //VSPEManager.KillProcess();
 
             VSPEManager vSPEManager = new VSPEManager();
-            
-            if(!vSPEManager.IsVSPEConfigExists(ApplicationSettings.Instance.VSPEConfigPath))
+            string path = ApplicationSettings.Instance.VSPEConfigPath;
+            if (string.IsNullOrEmpty(path))
+            {                
+                path = Application.ExecutablePath;
+                ApplicationSettings.Instance.VSPEConfigPath = path;
+            }
+            if (!vSPEManager.IsVSPEConfigExists(path))
             {                
                 MessageBox.Show("No valid VSPE config exists. Recreate VSPE configuration under 'Settings'.");                
             }

@@ -561,6 +561,7 @@ namespace SM.ClubManager.AccessControl
         private void frmSettings_Shown(object sender, EventArgs e)
         {
             lblSSPortDetectStatus.Text = "";
+            txtSerialPortSimplySwitchName.Text = ApplicationSettings.Instance.SerialPortSimplySwitchName;
         }
     }
 }

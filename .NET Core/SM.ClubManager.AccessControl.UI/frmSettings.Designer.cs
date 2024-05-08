@@ -82,8 +82,6 @@ namespace SM.ClubManager.AccessControl
             btnBrowsePathVSPE = new Button();
             label6 = new Label();
             textBoxExt5 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
-            btnGenerateVSPEConfig = new Button();
-            button1 = new Button();
             folderBrowserDialog1 = new FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)toggleisWirelessConnection).BeginInit();
             panel1.SuspendLayout();
@@ -681,26 +679,6 @@ namespace SM.ClubManager.AccessControl
             textBoxExt5.Text = "Enable/Disable Automated Port Setup";
             textBoxExt5.TextAlign = HorizontalAlignment.Center;
             // 
-            // btnGenerateVSPEConfig
-            // 
-            btnGenerateVSPEConfig.Location = new Point(578, 321);
-            btnGenerateVSPEConfig.Name = "btnGenerateVSPEConfig";
-            btnGenerateVSPEConfig.Size = new Size(75, 23);
-            btnGenerateVSPEConfig.TabIndex = 41;
-            btnGenerateVSPEConfig.Text = "Create";
-            btnGenerateVSPEConfig.UseVisualStyleBackColor = true;
-            btnGenerateVSPEConfig.Click += btnGenerateVSPEConfig_Click;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(497, 321);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 42;
-            button1.Text = "Get Ports";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // folderBrowserDialog1
             // 
             folderBrowserDialog1.AddToRecent = false;
@@ -712,8 +690,6 @@ namespace SM.ClubManager.AccessControl
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(737, 461);
-            Controls.Add(button1);
-            Controls.Add(btnGenerateVSPEConfig);
             Controls.Add(panel6);
             Controls.Add(panel5);
             Controls.Add(panel4);
@@ -804,8 +780,6 @@ namespace SM.ClubManager.AccessControl
         private TextBox txtVSPEConfigPath;
         private Button btnBrowsePathVSPE;
         private Label label6;
-        private Button btnGenerateVSPEConfig;
-        private Button button1;
         private FolderBrowserDialog folderBrowserDialog1;
         private Label label7;
         private Label label12;

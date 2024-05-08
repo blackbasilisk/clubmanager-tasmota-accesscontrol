@@ -597,7 +597,7 @@
           }
         }
       },
-      "runtime.linux-arm.runtime.native.System.IO.Ports/7.0.0": {
+      "runtime.linux-arm.runtime.native.System.IO.Ports/6.0.0": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/linux-arm/native/libSystem.IO.Ports.Native.so": {
@@ -606,7 +606,7 @@
           }
         }
       },
-      "runtime.linux-arm64.runtime.native.System.IO.Ports/7.0.0": {
+      "runtime.linux-arm64.runtime.native.System.IO.Ports/6.0.0": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/linux-arm64/native/libSystem.IO.Ports.Native.so": {
@@ -615,7 +615,7 @@
           }
         }
       },
-      "runtime.linux-x64.runtime.native.System.IO.Ports/7.0.0": {
+      "runtime.linux-x64.runtime.native.System.IO.Ports/6.0.0": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/linux-x64/native/libSystem.IO.Ports.Native.so": {
@@ -632,17 +632,17 @@
           "runtime.win-x86.runtime.native.System.Data.SqlClient.sni": "4.4.0"
         }
       },
-      "runtime.native.System.IO.Ports/7.0.0": {
+      "runtime.native.System.IO.Ports/6.0.0": {
         "type": "package",
         "dependencies": {
-          "runtime.linux-arm.runtime.native.System.IO.Ports": "7.0.0",
-          "runtime.linux-arm64.runtime.native.System.IO.Ports": "7.0.0",
-          "runtime.linux-x64.runtime.native.System.IO.Ports": "7.0.0",
-          "runtime.osx-arm64.runtime.native.System.IO.Ports": "7.0.0",
-          "runtime.osx-x64.runtime.native.System.IO.Ports": "7.0.0"
+          "runtime.linux-arm.runtime.native.System.IO.Ports": "6.0.0",
+          "runtime.linux-arm64.runtime.native.System.IO.Ports": "6.0.0",
+          "runtime.linux-x64.runtime.native.System.IO.Ports": "6.0.0",
+          "runtime.osx-arm64.runtime.native.System.IO.Ports": "6.0.0",
+          "runtime.osx-x64.runtime.native.System.IO.Ports": "6.0.0"
         }
       },
-      "runtime.osx-arm64.runtime.native.System.IO.Ports/7.0.0": {
+      "runtime.osx-arm64.runtime.native.System.IO.Ports/6.0.0": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/osx-arm64/native/libSystem.IO.Ports.Native.dylib": {
@@ -651,7 +651,7 @@
           }
         }
       },
-      "runtime.osx-x64.runtime.native.System.IO.Ports/7.0.0": {
+      "runtime.osx-x64.runtime.native.System.IO.Ports/6.0.0": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/osx-x64/native/libSystem.IO.Ports.Native.dylib": {
@@ -1240,21 +1240,25 @@
           }
         }
       },
-      "System.Configuration.ConfigurationManager/4.7.0": {
+      "System.Configuration.ConfigurationManager/7.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Security.Cryptography.ProtectedData": "4.7.0",
-          "System.Security.Permissions": "4.7.0"
+          "System.Diagnostics.EventLog": "7.0.0",
+          "System.Security.Cryptography.ProtectedData": "7.0.0",
+          "System.Security.Permissions": "7.0.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll": {
+          "lib/net7.0/System.Configuration.ConfigurationManager.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {
+          "lib/net7.0/System.Configuration.ConfigurationManager.dll": {
             "related": ".xml"
           }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
         }
       },
       "System.Data.SqlClient/4.8.1": {
@@ -1285,7 +1289,7 @@
           }
         }
       },
-      "System.Diagnostics.EventLog/7.0.0": {
+      "System.Diagnostics.EventLog/8.0.0": {
         "type": "package",
         "compile": {
           "lib/net7.0/System.Diagnostics.EventLog.dll": {
@@ -1336,30 +1340,30 @@
           }
         }
       },
-      "System.IO.Ports/7.0.0": {
+      "System.IO.Ports/6.0.0": {
         "type": "package",
         "dependencies": {
-          "runtime.native.System.IO.Ports": "7.0.0"
+          "runtime.native.System.IO.Ports": "6.0.0"
         },
         "compile": {
-          "lib/net7.0/System.IO.Ports.dll": {
+          "lib/net6.0/System.IO.Ports.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net7.0/System.IO.Ports.dll": {
+          "lib/net6.0/System.IO.Ports.dll": {
             "related": ".xml"
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/netcoreapp3.1/_._": {}
         },
         "runtimeTargets": {
-          "runtimes/unix/lib/net7.0/System.IO.Ports.dll": {
+          "runtimes/unix/lib/net6.0/System.IO.Ports.dll": {
             "assetType": "runtime",
             "rid": "unix"
           },
-          "runtimes/win/lib/net7.0/System.IO.Ports.dll": {
+          "runtimes/win/lib/net6.0/System.IO.Ports.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -1399,7 +1403,7 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Resources.Extensions/7.0.0": {
+      "System.Resources.Extensions/8.0.0": {
         "type": "package",
         "compile": {
           "lib/net7.0/System.Resources.Extensions.dll": {
@@ -1422,7 +1426,7 @@
           "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Security.AccessControl.dll": {
+          "ref/netstandard2.0/_._": {
             "related": ".xml"
           }
         },
@@ -1438,40 +1442,45 @@
           }
         }
       },
-      "System.Security.Cryptography.ProtectedData/4.7.0": {
+      "System.Security.Cryptography.ProtectedData/7.0.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {
+          "lib/net7.0/System.Security.Cryptography.ProtectedData.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
+          "lib/net7.0/System.Security.Cryptography.ProtectedData.dll": {
             "related": ".xml"
           }
         },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        },
         "runtimeTargets": {
-          "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
+          "runtimes/win/lib/net7.0/System.Security.Cryptography.ProtectedData.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
         }
       },
-      "System.Security.Permissions/4.7.0": {
+      "System.Security.Permissions/7.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Security.AccessControl": "4.7.0",
-          "System.Windows.Extensions": "4.7.0"
+          "System.Windows.Extensions": "7.0.0"
         },
         "compile": {
-          "ref/netcoreapp3.0/System.Security.Permissions.dll": {
+          "lib/net7.0/System.Security.Permissions.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.0/System.Security.Permissions.dll": {
+          "lib/net7.0/System.Security.Permissions.dll": {
             "related": ".xml"
           }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
         }
       },
       "System.Security.Principal.Windows/5.0.0": {
@@ -1538,23 +1547,23 @@
           "buildTransitive/net6.0/System.Text.Json.targets": {}
         }
       },
-      "System.Windows.Extensions/4.7.0": {
+      "System.Windows.Extensions/7.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Drawing.Common": "4.7.0"
+          "System.Drawing.Common": "7.0.0"
         },
         "compile": {
-          "ref/netcoreapp3.0/System.Windows.Extensions.dll": {
+          "lib/net7.0/System.Windows.Extensions.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.0/System.Windows.Extensions.dll": {
+          "lib/net7.0/System.Windows.Extensions.dll": {
             "related": ".xml"
           }
         },
         "runtimeTargets": {
-          "runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll": {
+          "runtimes/win/lib/net7.0/System.Windows.Extensions.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -1564,11 +1573,11 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "EntityFramework": "6.4.4",
+          "Microsoft.EntityFrameworkCore": "7.0.5",
           "Newtonsoft.Json": "13.0.3",
-          "System.Diagnostics.EventLog": "7.0.0",
+          "System.Configuration.ConfigurationManager": "7.0.0",
+          "System.Diagnostics.EventLog": "8.0.0",
           "System.Drawing.Common": "7.0.0",
-          "System.IO.Ports": "7.0.0",
           "System.Management": "7.0.1",
           "System.Resources.Extensions": "7.0.0"
         },
@@ -2659,49 +2668,49 @@
         "nlog.extensions.logging.nuspec"
       ]
     },
-    "runtime.linux-arm.runtime.native.System.IO.Ports/7.0.0": {
-      "sha512": "CBvgRaF+M0xGLDv2Geb/0v0LEADheH8aK72GRAUJdnqnJVsQO60ki1XO8M3keEhnjm+T5NvLm41pNXAVYAPiSg==",
+    "runtime.linux-arm.runtime.native.System.IO.Ports/6.0.0": {
+      "sha512": "75q52H7CSpgIoIDwXb9o833EvBZIXJ0mdPhz1E6jSisEXUBlSCPalC29cj3EXsjpuDwr0dj1LRXZepIQH/oL4Q==",
       "type": "package",
-      "path": "runtime.linux-arm.runtime.native.system.io.ports/7.0.0",
+      "path": "runtime.linux-arm.runtime.native.system.io.ports/6.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-arm.runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+        "runtime.linux-arm.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
         "runtime.linux-arm.runtime.native.system.io.ports.nuspec",
         "runtimes/linux-arm/native/libSystem.IO.Ports.Native.so",
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.linux-arm64.runtime.native.System.IO.Ports/7.0.0": {
-      "sha512": "5VCyRCtCIYU8FR/W8oo7ouFuJ8tmAg9ddsuXhfCKZfZrbaVZSKxkmNBa6fxkfYPueD0jQfOvwFBmE5c6zalCSw==",
+    "runtime.linux-arm64.runtime.native.System.IO.Ports/6.0.0": {
+      "sha512": "xn2bMThmXr3CsvOYmS8ex2Yz1xo+kcnhVg2iVhS9PlmqjZPAkrEo/I40wjrBZH/tU4kvH0s1AE8opAvQ3KIS8g==",
       "type": "package",
-      "path": "runtime.linux-arm64.runtime.native.system.io.ports/7.0.0",
+      "path": "runtime.linux-arm64.runtime.native.system.io.ports/6.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-arm64.runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+        "runtime.linux-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
         "runtime.linux-arm64.runtime.native.system.io.ports.nuspec",
         "runtimes/linux-arm64/native/libSystem.IO.Ports.Native.so",
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.linux-x64.runtime.native.System.IO.Ports/7.0.0": {
-      "sha512": "DV9dWDUs23OoZqMWl5IhLr3D+b9koDiSHQxFKdYgWnQbnthv8c/yDjrlrI8nMrDc71RAKCO8jlUojzuPMX04gg==",
+    "runtime.linux-x64.runtime.native.System.IO.Ports/6.0.0": {
+      "sha512": "16nbNXwv0sC+gLGIuecri0skjuh6R1maIJggsaNP7MQBcbVcEfWFUOkEnsnvoLEjy0XerfibuRptfQ8AmdIcWA==",
       "type": "package",
-      "path": "runtime.linux-x64.runtime.native.system.io.ports/7.0.0",
+      "path": "runtime.linux-x64.runtime.native.system.io.ports/6.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-x64.runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+        "runtime.linux-x64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
         "runtime.linux-x64.runtime.native.system.io.ports.nuspec",
         "runtimes/linux-x64/native/libSystem.IO.Ports.Native.so",
         "useSharedDesignerContext.txt"
@@ -2722,48 +2731,48 @@
         "version.txt"
       ]
     },
-    "runtime.native.System.IO.Ports/7.0.0": {
-      "sha512": "L4Ivegqc3B0Fee7VifFy2JST9nndm+uvJ0viLIZUaImDfnr+JmRin9Tbqd56KuMtm0eVxHpNOWZBPtKrA/1h5Q==",
+    "runtime.native.System.IO.Ports/6.0.0": {
+      "sha512": "KaaXlpOcuZjMdmyF5wzzx3b+PRKIzt6A5Ax9dKenPDQbVJAFpev+casD0BIig1pBcbs3zx7CqWemzUJKAeHdSQ==",
       "type": "package",
-      "path": "runtime.native.system.io.ports/7.0.0",
+      "path": "runtime.native.system.io.ports/6.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+        "runtime.native.system.io.ports.6.0.0.nupkg.sha512",
         "runtime.native.system.io.ports.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.osx-arm64.runtime.native.System.IO.Ports/7.0.0": {
-      "sha512": "jFwh4sKSXZ7al5XrItEO4GdGWa6XNxvNx+LhEHjrSzOwawO1znwJ+Dy+VjnrkySX9Qi4bnHNLoiqOXbqMuka4g==",
+    "runtime.osx-arm64.runtime.native.System.IO.Ports/6.0.0": {
+      "sha512": "fXG12NodG1QrCdoaeSQ1gVnk/koi4WYY4jZtarMkZeQMyReBm1nZlSRoPnUjLr2ZR36TiMjpcGnQfxymieUe7w==",
       "type": "package",
-      "path": "runtime.osx-arm64.runtime.native.system.io.ports/7.0.0",
+      "path": "runtime.osx-arm64.runtime.native.system.io.ports/6.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.osx-arm64.runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+        "runtime.osx-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
         "runtime.osx-arm64.runtime.native.system.io.ports.nuspec",
         "runtimes/osx-arm64/native/libSystem.IO.Ports.Native.dylib",
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.osx-x64.runtime.native.System.IO.Ports/7.0.0": {
-      "sha512": "X4LrHEfke/z9+z+iuVr35NlkhdZldY8JGNMYUN+sfPK/U/6TcE+vP44I0Yv0ir1v0bqIzq3v6Qdv1c1vmp8s4g==",
+    "runtime.osx-x64.runtime.native.System.IO.Ports/6.0.0": {
+      "sha512": "/As+zPY49+dSUXkh+fTUbyPhqrdGN//evLxo4Vue88pfh1BHZgF7q4kMblTkxYvwR6Vi03zSYxysSFktO8/SDQ==",
       "type": "package",
-      "path": "runtime.osx-x64.runtime.native.system.io.ports/7.0.0",
+      "path": "runtime.osx-x64.runtime.native.system.io.ports/6.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.osx-x64.runtime.native.system.io.ports.7.0.0.nupkg.sha512",
+        "runtime.osx-x64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
         "runtime.osx-x64.runtime.native.system.io.ports.nuspec",
         "runtimes/osx-x64/native/libSystem.IO.Ports.Native.dylib",
         "useSharedDesignerContext.txt"
@@ -3547,27 +3556,31 @@
         "version.txt"
       ]
     },
-    "System.Configuration.ConfigurationManager/4.7.0": {
-      "sha512": "/anOTeSZCNNI2zDilogWrZ8pNqCmYbzGNexUnNhjW8k0sHqEZ2nHJBp147jBV3hGYswu5lINpNg1vxR7bnqvVA==",
+    "System.Configuration.ConfigurationManager/7.0.0": {
+      "sha512": "WvRUdlL1lB0dTRZSs5XcQOd5q9MYNk90GkbmRmiCvRHThWiojkpGqWdmEDJdXyHbxG/BhE5hmVbMfRLXW9FJVA==",
       "type": "package",
-      "path": "system.configuration.configurationmanager/4.7.0",
+      "path": "system.configuration.configurationmanager/7.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Configuration.ConfigurationManager.dll",
-        "lib/net461/System.Configuration.ConfigurationManager.xml",
+        "buildTransitive/net461/System.Configuration.ConfigurationManager.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Configuration.ConfigurationManager.targets",
+        "lib/net462/System.Configuration.ConfigurationManager.dll",
+        "lib/net462/System.Configuration.ConfigurationManager.xml",
+        "lib/net6.0/System.Configuration.ConfigurationManager.dll",
+        "lib/net6.0/System.Configuration.ConfigurationManager.xml",
+        "lib/net7.0/System.Configuration.ConfigurationManager.dll",
+        "lib/net7.0/System.Configuration.ConfigurationManager.xml",
         "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll",
         "lib/netstandard2.0/System.Configuration.ConfigurationManager.xml",
-        "ref/net461/System.Configuration.ConfigurationManager.dll",
-        "ref/net461/System.Configuration.ConfigurationManager.xml",
-        "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll",
-        "ref/netstandard2.0/System.Configuration.ConfigurationManager.xml",
-        "system.configuration.configurationmanager.4.7.0.nupkg.sha512",
+        "system.configuration.configurationmanager.7.0.0.nupkg.sha512",
         "system.configuration.configurationmanager.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
+        "useSharedDesignerContext.txt"
       ]
     },
     "System.Data.SqlClient/4.8.1": {
@@ -3656,15 +3669,16 @@
         "version.txt"
       ]
     },
-    "System.Diagnostics.EventLog/7.0.0": {
-      "sha512": "eUDP47obqQm3SFJfP6z+Fx2nJ4KKTQbXB4Q9Uesnzw9SbYdhjyoGXuvDn/gEmFY6N5Z3bFFbpAQGA7m6hrYJCw==",
+    "System.Diagnostics.EventLog/8.0.0": {
+      "sha512": "fdYxcRjQqTTacKId/2IECojlDSFvp7LP5N78+0z/xH7v/Tuw5ZAxu23Y6PTCRinqyu2ePx+Gn1098NC6jM6d+A==",
       "type": "package",
-      "path": "system.diagnostics.eventlog/7.0.0",
+      "path": "system.diagnostics.eventlog/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
+        "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.Diagnostics.EventLog.targets",
         "buildTransitive/net462/_._",
@@ -3676,6 +3690,8 @@
         "lib/net6.0/System.Diagnostics.EventLog.xml",
         "lib/net7.0/System.Diagnostics.EventLog.dll",
         "lib/net7.0/System.Diagnostics.EventLog.xml",
+        "lib/net8.0/System.Diagnostics.EventLog.dll",
+        "lib/net8.0/System.Diagnostics.EventLog.xml",
         "lib/netstandard2.0/System.Diagnostics.EventLog.dll",
         "lib/netstandard2.0/System.Diagnostics.EventLog.xml",
         "runtimes/win/lib/net6.0/System.Diagnostics.EventLog.Messages.dll",
@@ -3684,7 +3700,10 @@
         "runtimes/win/lib/net7.0/System.Diagnostics.EventLog.Messages.dll",
         "runtimes/win/lib/net7.0/System.Diagnostics.EventLog.dll",
         "runtimes/win/lib/net7.0/System.Diagnostics.EventLog.xml",
-        "system.diagnostics.eventlog.7.0.0.nupkg.sha512",
+        "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll",
+        "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll",
+        "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.xml",
+        "system.diagnostics.eventlog.8.0.0.nupkg.sha512",
         "system.diagnostics.eventlog.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3726,37 +3745,35 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.IO.Ports/7.0.0": {
-      "sha512": "0nWQjM5IofaIGpvkifN+LLuYwBG6BHlpmphLhhOJepcW12G8qToGuNDRgBzeTVBZzp33wVsESSZ8hUOCfq+8QA==",
+    "System.IO.Ports/6.0.0": {
+      "sha512": "dRyGI7fUESar5ZLIpiBOaaNLW7YyOBGftjj5Of+xcduC/Rjl7RjhEnWDvvNBmHuF3d0tdXoqdVI/yrVA8f00XA==",
       "type": "package",
-      "path": "system.io.ports/7.0.0",
+      "path": "system.io.ports/6.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/System.IO.Ports.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
         "buildTransitive/netcoreapp2.0/System.IO.Ports.targets",
-        "lib/net462/System.IO.Ports.dll",
-        "lib/net462/System.IO.Ports.xml",
+        "buildTransitive/netcoreapp3.1/_._",
+        "lib/net461/System.IO.Ports.dll",
+        "lib/net461/System.IO.Ports.xml",
         "lib/net6.0/System.IO.Ports.dll",
         "lib/net6.0/System.IO.Ports.xml",
-        "lib/net7.0/System.IO.Ports.dll",
-        "lib/net7.0/System.IO.Ports.xml",
         "lib/netstandard2.0/System.IO.Ports.dll",
         "lib/netstandard2.0/System.IO.Ports.xml",
         "runtimes/unix/lib/net6.0/System.IO.Ports.dll",
         "runtimes/unix/lib/net6.0/System.IO.Ports.xml",
-        "runtimes/unix/lib/net7.0/System.IO.Ports.dll",
-        "runtimes/unix/lib/net7.0/System.IO.Ports.xml",
+        "runtimes/unix/lib/netstandard2.0/System.IO.Ports.dll",
+        "runtimes/unix/lib/netstandard2.0/System.IO.Ports.xml",
+        "runtimes/win/lib/net461/System.IO.Ports.dll",
+        "runtimes/win/lib/net461/System.IO.Ports.xml",
         "runtimes/win/lib/net6.0/System.IO.Ports.dll",
         "runtimes/win/lib/net6.0/System.IO.Ports.xml",
-        "runtimes/win/lib/net7.0/System.IO.Ports.dll",
-        "runtimes/win/lib/net7.0/System.IO.Ports.xml",
-        "system.io.ports.7.0.0.nupkg.sha512",
+        "runtimes/win/lib/netstandard2.0/System.IO.Ports.dll",
+        "runtimes/win/lib/netstandard2.0/System.IO.Ports.xml",
+        "system.io.ports.6.0.0.nupkg.sha512",
         "system.io.ports.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3810,10 +3827,10 @@
         "version.txt"
       ]
     },
-    "System.Resources.Extensions/7.0.0": {
-      "sha512": "65ufm9ABXvxRkQ//hMcUDrQXbGWkC7z0WWZAvHlQ6Qv+JmrIwHH1lmX8aXlNlXpIrT9KxDpuZPqJTVqqwzMD8Q==",
+    "System.Resources.Extensions/8.0.0": {
+      "sha512": "psnQ6GRQOvt+evda5C4nD5EuV49mz2Tv0DD2JDVDEbE/TKoMukxSkGJcsBJ0pajpPuFRr67syFYlkJ4Wj6A5Zw==",
       "type": "package",
-      "path": "system.resources.extensions/7.0.0",
+      "path": "system.resources.extensions/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3830,9 +3847,11 @@
         "lib/net6.0/System.Resources.Extensions.xml",
         "lib/net7.0/System.Resources.Extensions.dll",
         "lib/net7.0/System.Resources.Extensions.xml",
+        "lib/net8.0/System.Resources.Extensions.dll",
+        "lib/net8.0/System.Resources.Extensions.xml",
         "lib/netstandard2.0/System.Resources.Extensions.dll",
         "lib/netstandard2.0/System.Resources.Extensions.xml",
-        "system.resources.extensions.7.0.0.nupkg.sha512",
+        "system.resources.extensions.8.0.0.nupkg.sha512",
         "system.resources.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3883,76 +3902,68 @@
         "version.txt"
       ]
     },
-    "System.Security.Cryptography.ProtectedData/4.7.0": {
-      "sha512": "ehYW0m9ptxpGWvE4zgqongBVWpSDU/JCFD4K7krxkQwSz/sFQjEXCUqpvencjy6DYDbn7Ig09R8GFffu8TtneQ==",
+    "System.Security.Cryptography.ProtectedData/7.0.0": {
+      "sha512": "xSPiLNlHT6wAHtugASbKAJwV5GVqQK351crnILAucUioFqqieDN79evO1rku1ckt/GfjIn+b17UaSskoY03JuA==",
       "type": "package",
-      "path": "system.security.cryptography.protecteddata/4.7.0",
+      "path": "system.security.cryptography.protecteddata/7.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Security.Cryptography.ProtectedData.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Security.Cryptography.ProtectedData.targets",
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",
-        "lib/net46/System.Security.Cryptography.ProtectedData.dll",
-        "lib/net461/System.Security.Cryptography.ProtectedData.dll",
-        "lib/net461/System.Security.Cryptography.ProtectedData.xml",
-        "lib/netstandard1.3/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net462/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net462/System.Security.Cryptography.ProtectedData.xml",
+        "lib/net6.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net6.0/System.Security.Cryptography.ProtectedData.xml",
+        "lib/net7.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net7.0/System.Security.Cryptography.ProtectedData.xml",
         "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll",
         "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.xml",
         "lib/xamarinios10/_._",
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net46/System.Security.Cryptography.ProtectedData.dll",
-        "ref/net461/System.Security.Cryptography.ProtectedData.dll",
-        "ref/net461/System.Security.Cryptography.ProtectedData.xml",
-        "ref/netstandard1.3/System.Security.Cryptography.ProtectedData.dll",
-        "ref/netstandard2.0/System.Security.Cryptography.ProtectedData.dll",
-        "ref/netstandard2.0/System.Security.Cryptography.ProtectedData.xml",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "runtimes/win/lib/net46/System.Security.Cryptography.ProtectedData.dll",
-        "runtimes/win/lib/net461/System.Security.Cryptography.ProtectedData.dll",
-        "runtimes/win/lib/net461/System.Security.Cryptography.ProtectedData.xml",
-        "runtimes/win/lib/netstandard1.3/System.Security.Cryptography.ProtectedData.dll",
-        "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll",
-        "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.xml",
-        "system.security.cryptography.protecteddata.4.7.0.nupkg.sha512",
+        "runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll",
+        "runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.xml",
+        "runtimes/win/lib/net7.0/System.Security.Cryptography.ProtectedData.dll",
+        "runtimes/win/lib/net7.0/System.Security.Cryptography.ProtectedData.xml",
+        "system.security.cryptography.protecteddata.7.0.0.nupkg.sha512",
         "system.security.cryptography.protecteddata.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
+        "useSharedDesignerContext.txt"
       ]
     },
-    "System.Security.Permissions/4.7.0": {
-      "sha512": "dkOV6YYVBnYRa15/yv004eCGRBVADXw8qRbbNiCn/XpdJSUXkkUeIvdvFHkvnko4CdKMqG8yRHC4ox83LSlMsQ==",
+    "System.Security.Permissions/7.0.0": {
+      "sha512": "Vmp0iRmCEno9BWiskOW5pxJ3d9n+jUqKxvX4GhLwFhnQaySZmBN2FuC0N5gjFHgyFMUjC5sfIJ8KZfoJwkcMmA==",
       "type": "package",
-      "path": "system.security.permissions/4.7.0",
+      "path": "system.security.permissions/7.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Security.Permissions.dll",
-        "lib/net461/System.Security.Permissions.xml",
-        "lib/netcoreapp3.0/System.Security.Permissions.dll",
-        "lib/netcoreapp3.0/System.Security.Permissions.xml",
+        "buildTransitive/net461/System.Security.Permissions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Security.Permissions.targets",
+        "lib/net462/System.Security.Permissions.dll",
+        "lib/net462/System.Security.Permissions.xml",
+        "lib/net6.0/System.Security.Permissions.dll",
+        "lib/net6.0/System.Security.Permissions.xml",
+        "lib/net7.0/System.Security.Permissions.dll",
+        "lib/net7.0/System.Security.Permissions.xml",
         "lib/netstandard2.0/System.Security.Permissions.dll",
         "lib/netstandard2.0/System.Security.Permissions.xml",
-        "ref/net461/System.Security.Permissions.dll",
-        "ref/net461/System.Security.Permissions.xml",
-        "ref/netcoreapp3.0/System.Security.Permissions.dll",
-        "ref/netcoreapp3.0/System.Security.Permissions.xml",
-        "ref/netstandard2.0/System.Security.Permissions.dll",
-        "ref/netstandard2.0/System.Security.Permissions.xml",
-        "system.security.permissions.4.7.0.nupkg.sha512",
+        "system.security.permissions.7.0.0.nupkg.sha512",
         "system.security.permissions.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
+        "useSharedDesignerContext.txt"
       ]
     },
     "System.Security.Principal.Windows/5.0.0": {
@@ -4112,25 +4123,27 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Windows.Extensions/4.7.0": {
-      "sha512": "CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
+    "System.Windows.Extensions/7.0.0": {
+      "sha512": "bR4qdCmssMMbo9Fatci49An5B1UaVJZHKNq70PRgzoLYIlitb8Tj7ns/Xt5Pz1CkERiTjcVBDU2y1AVrPBYkaw==",
       "type": "package",
-      "path": "system.windows.extensions/4.7.0",
+      "path": "system.windows.extensions/7.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/netcoreapp3.0/System.Windows.Extensions.dll",
-        "lib/netcoreapp3.0/System.Windows.Extensions.xml",
-        "ref/netcoreapp3.0/System.Windows.Extensions.dll",
-        "ref/netcoreapp3.0/System.Windows.Extensions.xml",
-        "runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll",
-        "runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.xml",
-        "system.windows.extensions.4.7.0.nupkg.sha512",
+        "lib/net6.0/System.Windows.Extensions.dll",
+        "lib/net6.0/System.Windows.Extensions.xml",
+        "lib/net7.0/System.Windows.Extensions.dll",
+        "lib/net7.0/System.Windows.Extensions.xml",
+        "runtimes/win/lib/net6.0/System.Windows.Extensions.dll",
+        "runtimes/win/lib/net6.0/System.Windows.Extensions.xml",
+        "runtimes/win/lib/net7.0/System.Windows.Extensions.dll",
+        "runtimes/win/lib/net7.0/System.Windows.Extensions.xml",
+        "system.windows.extensions.7.0.0.nupkg.sha512",
         "system.windows.extensions.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
+        "useSharedDesignerContext.txt"
       ]
     },
     "SIS.Library.Base/1.0.0": {
@@ -4165,8 +4178,8 @@
     },
     "SM.ClubManager.AccessControl.PortScanner/1.0.0": {
       "type": "project",
-      "path": "../SM.ClubManager.AccessControl/SM.ClubManager.AccessControl.PortScanner/SM.ClubManager.AccessControl.PortScanner.csproj",
-      "msbuildProject": "../SM.ClubManager.AccessControl/SM.ClubManager.AccessControl.PortScanner/SM.ClubManager.AccessControl.PortScanner.csproj"
+      "path": "../SM.ClubManager.AccessControl.PortScanner/SM.ClubManager.AccessControl.PortScanner.csproj",
+      "msbuildProject": "../SM.ClubManager.AccessControl.PortScanner/SM.ClubManager.AccessControl.PortScanner.csproj"
     },
     "SM.ClubManager.AccessControl.Repository/1.0.0": {
       "type": "project",
@@ -4192,7 +4205,7 @@
       "SM.ClubManager.AccessControl.SDK >= 1.0.0",
       "SerialPortLib >= 1.1.2",
       "Syncfusion.GridHelperClasses.Windows >= 21.1.39",
-      "System.Resources.Extensions >= 7.0.0"
+      "System.Resources.Extensions >= 8.0.0"
     ]
   },
   "packageFolders": {
@@ -4230,11 +4243,11 @@
             "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Config\\SM.ClubManager.AccessControl.Config.csproj": {
               "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Config\\SM.ClubManager.AccessControl.Config.csproj"
             },
+            "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.PortScanner\\SM.ClubManager.AccessControl.PortScanner.csproj": {
+              "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.PortScanner\\SM.ClubManager.AccessControl.PortScanner.csproj"
+            },
             "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.SDK\\SM.ClubManager.AccessControl.SDK.csproj": {
               "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.SDK\\SM.ClubManager.AccessControl.SDK.csproj"
-            },
-            "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl\\SM.ClubManager.AccessControl.PortScanner\\SM.ClubManager.AccessControl.PortScanner.csproj": {
-              "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl\\SM.ClubManager.AccessControl.PortScanner\\SM.ClubManager.AccessControl.PortScanner.csproj"
             },
             "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Base\\SIS.Library.Base.csproj": {
               "projectPath": "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Base\\SIS.Library.Base.csproj"
@@ -4288,7 +4301,7 @@
           },
           "System.Resources.Extensions": {
             "target": "Package",
-            "version": "[7.0.0, )"
+            "version": "[8.0.0, )"
           }
         },
         "imports": [

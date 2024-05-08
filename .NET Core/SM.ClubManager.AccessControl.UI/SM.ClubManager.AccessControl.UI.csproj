@@ -46,15 +46,15 @@
         </PackageReference>
         <PackageReference Include="SerialPortLib" Version="1.1.2" />
         <PackageReference Include="Syncfusion.GridHelperClasses.Windows" Version="21.1.39" />
-        <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+        <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.Base\SIS.Library.Base.csproj" />
       <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.WinFormsBase\SIS.Library.WinFormsBase.csproj" />
       <ProjectReference Include="..\SM.ClubManager.AccessControl.Config\SM.ClubManager.AccessControl.Config.csproj" />
+      <ProjectReference Include="..\SM.ClubManager.AccessControl.PortScanner\SM.ClubManager.AccessControl.PortScanner.csproj" />
       <ProjectReference Include="..\SM.ClubManager.AccessControl.SDK\SM.ClubManager.AccessControl.SDK.csproj" />
-      <ProjectReference Include="..\SM.ClubManager.AccessControl\SM.ClubManager.AccessControl.PortScanner\SM.ClubManager.AccessControl.PortScanner.csproj" />
     </ItemGroup>
 
     <ItemGroup>
