@@ -53,13 +53,13 @@ namespace SM.ClubManager.AccessControl
                 {
                     if (ApplicationSettings.Instance.VSPEConfigPath == null || ApplicationSettings.Instance.VSPEConfigPath == "")
                     {
-                        ApplicationSettings.Instance.VSPEConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimplySwitch");
+                        ApplicationSettings.Instance.VSPEConfigPath = Directory.GetCurrentDirectory(); ////Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SimplySwitch");
                     }
                     txtVSPEConfigPath.Text = ApplicationSettings.Instance.VSPEConfigPath;
                 }
                 catch (Exception)
                 {
-                    ApplicationSettings.Instance.VSPEConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SimplySwitch");
+                    ApplicationSettings.Instance.VSPEConfigPath = Directory.GetCurrentDirectory();//Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SimplySwitch");
                     txtVSPEConfigPath.Text = ApplicationSettings.Instance.VSPEConfigPath;
                 }
 
@@ -359,6 +359,7 @@ namespace SM.ClubManager.AccessControl
         private void btnAutoSetupVSPE_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("The software will need to close to complete the operation", "Are you sure", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            ApplicationSettings.Instance.VSPEConfigPath = txtVSPEConfigPath.Text;
             if (result == DialogResult.Yes)
             {
                 if (CreateVSPEConfig())
@@ -452,6 +453,7 @@ namespace SM.ClubManager.AccessControl
                 }
                 catch (Exception ex)
                 {
+                    Log(ex.Message, true);
                     string msg = "Make sure the formatting of the ports are correct. It need to be 'COMx', where x is a number from 1 - 9";
                     MessageBox.Show(msg);
                     v.StartVSPE();
@@ -470,7 +472,7 @@ namespace SM.ClubManager.AccessControl
                 throw;
             }
         }
-     
+
         public static List<T> GetMissingItems<T>(List<T> knownPossibilities, List<T> items)
         {
             // Use LINQ to find items in knownPossibilities that are not in items
@@ -502,9 +504,9 @@ namespace SM.ClubManager.AccessControl
             if (userMessage == DialogResult.Yes)
             {
                 try
-                {                                        
+                {
                     txtSerialPortSimplySwitchName.Text = "";
-                                        
+
                     frmSplash.ShowSplashScreen();
 
                     var mainForm = this.Owner as frmMain;
@@ -515,7 +517,7 @@ namespace SM.ClubManager.AccessControl
                     }
                     //get the list of ports in use by the system
                     var listPorts = PortUtilities.GetComPortsInUseAsStrings();
-                   
+
                     if (listPorts != null && listPorts.Count() > 0)
                     {
                         Scanner scanner = new Scanner();
@@ -562,6 +564,16 @@ namespace SM.ClubManager.AccessControl
         {
             lblSSPortDetectStatus.Text = "";
             txtSerialPortSimplySwitchName.Text = ApplicationSettings.Instance.SerialPortSimplySwitchName;
+        }
+
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtVSPEConfigPath_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

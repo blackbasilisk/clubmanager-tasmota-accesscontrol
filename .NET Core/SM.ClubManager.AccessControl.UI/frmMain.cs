@@ -26,6 +26,7 @@ using SM.ClubManager.AccessControl.UI.Infrastructure;
 using SM.ClubManager.AccessControl.Repository;
 using SM.ClubManager.AccessControl.PortScanner;
 using Syncfusion.Windows.Forms.Tools;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace SM.ClubManager.AccessControl
@@ -173,6 +174,11 @@ namespace SM.ClubManager.AccessControl
             {
                 ApplicationSettings.Instance.SerialPortPairBaudRate = 115200;                
             }
+
+            toolStripStatusLabel1.Text = "";
+            toolStripStatusLabel2.Text = " - ";
+            toolStripStatusLabel3.Text = "";
+
         }
 
         #region Init Methods
@@ -189,10 +195,12 @@ namespace SM.ClubManager.AccessControl
             //VSPEManager.KillProcess();
 
             VSPEManager vSPEManager = new VSPEManager();
-            string path = ApplicationSettings.Instance.VSPEConfigPath;
-            if (string.IsNullOrEmpty(path))
+            
+            string path = ApplicationSettings.Instance.VSPEConfigPath;        
+            
+            if (path.EndsWith(".exe") || string.IsNullOrEmpty(path))
             {                
-                path = Application.ExecutablePath;
+                path = Path.Combine(Directory.GetCurrentDirectory());
                 ApplicationSettings.Instance.VSPEConfigPath = path;
             }
             if (!vSPEManager.IsVSPEConfigExists(path))

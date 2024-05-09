@@ -1579,7 +1579,7 @@
           "System.Diagnostics.EventLog": "8.0.0",
           "System.Drawing.Common": "7.0.0",
           "System.Management": "7.0.1",
-          "System.Resources.Extensions": "7.0.0"
+          "System.Resources.Extensions": "8.0.0"
         },
         "compile": {
           "bin/placeholder/SIS.Library.Base.dll": {}
@@ -1690,7 +1690,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "SerialPortLib": "1.1.1"
+          "SerialPortLib": "1.1.2"
         },
         "compile": {
           "bin/placeholder/SM.ClubManager.AccessControl.SDK.dll": {}

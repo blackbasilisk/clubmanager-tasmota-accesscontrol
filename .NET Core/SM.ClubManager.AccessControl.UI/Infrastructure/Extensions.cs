@@ -13,8 +13,9 @@ namespace SM.ClubManager.AccessControl.Infrastructure
 
         public static void InvokeIfRequired<T>(this T control, Action<T> action) where T : ISynchronizeInvoke
         {
-            if(control == null) 
-                throw new ArgumentNullException("control"); 
+            if (control == null)
+                return;
+                //throw new ArgumentNullException("control"); 
             
             if (control.InvokeRequired)
             {

@@ -63,26 +63,27 @@ namespace SM.ClubManager.AccessControl
             picToolTip3 = new PictureBox();
             textBoxExt3 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             panel5 = new Panel();
-            lblSSPortDetectStatus = new Label();
+            textBoxExt8 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
+            label7 = new Label();
+            textBoxExt4 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             label12 = new Label();
             txtPort1 = new TextBox();
+            txtVSPEConfigPath = new TextBox();
+            btnAutoSetupVSPE = new Button();
+            pictureBox3 = new PictureBox();
+            btnBrowsePathVSPE = new Button();
+            label6 = new Label();
+            lblSSPortDetectStatus = new Label();
             txtSerialOutBaudRate = new TextBox();
             label10 = new Label();
             textBoxExt7 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
-            textBoxExt4 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             ttOpenDelay = new ToolTip(components);
             pictureBox1 = new PictureBox();
-            pictureBox3 = new PictureBox();
             chkAutoConfigSSPort = new CheckBox();
             btnAutoSetupSS = new Button();
-            btnAutoSetupVSPE = new Button();
-            panel6 = new Panel();
-            label7 = new Label();
-            txtVSPEConfigPath = new TextBox();
-            btnBrowsePathVSPE = new Button();
-            label6 = new Label();
-            textBoxExt5 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             folderBrowserDialog1 = new FolderBrowserDialog();
+            panel7 = new Panel();
+            textBoxExt9 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             ((System.ComponentModel.ISupportInitialize)toggleisWirelessConnection).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)textBoxExt1).BeginInit();
@@ -96,17 +97,18 @@ namespace SM.ClubManager.AccessControl
             ((System.ComponentModel.ISupportInitialize)picToolTip3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textBoxExt3).BeginInit();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)textBoxExt7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)textBoxExt8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textBoxExt4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)textBoxExt5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)textBoxExt7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)textBoxExt9).BeginInit();
             SuspendLayout();
             // 
             // txtPort2
             // 
-            txtPort2.Location = new Point(73, 83);
+            txtPort2.Location = new Point(84, 78);
             txtPort2.Margin = new Padding(4, 3, 4, 3);
             txtPort2.Name = "txtPort2";
             txtPort2.Size = new Size(67, 23);
@@ -116,7 +118,7 @@ namespace SM.ClubManager.AccessControl
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(11, 59);
+            label1.Location = new Point(5, 52);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(38, 15);
@@ -125,17 +127,18 @@ namespace SM.ClubManager.AccessControl
             // 
             // txtSerialPortPairBaudrate
             // 
-            txtSerialPortPairBaudrate.Location = new Point(73, 112);
+            txtSerialPortPairBaudrate.Location = new Point(84, 107);
             txtSerialPortPairBaudrate.Margin = new Padding(4, 3, 4, 3);
             txtSerialPortPairBaudrate.Name = "txtSerialPortPairBaudrate";
             txtSerialPortPairBaudrate.Size = new Size(67, 23);
             txtSerialPortPairBaudrate.TabIndex = 5;
+            txtSerialPortPairBaudrate.Text = "9600";
             txtSerialPortPairBaudrate.KeyPress += textBox_KeyPress;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(11, 117);
+            label2.Location = new Point(5, 110);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(54, 15);
@@ -144,7 +147,8 @@ namespace SM.ClubManager.AccessControl
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(13, 422);
+            btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnSave.Location = new Point(14, 515);
             btnSave.Margin = new Padding(4, 3, 4, 3);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(88, 27);
@@ -155,7 +159,8 @@ namespace SM.ClubManager.AccessControl
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(636, 422);
+            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancel.Location = new Point(510, 515);
             btnCancel.Margin = new Padding(4, 3, 4, 3);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(88, 27);
@@ -215,7 +220,7 @@ namespace SM.ClubManager.AccessControl
             inactiveStateCollection1.ForeColor = Color.White;
             inactiveStateCollection1.Text = "USB";
             toggleisWirelessConnection.InactiveState = inactiveStateCollection1;
-            toggleisWirelessConnection.Location = new Point(122, 31);
+            toggleisWirelessConnection.Location = new Point(108, 31);
             toggleisWirelessConnection.Margin = new Padding(4, 3, 4, 3);
             toggleisWirelessConnection.MinimumSize = new Size(61, 23);
             toggleisWirelessConnection.Name = "toggleisWirelessConnection";
@@ -235,21 +240,21 @@ namespace SM.ClubManager.AccessControl
             panel1.Location = new Point(14, 97);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(712, 33);
+            panel1.Size = new Size(585, 33);
             panel1.TabIndex = 23;
             // 
             // textBoxExt1
             // 
             textBoxExt1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxExt1.BackColor = Color.FromArgb(93, 92, 97);
-            textBoxExt1.BeforeTouchSize = new Size(227, 17);
+            textBoxExt1.BeforeTouchSize = new Size(333, 17);
             textBoxExt1.BorderStyle = BorderStyle.None;
             textBoxExt1.Font = new Font("Calibri Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxExt1.ForeColor = Color.White;
             textBoxExt1.Location = new Point(4, 3);
             textBoxExt1.Margin = new Padding(4, 3, 4, 3);
             textBoxExt1.Name = "textBoxExt1";
-            textBoxExt1.Size = new Size(705, 20);
+            textBoxExt1.Size = new Size(578, 20);
             textBoxExt1.TabIndex = 0;
             textBoxExt1.Text = "System Configuration";
             textBoxExt1.TextAlign = HorizontalAlignment.Center;
@@ -261,7 +266,7 @@ namespace SM.ClubManager.AccessControl
             panel2.Location = new Point(14, 15);
             panel2.Margin = new Padding(4, 3, 4, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(712, 75);
+            panel2.Size = new Size(585, 75);
             panel2.TabIndex = 24;
             // 
             // pictureBox2
@@ -272,7 +277,7 @@ namespace SM.ClubManager.AccessControl
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Margin = new Padding(4, 3, 4, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(712, 75);
+            pictureBox2.Size = new Size(585, 75);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 22;
             pictureBox2.TabStop = false;
@@ -280,18 +285,19 @@ namespace SM.ClubManager.AccessControl
             // 
             // txtSerialPortSimplySwitchName
             // 
-            txtSerialPortSimplySwitchName.Location = new Point(73, 182);
+            txtSerialPortSimplySwitchName.Location = new Point(69, 49);
             txtSerialPortSimplySwitchName.Margin = new Padding(4, 3, 4, 3);
             txtSerialPortSimplySwitchName.Name = "txtSerialPortSimplySwitchName";
-            txtSerialPortSimplySwitchName.Size = new Size(67, 23);
+            txtSerialPortSimplySwitchName.Size = new Size(44, 23);
             txtSerialPortSimplySwitchName.TabIndex = 22;
+            txtSerialPortSimplySwitchName.Text = "COM1";
             txtSerialPortSimplySwitchName.TextChanged += txtSerialPortSimplySwitchName_TextChanged;
             txtSerialPortSimplySwitchName.KeyPress += textBox_KeyPress;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(8, 186);
+            label3.Location = new Point(4, 53);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(29, 15);
@@ -312,7 +318,7 @@ namespace SM.ClubManager.AccessControl
             // 
             textBoxExt2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxExt2.BackColor = Color.FromArgb(93, 92, 97);
-            textBoxExt2.BeforeTouchSize = new Size(227, 17);
+            textBoxExt2.BeforeTouchSize = new Size(333, 17);
             textBoxExt2.BorderStyle = BorderStyle.None;
             textBoxExt2.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxExt2.ForeColor = Color.White;
@@ -334,7 +340,7 @@ namespace SM.ClubManager.AccessControl
             panel3.Controls.Add(label9);
             panel3.Controls.Add(textBoxExt2);
             panel3.Controls.Add(toggleisWirelessConnection);
-            panel3.Location = new Point(251, 136);
+            panel3.Location = new Point(365, 136);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
             panel3.Size = new Size(233, 109);
@@ -389,7 +395,7 @@ namespace SM.ClubManager.AccessControl
             panel4.Controls.Add(txtWifiPort);
             panel4.Controls.Add(label4);
             panel4.Controls.Add(txtIPAddress);
-            panel4.Location = new Point(491, 137);
+            panel4.Location = new Point(365, 251);
             panel4.Margin = new Padding(4, 3, 4, 3);
             panel4.Name = "panel4";
             panel4.Size = new Size(233, 108);
@@ -399,7 +405,7 @@ namespace SM.ClubManager.AccessControl
             // 
             textBoxExt6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxExt6.BackColor = Color.FromArgb(93, 92, 97);
-            textBoxExt6.BeforeTouchSize = new Size(227, 17);
+            textBoxExt6.BeforeTouchSize = new Size(333, 17);
             textBoxExt6.BorderStyle = BorderStyle.None;
             textBoxExt6.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxExt6.ForeColor = Color.White;
@@ -414,7 +420,7 @@ namespace SM.ClubManager.AccessControl
             // picToolTip3
             // 
             picToolTip3.Image = UI.Properties.Resources.info;
-            picToolTip3.Location = new Point(196, 55);
+            picToolTip3.Location = new Point(159, 51);
             picToolTip3.Margin = new Padding(4, 3, 4, 3);
             picToolTip3.Name = "picToolTip3";
             picToolTip3.Size = new Size(19, 18);
@@ -428,55 +434,90 @@ namespace SM.ClubManager.AccessControl
             // 
             textBoxExt3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxExt3.BackColor = Color.Silver;
-            textBoxExt3.BeforeTouchSize = new Size(227, 17);
+            textBoxExt3.BeforeTouchSize = new Size(333, 17);
             textBoxExt3.BorderStyle = BorderStyle.None;
             textBoxExt3.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxExt3.ForeColor = Color.Black;
-            textBoxExt3.Location = new Point(4, 26);
+            textBoxExt3.Location = new Point(5, 136);
             textBoxExt3.Margin = new Padding(4, 3, 4, 3);
             textBoxExt3.Name = "textBoxExt3";
-            textBoxExt3.Size = new Size(225, 17);
+            textBoxExt3.Size = new Size(333, 17);
             textBoxExt3.TabIndex = 26;
-            textBoxExt3.Text = "Club Manager";
+            textBoxExt3.Text = "VSPE Configuration";
             textBoxExt3.TextAlign = HorizontalAlignment.Center;
             // 
             // panel5
             // 
             panel5.BorderStyle = BorderStyle.FixedSingle;
-            panel5.Controls.Add(lblSSPortDetectStatus);
+            panel5.Controls.Add(textBoxExt8);
+            panel5.Controls.Add(label7);
+            panel5.Controls.Add(textBoxExt4);
             panel5.Controls.Add(label12);
             panel5.Controls.Add(txtPort1);
             panel5.Controls.Add(picToolTip3);
-            panel5.Controls.Add(txtSerialOutBaudRate);
+            panel5.Controls.Add(txtVSPEConfigPath);
             panel5.Controls.Add(label1);
-            panel5.Controls.Add(label10);
             panel5.Controls.Add(txtPort2);
-            panel5.Controls.Add(textBoxExt7);
-            panel5.Controls.Add(textBoxExt3);
             panel5.Controls.Add(txtSerialPortPairBaudrate);
-            panel5.Controls.Add(txtSerialPortSimplySwitchName);
             panel5.Controls.Add(label2);
-            panel5.Controls.Add(label3);
-            panel5.Controls.Add(textBoxExt4);
+            panel5.Controls.Add(btnAutoSetupVSPE);
+            panel5.Controls.Add(textBoxExt3);
+            panel5.Controls.Add(pictureBox3);
+            panel5.Controls.Add(btnBrowsePathVSPE);
+            panel5.Controls.Add(label6);
             panel5.Location = new Point(14, 136);
             panel5.Margin = new Padding(4, 3, 4, 3);
             panel5.Name = "panel5";
-            panel5.Size = new Size(233, 266);
+            panel5.Size = new Size(343, 223);
             panel5.TabIndex = 32;
+            panel5.Paint += panel5_Paint;
             // 
-            // lblSSPortDetectStatus
+            // textBoxExt8
             // 
-            lblSSPortDetectStatus.AutoSize = true;
-            lblSSPortDetectStatus.Location = new Point(148, 187);
-            lblSSPortDetectStatus.Margin = new Padding(4, 0, 4, 0);
-            lblSSPortDetectStatus.Name = "lblSSPortDetectStatus";
-            lblSSPortDetectStatus.Size = new Size(0, 15);
-            lblSSPortDetectStatus.TabIndex = 43;
+            textBoxExt8.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxExt8.BackColor = Color.Silver;
+            textBoxExt8.BeforeTouchSize = new Size(333, 17);
+            textBoxExt8.BorderStyle = BorderStyle.None;
+            textBoxExt8.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxExt8.ForeColor = Color.Black;
+            textBoxExt8.Location = new Point(4, 26);
+            textBoxExt8.Margin = new Padding(4, 3, 4, 3);
+            textBoxExt8.Name = "textBoxExt8";
+            textBoxExt8.Size = new Size(333, 17);
+            textBoxExt8.TabIndex = 42;
+            textBoxExt8.Text = "Port Configuration";
+            textBoxExt8.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(5, 164);
+            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(72, 15);
+            label7.TabIndex = 41;
+            label7.Text = "VSPE Config";
+            // 
+            // textBoxExt4
+            // 
+            textBoxExt4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxExt4.BackColor = Color.FromArgb(93, 92, 97);
+            textBoxExt4.BeforeTouchSize = new Size(333, 17);
+            textBoxExt4.BorderStyle = BorderStyle.None;
+            textBoxExt4.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxExt4.ForeColor = Color.White;
+            textBoxExt4.Location = new Point(4, 3);
+            textBoxExt4.Margin = new Padding(4, 3, 4, 3);
+            textBoxExt4.Name = "textBoxExt4";
+            textBoxExt4.Size = new Size(333, 17);
+            textBoxExt4.TabIndex = 26;
+            textBoxExt4.Text = "Club Manager";
+            textBoxExt4.TextAlign = HorizontalAlignment.Center;
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(11, 88);
+            label12.Location = new Point(5, 81);
             label12.Margin = new Padding(4, 0, 4, 0);
             label12.Name = "label12";
             label12.Size = new Size(38, 15);
@@ -485,25 +526,89 @@ namespace SM.ClubManager.AccessControl
             // 
             // txtPort1
             // 
-            txtPort1.Location = new Point(73, 54);
+            txtPort1.Location = new Point(84, 49);
             txtPort1.Margin = new Padding(4, 3, 4, 3);
             txtPort1.Name = "txtPort1";
             txtPort1.Size = new Size(67, 23);
             txtPort1.TabIndex = 35;
             // 
+            // txtVSPEConfigPath
+            // 
+            txtVSPEConfigPath.Location = new Point(166, 188);
+            txtVSPEConfigPath.Margin = new Padding(4, 3, 4, 3);
+            txtVSPEConfigPath.Name = "txtVSPEConfigPath";
+            txtVSPEConfigPath.ReadOnly = true;
+            txtVSPEConfigPath.Size = new Size(172, 23);
+            txtVSPEConfigPath.TabIndex = 35;
+            txtVSPEConfigPath.Text = "%AppData%\\";
+            txtVSPEConfigPath.TextChanged += txtVSPEConfigPath_TextChanged;
+            // 
+            // btnAutoSetupVSPE
+            // 
+            btnAutoSetupVSPE.Location = new Point(84, 159);
+            btnAutoSetupVSPE.Name = "btnAutoSetupVSPE";
+            btnAutoSetupVSPE.Size = new Size(75, 23);
+            btnAutoSetupVSPE.TabIndex = 38;
+            btnAutoSetupVSPE.Text = "Create";
+            btnAutoSetupVSPE.UseVisualStyleBackColor = true;
+            btnAutoSetupVSPE.Click += btnAutoSetupVSPE_Click;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = UI.Properties.Resources.info;
+            pictureBox3.Location = new Point(166, 161);
+            pictureBox3.Margin = new Padding(4, 3, 4, 3);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(19, 18);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 39;
+            pictureBox3.TabStop = false;
+            ttOpenDelay.SetToolTip(pictureBox3, "Create VSPE config using VSPE Path value below");
+            // 
+            // btnBrowsePathVSPE
+            // 
+            btnBrowsePathVSPE.Location = new Point(84, 188);
+            btnBrowsePathVSPE.Name = "btnBrowsePathVSPE";
+            btnBrowsePathVSPE.Size = new Size(75, 23);
+            btnBrowsePathVSPE.TabIndex = 40;
+            btnBrowsePathVSPE.Text = "Browse";
+            btnBrowsePathVSPE.UseVisualStyleBackColor = true;
+            btnBrowsePathVSPE.Click += btnBrowsePathVSPE_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(5, 192);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(60, 15);
+            label6.TabIndex = 36;
+            label6.Text = "VSPE Path";
+            // 
+            // lblSSPortDetectStatus
+            // 
+            lblSSPortDetectStatus.AutoSize = true;
+            lblSSPortDetectStatus.Location = new Point(229, 53);
+            lblSSPortDetectStatus.Margin = new Padding(4, 0, 4, 0);
+            lblSSPortDetectStatus.Name = "lblSSPortDetectStatus";
+            lblSSPortDetectStatus.Size = new Size(33, 15);
+            lblSSPortDetectStatus.TabIndex = 43;
+            lblSSPortDetectStatus.Text = "NAN";
+            // 
             // txtSerialOutBaudRate
             // 
-            txtSerialOutBaudRate.Location = new Point(73, 212);
+            txtSerialOutBaudRate.Location = new Point(69, 79);
             txtSerialOutBaudRate.Margin = new Padding(4, 3, 4, 3);
             txtSerialOutBaudRate.Name = "txtSerialOutBaudRate";
-            txtSerialOutBaudRate.Size = new Size(67, 23);
+            txtSerialOutBaudRate.Size = new Size(44, 23);
             txtSerialOutBaudRate.TabIndex = 27;
+            txtSerialOutBaudRate.Text = "115200";
             txtSerialOutBaudRate.KeyPress += textBox_KeyPress;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(8, 216);
+            label10.Location = new Point(4, 83);
             label10.Margin = new Padding(4, 0, 4, 0);
             label10.Name = "label10";
             label10.Size = new Size(54, 15);
@@ -514,33 +619,17 @@ namespace SM.ClubManager.AccessControl
             // 
             textBoxExt7.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxExt7.BackColor = Color.Silver;
-            textBoxExt7.BeforeTouchSize = new Size(227, 17);
+            textBoxExt7.BeforeTouchSize = new Size(333, 17);
             textBoxExt7.BorderStyle = BorderStyle.None;
             textBoxExt7.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxExt7.ForeColor = Color.Black;
-            textBoxExt7.Location = new Point(3, 156);
+            textBoxExt7.Location = new Point(4, 26);
             textBoxExt7.Margin = new Padding(4, 3, 4, 3);
             textBoxExt7.Name = "textBoxExt7";
-            textBoxExt7.Size = new Size(224, 17);
+            textBoxExt7.Size = new Size(333, 17);
             textBoxExt7.TabIndex = 30;
-            textBoxExt7.Text = "Simply Switch";
+            textBoxExt7.Text = "Port Configuration";
             textBoxExt7.TextAlign = HorizontalAlignment.Center;
-            // 
-            // textBoxExt4
-            // 
-            textBoxExt4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxExt4.BackColor = Color.FromArgb(93, 92, 97);
-            textBoxExt4.BeforeTouchSize = new Size(227, 17);
-            textBoxExt4.BorderStyle = BorderStyle.None;
-            textBoxExt4.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxExt4.ForeColor = Color.White;
-            textBoxExt4.Location = new Point(4, 3);
-            textBoxExt4.Margin = new Padding(4, 3, 4, 3);
-            textBoxExt4.Name = "textBoxExt4";
-            textBoxExt4.Size = new Size(224, 17);
-            textBoxExt4.TabIndex = 26;
-            textBoxExt4.Text = "Communication";
-            textBoxExt4.TextAlign = HorizontalAlignment.Center;
             // 
             // ttOpenDelay
             // 
@@ -553,7 +642,7 @@ namespace SM.ClubManager.AccessControl
             // pictureBox1
             // 
             pictureBox1.Image = UI.Properties.Resources.info;
-            pictureBox1.Location = new Point(208, 38);
+            pictureBox1.Location = new Point(121, 51);
             pictureBox1.Margin = new Padding(4, 3, 4, 3);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(19, 18);
@@ -562,31 +651,19 @@ namespace SM.ClubManager.AccessControl
             pictureBox1.TabStop = false;
             ttOpenDelay.SetToolTip(pictureBox1, "Enable/Disable AUTO detection of Simply Switch port when starting up");
             // 
-            // pictureBox3
-            // 
-            pictureBox3.Image = UI.Properties.Resources.info;
-            pictureBox3.Location = new Point(208, 68);
-            pictureBox3.Margin = new Padding(4, 3, 4, 3);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(19, 18);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 39;
-            pictureBox3.TabStop = false;
-            ttOpenDelay.SetToolTip(pictureBox3, "Enable/Disable AUTO configuration of VSPE");
-            // 
             // chkAutoConfigSSPort
             // 
             chkAutoConfigSSPort.AutoSize = true;
-            chkAutoConfigSSPort.Location = new Point(7, 37);
+            chkAutoConfigSSPort.Location = new Point(7, 108);
             chkAutoConfigSSPort.Name = "chkAutoConfigSSPort";
-            chkAutoConfigSSPort.Size = new Size(100, 19);
+            chkAutoConfigSSPort.Size = new Size(199, 19);
             chkAutoConfigSSPort.TabIndex = 33;
-            chkAutoConfigSSPort.Text = "Simply Switch";
+            chkAutoConfigSSPort.Text = "Enable auto configure on startup";
             chkAutoConfigSSPort.UseVisualStyleBackColor = true;
             // 
             // btnAutoSetupSS
             // 
-            btnAutoSetupSS.Location = new Point(122, 35);
+            btnAutoSetupSS.Location = new Point(147, 49);
             btnAutoSetupSS.Name = "btnAutoSetupSS";
             btnAutoSetupSS.Size = new Size(75, 23);
             btnAutoSetupSS.TabIndex = 33;
@@ -594,103 +671,53 @@ namespace SM.ClubManager.AccessControl
             btnAutoSetupSS.UseVisualStyleBackColor = true;
             btnAutoSetupSS.Click += btnAutoSetupSS_Click;
             // 
-            // btnAutoSetupVSPE
-            // 
-            btnAutoSetupVSPE.Location = new Point(122, 64);
-            btnAutoSetupVSPE.Name = "btnAutoSetupVSPE";
-            btnAutoSetupVSPE.Size = new Size(75, 23);
-            btnAutoSetupVSPE.TabIndex = 38;
-            btnAutoSetupVSPE.Text = "Create";
-            btnAutoSetupVSPE.UseVisualStyleBackColor = true;
-            btnAutoSetupVSPE.Click += btnAutoSetupVSPE_Click;
-            // 
-            // panel6
-            // 
-            panel6.BorderStyle = BorderStyle.FixedSingle;
-            panel6.Controls.Add(label7);
-            panel6.Controls.Add(txtVSPEConfigPath);
-            panel6.Controls.Add(btnBrowsePathVSPE);
-            panel6.Controls.Add(label6);
-            panel6.Controls.Add(pictureBox3);
-            panel6.Controls.Add(pictureBox1);
-            panel6.Controls.Add(btnAutoSetupVSPE);
-            panel6.Controls.Add(textBoxExt5);
-            panel6.Controls.Add(btnAutoSetupSS);
-            panel6.Controls.Add(chkAutoConfigSSPort);
-            panel6.Location = new Point(251, 251);
-            panel6.Margin = new Padding(4, 3, 4, 3);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(233, 151);
-            panel6.TabIndex = 33;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(7, 68);
-            label7.Margin = new Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(72, 15);
-            label7.TabIndex = 41;
-            label7.Text = "VSPE Config";
-            // 
-            // txtVSPEConfigPath
-            // 
-            txtVSPEConfigPath.Location = new Point(7, 122);
-            txtVSPEConfigPath.Margin = new Padding(4, 3, 4, 3);
-            txtVSPEConfigPath.Name = "txtVSPEConfigPath";
-            txtVSPEConfigPath.ReadOnly = true;
-            txtVSPEConfigPath.Size = new Size(220, 23);
-            txtVSPEConfigPath.TabIndex = 35;
-            txtVSPEConfigPath.Text = "%AppData%\\";
-            // 
-            // btnBrowsePathVSPE
-            // 
-            btnBrowsePathVSPE.Location = new Point(122, 93);
-            btnBrowsePathVSPE.Name = "btnBrowsePathVSPE";
-            btnBrowsePathVSPE.Size = new Size(75, 23);
-            btnBrowsePathVSPE.TabIndex = 40;
-            btnBrowsePathVSPE.Text = "Browse";
-            btnBrowsePathVSPE.UseVisualStyleBackColor = true;
-            btnBrowsePathVSPE.Click += btnBrowsePathVSPE_Click;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(7, 97);
-            label6.Margin = new Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(60, 15);
-            label6.TabIndex = 36;
-            label6.Text = "VSPE Path";
-            // 
-            // textBoxExt5
-            // 
-            textBoxExt5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxExt5.BackColor = Color.FromArgb(93, 92, 97);
-            textBoxExt5.BeforeTouchSize = new Size(227, 17);
-            textBoxExt5.BorderStyle = BorderStyle.None;
-            textBoxExt5.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxExt5.ForeColor = Color.White;
-            textBoxExt5.Location = new Point(2, 3);
-            textBoxExt5.Margin = new Padding(4, 3, 4, 3);
-            textBoxExt5.Name = "textBoxExt5";
-            textBoxExt5.Size = new Size(227, 17);
-            textBoxExt5.TabIndex = 26;
-            textBoxExt5.Text = "Enable/Disable Automated Port Setup";
-            textBoxExt5.TextAlign = HorizontalAlignment.Center;
-            // 
             // folderBrowserDialog1
             // 
             folderBrowserDialog1.AddToRecent = false;
-            folderBrowserDialog1.RootFolder = Environment.SpecialFolder.ApplicationData;
+            folderBrowserDialog1.RootFolder = Environment.SpecialFolder.CommonDocuments;
+            // 
+            // panel7
+            // 
+            panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.Controls.Add(textBoxExt9);
+            panel7.Controls.Add(lblSSPortDetectStatus);
+            panel7.Controls.Add(textBoxExt7);
+            panel7.Controls.Add(label3);
+            panel7.Controls.Add(txtSerialPortSimplySwitchName);
+            panel7.Controls.Add(btnAutoSetupSS);
+            panel7.Controls.Add(txtSerialOutBaudRate);
+            panel7.Controls.Add(chkAutoConfigSSPort);
+            panel7.Controls.Add(pictureBox1);
+            panel7.Controls.Add(label10);
+            panel7.Location = new Point(14, 365);
+            panel7.Margin = new Padding(4, 3, 4, 3);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(344, 142);
+            panel7.TabIndex = 34;
+            // 
+            // textBoxExt9
+            // 
+            textBoxExt9.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxExt9.BackColor = Color.FromArgb(93, 92, 97);
+            textBoxExt9.BeforeTouchSize = new Size(333, 17);
+            textBoxExt9.BorderStyle = BorderStyle.None;
+            textBoxExt9.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxExt9.ForeColor = Color.White;
+            textBoxExt9.Location = new Point(4, 3);
+            textBoxExt9.Margin = new Padding(4, 3, 4, 3);
+            textBoxExt9.Name = "textBoxExt9";
+            textBoxExt9.Size = new Size(333, 17);
+            textBoxExt9.TabIndex = 43;
+            textBoxExt9.Text = "Simply Switch";
+            textBoxExt9.TextAlign = HorizontalAlignment.Center;
             // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(737, 461);
-            Controls.Add(panel6);
+            ClientSize = new Size(610, 548);
+            Controls.Add(panel7);
             Controls.Add(panel5);
             Controls.Add(panel4);
             Controls.Add(panel3);
@@ -701,10 +728,10 @@ namespace SM.ClubManager.AccessControl
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;
-            MaximumSize = new Size(753, 600);
             MinimizeBox = false;
             Name = "frmSettings";
             ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Hide;
             TopMost = true;
             FormClosing += frmSettings_Closing;
             Shown += frmSettings_Shown;
@@ -725,13 +752,14 @@ namespace SM.ClubManager.AccessControl
             ((System.ComponentModel.ISupportInitialize)textBoxExt3).EndInit();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)textBoxExt7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)textBoxExt8).EndInit();
             ((System.ComponentModel.ISupportInitialize)textBoxExt4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            panel6.ResumeLayout(false);
-            panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)textBoxExt5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)textBoxExt7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)textBoxExt9).EndInit();
             ResumeLayout(false);
         }
 
@@ -773,8 +801,6 @@ namespace SM.ClubManager.AccessControl
         private Button btnAutoSetupVSPE;
         private Button btnAutoSetupSS;
         private CheckBox chkAutoConfigSSPort;
-        private Panel panel6;
-        private Syncfusion.Windows.Forms.Tools.TextBoxExt textBoxExt5;
         private PictureBox pictureBox3;
         private PictureBox pictureBox1;
         private TextBox txtVSPEConfigPath;
@@ -785,6 +811,9 @@ namespace SM.ClubManager.AccessControl
         private Label label12;
         private TextBox txtPort1;
         private Label lblSSPortDetectStatus;
+        private Syncfusion.Windows.Forms.Tools.TextBoxExt textBoxExt8;
+        private Panel panel7;
+        private Syncfusion.Windows.Forms.Tools.TextBoxExt textBoxExt9;
     }
 }
 

@@ -1,8 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using SM.ClubManager.AccessControl.Model;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data.Entity.ModelConfiguration.Conventions;
 
 
 namespace SM.ClubManager.AccessControl.Database
