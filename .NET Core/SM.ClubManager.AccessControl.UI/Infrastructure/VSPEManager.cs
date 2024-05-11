@@ -52,8 +52,8 @@ namespace SM.ClubManager.AccessControl.UI.Infrastructure
         internal bool IsVSPEConfigExists(string path)
         {
             string filePath = Path.Combine(path, "config.vspe");
-
-            return File.Exists(filePath);            
+            bool isExists = File.Exists(filePath);
+            return isExists;
         }
 
         internal bool IsVSPEConfigMatchSoftware()

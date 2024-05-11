@@ -199,8 +199,13 @@ namespace SM.ClubManager.AccessControl
             string path = ApplicationSettings.Instance.VSPEConfigPath;        
             
             if (path.EndsWith(".exe") || string.IsNullOrEmpty(path))
-            {                
-                path = Path.Combine(Directory.GetCurrentDirectory());
+            {
+                path = Path.Combine(Environment.SpecialFolder.CommonApplicationData.ToString(), "Simply Switch Manager");
+                if(!Path.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                
                 ApplicationSettings.Instance.VSPEConfigPath = path;
             }
             if (!vSPEManager.IsVSPEConfigExists(path))
