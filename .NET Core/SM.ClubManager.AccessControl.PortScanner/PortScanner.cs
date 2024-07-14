@@ -247,7 +247,10 @@ namespace SM.ClubManager.AccessControl.PortScanner
                 //add data to the messagebuffer.            
                 if (args.Data != null && args.Data.Count() > 0)
                 {
-                    Log("Data received. Looking for commands to process");
+
+                    string dataRx = Encoding.UTF8.GetString(args.Data.ToArray());
+
+                    Log("Data RX. Looking for commands to process. Data: " + dataRx);
 
                     foreach (var item in args.Data)
                     {

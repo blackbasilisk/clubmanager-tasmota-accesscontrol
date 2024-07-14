@@ -61,7 +61,6 @@ namespace SM.ClubManager.AccessControl
             panel4 = new Panel();
             textBoxExt6 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             picToolTip3 = new PictureBox();
-            textBoxExt3 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             panel5 = new Panel();
             textBoxExt8 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             label7 = new Label();
@@ -95,7 +94,6 @@ namespace SM.ClubManager.AccessControl
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)textBoxExt6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picToolTip3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)textBoxExt3).BeginInit();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)textBoxExt8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textBoxExt4).BeginInit();
@@ -430,22 +428,6 @@ namespace SM.ClubManager.AccessControl
             ttOpenDelay.SetToolTip(picToolTip3, "RECEIVING port for Simply Switch Manager. Default value is COM9. This is NOT the same value as the value in the Club Manager software");
             picToolTip3.Click += picToolTip3_Click;
             // 
-            // textBoxExt3
-            // 
-            textBoxExt3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxExt3.BackColor = Color.Silver;
-            textBoxExt3.BeforeTouchSize = new Size(333, 17);
-            textBoxExt3.BorderStyle = BorderStyle.None;
-            textBoxExt3.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxExt3.ForeColor = Color.Black;
-            textBoxExt3.Location = new Point(5, 136);
-            textBoxExt3.Margin = new Padding(4, 3, 4, 3);
-            textBoxExt3.Name = "textBoxExt3";
-            textBoxExt3.Size = new Size(333, 17);
-            textBoxExt3.TabIndex = 26;
-            textBoxExt3.Text = "VSPE Configuration";
-            textBoxExt3.TextAlign = HorizontalAlignment.Center;
-            // 
             // panel5
             // 
             panel5.BorderStyle = BorderStyle.FixedSingle;
@@ -461,7 +443,6 @@ namespace SM.ClubManager.AccessControl
             panel5.Controls.Add(txtSerialPortPairBaudrate);
             panel5.Controls.Add(label2);
             panel5.Controls.Add(btnAutoSetupVSPE);
-            panel5.Controls.Add(textBoxExt3);
             panel5.Controls.Add(pictureBox3);
             panel5.Controls.Add(btnBrowsePathVSPE);
             panel5.Controls.Add(label6);
@@ -485,13 +466,13 @@ namespace SM.ClubManager.AccessControl
             textBoxExt8.Name = "textBoxExt8";
             textBoxExt8.Size = new Size(333, 17);
             textBoxExt8.TabIndex = 42;
-            textBoxExt8.Text = "Port Configuration";
+            textBoxExt8.Text = "VSPE Port Configuration";
             textBoxExt8.TextAlign = HorizontalAlignment.Center;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(5, 164);
+            label7.Location = new Point(5, 141);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(72, 15);
@@ -534,18 +515,18 @@ namespace SM.ClubManager.AccessControl
             // 
             // txtVSPEConfigPath
             // 
-            txtVSPEConfigPath.Location = new Point(166, 188);
+            txtVSPEConfigPath.Location = new Point(7, 194);
             txtVSPEConfigPath.Margin = new Padding(4, 3, 4, 3);
             txtVSPEConfigPath.Name = "txtVSPEConfigPath";
             txtVSPEConfigPath.ReadOnly = true;
-            txtVSPEConfigPath.Size = new Size(172, 23);
+            txtVSPEConfigPath.Size = new Size(330, 23);
             txtVSPEConfigPath.TabIndex = 35;
             txtVSPEConfigPath.Text = "%AppData%\\";
             txtVSPEConfigPath.TextChanged += txtVSPEConfigPath_TextChanged;
             // 
             // btnAutoSetupVSPE
             // 
-            btnAutoSetupVSPE.Location = new Point(84, 159);
+            btnAutoSetupVSPE.Location = new Point(84, 136);
             btnAutoSetupVSPE.Name = "btnAutoSetupVSPE";
             btnAutoSetupVSPE.Size = new Size(75, 23);
             btnAutoSetupVSPE.TabIndex = 38;
@@ -556,7 +537,7 @@ namespace SM.ClubManager.AccessControl
             // pictureBox3
             // 
             pictureBox3.Image = UI.Properties.Resources.info;
-            pictureBox3.Location = new Point(166, 161);
+            pictureBox3.Location = new Point(166, 138);
             pictureBox3.Margin = new Padding(4, 3, 4, 3);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(19, 18);
@@ -567,7 +548,7 @@ namespace SM.ClubManager.AccessControl
             // 
             // btnBrowsePathVSPE
             // 
-            btnBrowsePathVSPE.Location = new Point(84, 188);
+            btnBrowsePathVSPE.Location = new Point(84, 165);
             btnBrowsePathVSPE.Name = "btnBrowsePathVSPE";
             btnBrowsePathVSPE.Size = new Size(75, 23);
             btnBrowsePathVSPE.TabIndex = 40;
@@ -578,7 +559,7 @@ namespace SM.ClubManager.AccessControl
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(5, 192);
+            label6.Location = new Point(5, 169);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(60, 15);
@@ -749,7 +730,6 @@ namespace SM.ClubManager.AccessControl
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)textBoxExt6).EndInit();
             ((System.ComponentModel.ISupportInitialize)picToolTip3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)textBoxExt3).EndInit();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)textBoxExt8).EndInit();
@@ -785,7 +765,6 @@ namespace SM.ClubManager.AccessControl
         private Syncfusion.Windows.Forms.Tools.TextBoxExt textBoxExt2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
-        private Syncfusion.Windows.Forms.Tools.TextBoxExt textBoxExt3;
         private System.Windows.Forms.Panel panel5;
         private Syncfusion.Windows.Forms.Tools.TextBoxExt textBoxExt7;
         private Syncfusion.Windows.Forms.Tools.TextBoxExt textBoxExt6;

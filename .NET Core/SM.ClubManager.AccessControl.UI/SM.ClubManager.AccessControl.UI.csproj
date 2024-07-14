@@ -53,6 +53,8 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
         <PackageReference Include="SerialPortLib" Version="1.1.2" />
         <PackageReference Include="Syncfusion.GridHelperClasses.Windows" Version="21.1.39" />
         <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
@@ -82,6 +84,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
       <None Update="data.db">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>

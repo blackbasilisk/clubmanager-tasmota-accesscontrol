@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -27,7 +26,8 @@ using SM.ClubManager.AccessControl.Repository;
 using SM.ClubManager.AccessControl.PortScanner;
 using Syncfusion.Windows.Forms.Tools;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
+using Microsoft.Extensions.Configuration;
+using SM.ClubManager.AccessControl.UI;
 
 namespace SM.ClubManager.AccessControl
 {
@@ -48,6 +48,8 @@ namespace SM.ClubManager.AccessControl
         Full = 2
     }
 
+   
+
     public partial class frmMain : Form
     {
         //set default view size
@@ -64,7 +66,6 @@ namespace SM.ClubManager.AccessControl
         //string commandSerialRelayOpenStringFormat = "";
         //string commandSerialRelayCloseStringFormat = "";
 
-
         SerialPortInput serialPort2 = null;//new SerialPortInput();
         internal SimplySwitch simplySwitchClient = new SimplySwitch();//serialOutClient = null;//new SerialPortInput();
 
@@ -73,7 +74,7 @@ namespace SM.ClubManager.AccessControl
         List<byte> messageBuffer = null;
         //List<byte> usbMessageBuffer = null;
         System.Threading.Thread comThread;
-        string eofString = "\n\r\n";
+        
         Image imgUnchecked;
         Image imgChecked;
         Image imgUsbConnection;
@@ -81,14 +82,28 @@ namespace SM.ClubManager.AccessControl
         Icon notificationWarningIcon;
         Icon notificationInformationIcon;
         Image imgInfo;
+        bool _isDisplayInTaskBar = true;
+        bool _isServiceMode = false;
+        bool _isDisplayFormOnStartup = false;
+        string _eofString = "";
 
         public frmMain()
         {
             InitializeComponent();
 
+            InitializeAppConfiguration();
+
             InitializeDefaultValues();
 
             Initialize();           
+        }
+
+        private void InitializeAppConfiguration()
+        {
+            _isDisplayInTaskBar = Convert.ToBoolean(Program.Configuration["AppSettings:IsDisplayInTaskBar"]);
+            _isServiceMode = Convert.ToBoolean(Program.Configuration["AppSettings:IsServiceMode"]);
+            _isDisplayFormOnStartup = Convert.ToBoolean(Program.Configuration["AppSettings:IsDisplayFormOnStartup"]);
+            _eofString = Program.Configuration["AppSettings:EOFString"];
         }
 
         private void CheckSimplySwitchConnectionAndAutoDetect()
@@ -144,7 +159,7 @@ namespace SM.ClubManager.AccessControl
                 }                                               
             }           
         }
-
+       
         private void InitializeDefaultValues()
         {
             if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialPort1Name))
@@ -190,7 +205,9 @@ namespace SM.ClubManager.AccessControl
             this.Size = sizeSmall;
 
             Log("Initializing user interface");
-            this.ShowInTaskbar = ConfigurationManager.AppSettings["IsDisplayInTaskBar"].ToBool();
+            var isDisplayInTaskBar = Program.Configuration["AppSettings:IsDisplayInTaskBar"];
+            isDisplayInTaskBar = isDisplayInTaskBar != null ? isDisplayInTaskBar : "true";
+            this.ShowInTaskbar = isDisplayInTaskBar.ToBool();
             
             //VSPEManager.KillProcess();
 
@@ -724,7 +741,20 @@ namespace SM.ClubManager.AccessControl
             //this method should not care about whether command is wireless / wired. it just wants to execute command
             try
             {
-                var response = simplySwitchClient.SActivate();
+                var cmd = item as RelayCommand;
+                SSResponse response;
+                switch (cmd.Command)
+                {
+                    case RelayCommand.CommandType.Close:
+                        response = simplySwitchClient.SRelease();
+                        break;
+                    case RelayCommand.CommandType.Open:
+                        response = simplySwitchClient.SActivate();
+                        break;
+                    default:
+                        break;
+                }               
+              
                 //commandQueue?.Add(relayCommand);
                 //Adding delay to allow the 'loading' image to be displayed so user can see something happened. serves no other purpose
                 Thread.Sleep(500);
@@ -839,7 +869,9 @@ namespace SM.ClubManager.AccessControl
                     ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate = 115200;
                 }
 
-                ApplicationSettings.Instance.IsServiceMode = Convert.ToBoolean(ConfigurationManager.AppSettings["IsServiceMode"]);
+                var isServiceMode = Program.Configuration["AppSettings:IsServiceMode"];
+                isServiceMode = isServiceMode != null ? isServiceMode : "false";
+                ApplicationSettings.Instance.IsServiceMode = Convert.ToBoolean(isServiceMode);
 
             }
             catch (Exception ex)
@@ -925,8 +957,6 @@ namespace SM.ClubManager.AccessControl
         }
         #endregion
 
-
-
         private void SerialInClient_ConnectionStatusChanged(object sender, ConnectionStatusChangedEventArgs args)
         {
             string statusString = args.Connected ? "successful" : "failed";
@@ -951,8 +981,10 @@ namespace SM.ClubManager.AccessControl
             {
                 //add data to the messagebuffer.            
                 if (args.Data != null && args.Data.Count() > 0)
-                {
-                    Log("Data received. Looking for commands to process");
+                {                    
+                    string dataRx = Encoding.UTF8.GetString(args.Data.ToArray());
+
+                    Log("Data RX. Looking for commands to process. Data: " + dataRx);
 
                     foreach (var item in args.Data)
                     {
@@ -960,7 +992,7 @@ namespace SM.ClubManager.AccessControl
                     }
 
                     //put entire buffer into string variable, then we look for the EOF byte sequence i.e. char(10)char(13)char(10) i.e. "\n\r\n"
-                    List<ISerialMessage> relayCommands = GetMessagesFromBuffer(ref messageBuffer, eofString);
+                    List<ISerialMessage> relayCommands = GetMessagesFromBuffer(ref messageBuffer, _eofString);
 
                     if (relayCommands != null && relayCommands.Count() > 0)
                     {
@@ -1036,12 +1068,12 @@ namespace SM.ClubManager.AccessControl
 
         private void frmMain_Shown(object sender, EventArgs e)
         {
-            bool showSplash = Convert.ToBoolean(ConfigurationManager.AppSettings["IsServiceMode"]);
+            bool showSplash = _isServiceMode;
             if (showSplash)
             {
                 frmSplash.CloseForm();
             }
-            if (ConfigurationManager.AppSettings["IsDisplayFormOnStartup"].ToBool())
+            if (_isDisplayFormOnStartup)
             {
                 this.Activate();
                 this.Focus();

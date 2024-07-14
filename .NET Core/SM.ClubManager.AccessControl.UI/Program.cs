@@ -1,5 +1,5 @@
 using Gibraltar.Agent;
-using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace SM.ClubManager.AccessControl.UI
 {
@@ -25,22 +25,30 @@ namespace SM.ClubManager.AccessControl.UI
     /// </summary>
     static class Program
     {
+        public static IConfiguration Configuration { get; private set; }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            Log.StartSession();
-
-
-
-            
+            Log.StartSession();            
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo + DSMBaFt + QHFqVk9rXVNbdV5dVGpAd0N3RGlcdlR1fUUmHVdTRHRcQlliQXxSc0BmXX5ccXQ =; Mgo + DSMBPh8sVXJ1S0d + X1hPd11dXmJWd1p / THNYflR1fV9DaUwxOX1dQl9gSXpSfkdiXHpbdHVWRWE =; ORg4AjUWIQA / Gnt2VFhhQlJNfV5AQmBIYVp / TGpJfl96cVxMZVVBJAtUQF1hSn5Xd01hWHpbdXBUQmdc; MTc2OTIyNEAzMjMxMmUzMTJlMzMzOUxMQ3lsMmlDaE91WmtHeWk0WnFvek9rbnFrRlo2WTNGRzNyWGxzOFVNVkk9; MTc2OTIyNUAzMjMxMmUzMTJlMzMzOUtSN3BwdFltSnY0c3FaSG9reUNvNnlURFNFNVB1RWhhdUpLTDFCYVRhOFU9; NRAiBiAaIQQuGjN / V0d + XU9Hf1RDX3xKf0x / TGpQb19xflBPallYVBYiSV9jS31TckRrW35bdXFRRGFUUA ==; MTc2OTIyN0AzMjMxMmUzMTJlMzMzOUpJNnJnSnBiNmpQK2lVNmk0OFZvOWNwTzBaQWRwM2RmWDZ2cHFrL1NrZ2s9; MTc2OTIyOEAzMjMxMmUzMTJlMzMzOVFUMDZuSkZnQXJxdHNkS1dZR1lkQ0I3OEJqb28zZ2E0OEs2Rm5ya0hqQnc9; Mgo + DSMBMAY9C3t2VFhhQlJNfV5AQmBIYVp / TGpJfl96cVxMZVVBJAtUQF1hSn5Xd01hWHpbdXBXT2Nd; MTc2OTIzMEAzMjMxMmUzMTJlMzMzOUw0TTlmNFU2dElYREVlLzZ3ZTVnZzg5U0lVc2RUNFFlVkEzTjRWQVhPZG89; MTc2OTIzMUAzMjMxMmUzMTJlMzMzOWtMNDBFYTJ5MVVGT3lMWWYyWmlCbzQ4WXoyalUrZWZXRTB1NlFYOHZIM0E9; MTc2OTIzMkAzMjMxMmUzMTJlMzMzOUpJNnJnSnBiNmpQK2lVNmk0OFZvOWNwTzBaQWRwM2RmWDZ2cHFrL1NrZ2s9");
+
+            var builder = new ConfigurationBuilder()
+              .SetBasePath(Directory.GetCurrentDirectory())
+              .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            Configuration = builder.Build();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            var isServiceMode = Program.Configuration["AppSettings:IsServiceMode"];
             
-            bool showSplash = Convert.ToBoolean(ConfigurationManager.AppSettings["IsServiceMode"]);
+            bool showSplash = Convert.ToBoolean(isServiceMode);
+
             if(showSplash) {
                 frmSplash.ShowSplashScreen();
             }
