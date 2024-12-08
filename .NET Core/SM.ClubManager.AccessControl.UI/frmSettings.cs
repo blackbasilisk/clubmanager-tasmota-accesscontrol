@@ -3,10 +3,9 @@ using System.Diagnostics;
 using System.IO.Ports;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Gibraltar;
+//using Gibraltar;
 using Newtonsoft.Json.Linq;
 using NLog.Common;
-using SIS.Library.Base.Infrastructure.Extensions;
 using SM.ClubManager.AccessControl.Config;
 using SM.ClubManager.AccessControl.UI.Infrastructure;
 using Syncfusion.Windows.Forms.Tools;
@@ -116,11 +115,12 @@ namespace SM.ClubManager.AccessControl
                     ApplicationSettings.Instance.WirelessDevicePort = txtWifiPort.Text;
                     ApplicationSettings.Instance.IsTargetWireless = toggleisWirelessConnection.ToggleState == ToggleButtonState.Active ? true : false;
                     bool isWireless = ApplicationSettings.Instance.IsTargetWireless;
-                    ApplicationSettings.Instance.InchingDelay = txtInchingDelay.Text.ToInt();
+                    ApplicationSettings.Instance.InchingDelay = Convert.ToInt32(txtInchingDelay.Text);
                     ApplicationSettings.Instance.SerialPortSimplySwitchName = txtSerialPortSimplySwitchName.Text.Trim();
                     ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate = Convert.ToInt32(txtSerialOutBaudRate.Text.Trim());
                     ApplicationSettings.Instance.isAutoConfigSimplySwitchPort = chkAutoConfigSSPort.Checked;
                     ApplicationSettings.Instance.VSPEConfigPath = txtVSPEConfigPath.Text;
+                    ApplicationSettings.Instance.IsInvertOpenClose = toggleInvertOpenClose.ToggleState == ToggleButtonState.Active ? true : false;
 
                     isSaveOK = true;
                 }
@@ -180,7 +180,7 @@ namespace SM.ClubManager.AccessControl
                 int delay = 0;
                 try
                 {
-                    delay = txtInchingDelay.Text.ToDecimal().ToInt();
+                    delay = Convert.ToInt32(Convert.ToDecimal(txtInchingDelay.Text));
                     txtInchingDelay.Text = delay.ToString();
                 }
                 catch (Exception ex)
@@ -454,8 +454,8 @@ namespace SM.ClubManager.AccessControl
                 catch (Exception ex)
                 {
                     Log(ex.Message, true);
-                    string msg = "Make sure the formatting of the ports are correct. It need to be 'COMx', where x is a number from 1 - 9";
-                    MessageBox.Show(msg);
+                    string msg = "Make sure the formatting of the ports are correct. It need to be 'COMx', where x is a number from 1 - 9. \r\n\r\nAdditional details: " + ex.Message;
+                    MessageBox.Show(msg,"Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
                     v.StartVSPE();
                     return result;
                 }

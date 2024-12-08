@@ -34,7 +34,10 @@
 
         #endregion
 
-        #region Database properties   
+        #region Database properties          
+        [InterceptorGetAttribute]
+        public bool IsInvertOpenClose { get; set; }
+
         [InterceptorGetAttribute]
         public bool isAutoConfigSimplySwitchPort { get; set; }       
 

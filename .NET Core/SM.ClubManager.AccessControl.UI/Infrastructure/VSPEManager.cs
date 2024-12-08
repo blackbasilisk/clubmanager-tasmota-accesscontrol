@@ -18,13 +18,13 @@ namespace SM.ClubManager.AccessControl.UI.Infrastructure
             // Path to the executable
             //string executablePath = @"C:\Program Files (x86)\Eterlogic.com\Virtual Serial Ports Emulator (x32)\VSPEmulator.exe";
 
-            string executablePath = Program.Configuration["AppSettings:VSPEExecutablePath"];
+            string executablePath = AppSettingsManager.configuration["AppSettings:VSPEExecutablePath"];
 
             
             string path = ApplicationSettings.Instance.VSPEConfigPath;
             string fullPath = Path.Combine(path, "config.vspe");
             // Parameter to pass to the executable
-            string p1 = fullPath;//@"C:\Source\virtual-serial-ports-lib-test\config.vspe";
+            string p1 = "\"" + fullPath + "\"";//@"C:\Source\virtual-serial-ports-lib-test\config.vspe";
             string p2 = "-minimize";
 
             if(isKillProcess)

@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Windows.Forms;
-using SIS.Library.Base.Infrastructure.WindowsFormsExtensions;
+using SM.ClubManager.AccessControl.Infrastructure;
 using Syncfusion.Windows.Forms;
 
 namespace SM.ClubManager.AccessControl

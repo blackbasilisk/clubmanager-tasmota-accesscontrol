@@ -1,4 +1,5 @@
 ﻿
+using SM.ClubManager.Library.Base.Controls;
 using Syncfusion.XPS;
 
 
@@ -34,7 +35,7 @@ namespace SM.ClubManager.AccessControl
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            lstLog = new SIS.Library.Base.Controls.ListViewExt();
+            lstLog = new ListViewExt();
             groupBox3 = new GroupBox();
             picScanResult = new PictureBox();
             textBoxExt2 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
@@ -58,6 +59,7 @@ namespace SM.ClubManager.AccessControl
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             toolStripStatusLabel2 = new ToolStripStatusLabel();
             toolStripStatusLabel3 = new ToolStripStatusLabel();
+            vspeFolderBrowser = new FolderBrowserDialog();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picScanResult).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textBoxExt2).BeginInit();
@@ -80,7 +82,6 @@ namespace SM.ClubManager.AccessControl
             lstLog.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             lstLog.IncludeDateTime = true;
             lstLog.IsCloneListEntriesEnabled = false;
-            lstLog.IsClosing = false;
             lstLog.IsDebugMode = false;
             lstLog.Location = new Point(7, 22);
             lstLog.Margin = new Padding(4, 3, 4, 3);
@@ -140,7 +141,7 @@ namespace SM.ClubManager.AccessControl
             // 
             // picConnectionType
             // 
-            picConnectionType.Image = UI.Properties.Resources._unchecked;
+            picConnectionType.Image = UI.Properties.Resources.Unchecked1;
             picConnectionType.Location = new Point(15, 73);
             picConnectionType.Margin = new Padding(4, 3, 4, 3);
             picConnectionType.Name = "picConnectionType";
@@ -167,7 +168,7 @@ namespace SM.ClubManager.AccessControl
             // 
             // picInSerialConnection
             // 
-            picInSerialConnection.Image = UI.Properties.Resources._unchecked;
+            picInSerialConnection.Image = UI.Properties.Resources.Unchecked;
             picInSerialConnection.Location = new Point(15, 21);
             picInSerialConnection.Margin = new Padding(4, 3, 4, 3);
             picInSerialConnection.Name = "picInSerialConnection";
@@ -421,12 +422,13 @@ namespace SM.ClubManager.AccessControl
         private System.Windows.Forms.Button btnUsbCommandOff;
         private System.Windows.Forms.Button btnUsbCommandOn;
         private System.Windows.Forms.PictureBox picScanResult;
-        private SIS.Library.Base.Controls.ListViewExt lstLog;
+        private SM.ClubManager.Library.Base.Controls.ListViewExt lstLog;
         private Button btnRestart;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripStatusLabel toolStripStatusLabel2;
         private ToolStripStatusLabel toolStripStatusLabel3;
+        private FolderBrowserDialog vspeFolderBrowser;
     }
 }
 

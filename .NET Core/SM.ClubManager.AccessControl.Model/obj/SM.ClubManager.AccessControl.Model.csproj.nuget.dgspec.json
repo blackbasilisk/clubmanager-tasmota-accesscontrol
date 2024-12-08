@@ -1,39 +1,35 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj": {}
+    "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj": {}
   },
   "projects": {
-    "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj": {
+    "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj",
+        "projectUniqueName": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj",
         "projectName": "SM.ClubManager.AccessControl.Model",
-        "projectPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj",
-        "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-        "outputPath": "C:\\Source\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\obj\\",
+        "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj",
+        "packagesPath": "C:\\Users\\Dave Coates\\.nuget\\packages\\",
+        "outputPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Dave Coates\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0-windows8.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0-windows8.0": {
-            "targetAlias": "net7.0-windows8.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Modelbase\\SIS.Library.Modelbase.csproj": {
-                "projectPath": "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Modelbase\\SIS.Library.Modelbase.csproj"
+              "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.Library.ModelBase\\SM.ClubManager.ModelBase.csproj": {
+                "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.Library.ModelBase\\SM.ClubManager.ModelBase.csproj"
               }
             }
           }
@@ -46,12 +42,13 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0-windows8.0": {
-          "targetAlias": "net7.0-windows8.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "imports": [
             "net461",
             "net462",
@@ -63,61 +60,38 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206\\RuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x86": {
-          "#import": []
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Modelbase\\SIS.Library.Modelbase.csproj": {
+    "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.Library.ModelBase\\SM.ClubManager.ModelBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Modelbase\\SIS.Library.Modelbase.csproj",
-        "projectName": "SIS.Library.Modelbase",
-        "projectPath": "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Modelbase\\SIS.Library.Modelbase.csproj",
-        "packagesPath": "C:\\Users\\Dave\\.nuget\\packages\\",
-        "outputPath": "C:\\Source\\SIS.Library .NET Standard\\SIS.Library.Modelbase\\obj\\",
+        "projectUniqueName": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.Library.ModelBase\\SM.ClubManager.ModelBase.csproj",
+        "projectName": "SM.ClubManager.ModelBase",
+        "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.Library.ModelBase\\SM.ClubManager.ModelBase.csproj",
+        "packagesPath": "C:\\Users\\Dave Coates\\.nuget\\packages\\",
+        "outputPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.Library.ModelBase\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Dave\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Dave Coates\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0-windows8.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0-windows8.0": {
-            "targetAlias": "net7.0-windows8.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -129,12 +103,13 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0-windows8.0": {
-          "targetAlias": "net7.0-windows8.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "imports": [
             "net461",
             "net462",
@@ -146,31 +121,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206\\RuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x86": {
-          "#import": []
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

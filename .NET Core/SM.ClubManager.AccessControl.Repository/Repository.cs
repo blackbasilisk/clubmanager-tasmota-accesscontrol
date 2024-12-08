@@ -1,6 +1,4 @@
-﻿
-using SIS.Library.ModelBase;
-using SM.ClubManager.AccessControl.Model;
+﻿using SM.ClubManager.AccessControl.Model;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using SM.ClubManager.ModelBase;
 
 namespace SM.ClubManager.AccessControl.Repository
 {

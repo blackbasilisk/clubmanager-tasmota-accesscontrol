@@ -16,10 +16,10 @@ using System.Reflection;
 using System.IO;
 using SM.ClubManager.AccessControl.Infrastructure;
 using System.Runtime.InteropServices;
-using Gibraltar.Agent;
+//using Gibraltar.Agent;
 using System.Collections.Concurrent;
 using SM.ClubManager.AccessControl.SDK;
-using SIS.Library.Base.Infrastructure.Extensions;
+
 using SM.ClubManager.AccessControl.Model;
 using SM.ClubManager.AccessControl.UI.Infrastructure;
 using SM.ClubManager.AccessControl.Repository;
@@ -100,10 +100,10 @@ namespace SM.ClubManager.AccessControl
 
         private void InitializeAppConfiguration()
         {
-            _isDisplayInTaskBar = Convert.ToBoolean(Program.Configuration["AppSettings:IsDisplayInTaskBar"]);
-            _isServiceMode = Convert.ToBoolean(Program.Configuration["AppSettings:IsServiceMode"]);
-            _isDisplayFormOnStartup = Convert.ToBoolean(Program.Configuration["AppSettings:IsDisplayFormOnStartup"]);
-            _eofString = Program.Configuration["AppSettings:EOFString"];
+            _isDisplayInTaskBar = Convert.ToBoolean(AppSettingsManager.configuration["AppSettings:IsDisplayInTaskBar"]);
+            _isServiceMode = Convert.ToBoolean(AppSettingsManager.configuration["AppSettings:IsServiceMode"]);
+            _isDisplayFormOnStartup = Convert.ToBoolean(AppSettingsManager.configuration["AppSettings:IsDisplayFormOnStartup"]);
+            _eofString = AppSettingsManager.configuration["AppSettings:EOFString"];
         }
 
         private void CheckSimplySwitchConnectionAndAutoDetect()
@@ -164,12 +164,12 @@ namespace SM.ClubManager.AccessControl
         {
             if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialPort1Name))
             {
-                ApplicationSettings.Instance.SerialPort1Name = "COM3";
+                ApplicationSettings.Instance.SerialPort1Name = "COM8";
             }
 
             if (string.IsNullOrEmpty(ApplicationSettings.Instance.SerialPort2Name))
             {
-                ApplicationSettings.Instance.SerialPort2Name = "COM4";
+                ApplicationSettings.Instance.SerialPort2Name = "COM9";
             }
 
             try
@@ -205,11 +205,17 @@ namespace SM.ClubManager.AccessControl
             this.Size = sizeSmall;
 
             Log("Initializing user interface");
-            var isDisplayInTaskBar = Program.Configuration["AppSettings:IsDisplayInTaskBar"];
+            var isDisplayInTaskBar = AppSettingsManager.configuration["AppSettings:IsDisplayInTaskBar"];
             isDisplayInTaskBar = isDisplayInTaskBar != null ? isDisplayInTaskBar : "true";
             this.ShowInTaskbar = isDisplayInTaskBar.ToBool();
-            
+
             //VSPEManager.KillProcess();
+
+            //Validate that the VSPE software path is correct
+            if(!IsVSPEExecutablePathValid())
+            {
+                MessageBox.Show("Cannot find the folder for the VSPE software. Update value in 'settings.json' manually or contact support.","VSPE Folder Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             VSPEManager vSPEManager = new VSPEManager();
             
@@ -229,8 +235,12 @@ namespace SM.ClubManager.AccessControl
             {                
                 MessageBox.Show("No valid VSPE config exists. Recreate VSPE configuration under 'Settings'.");                
             }
+            else
+            {
+                vSPEManager.StartVSPE();
+            }
             //vSPEManager.CreateVSPEConfig(ApplicationSettings.Instance.SerialPort1Name, ApplicationSettings.Instance.SerialPort2Name, ApplicationSettings.Instance.VSPEConfigPath);
-            vSPEManager.StartVSPE();
+            
             settingsForm = new frmSettings();
             //Log("Intializing database");
             //System.Data.Entity.Database.SetInitializer(new DatabaseInitializer());
@@ -265,6 +275,58 @@ namespace SM.ClubManager.AccessControl
             Log("Startup completed");
         }
 
+        private bool IsVSPEExecutablePathValid()
+        {
+            //read setting from settings.json
+            //check if it's valid
+            //if it's not valid, get the user to select the location of the VSPEManager.exe
+            bool isVSPEPathValid = false;
+
+            string? vspePath = AppSettingsManager.configuration["AppSettings:VSPEExecutablePath"];
+            
+            if (!Path.Exists(vspePath))
+            {
+                MessageBox.Show("Cannot find VSPE executable. You will now be prompted to select the folder where VSPE is installed.","Cannot found VSPE",MessageBoxButtons.OK,MessageBoxIcon.Error);
+
+                string initialLocation = "C:\\Program Files\\";
+                vspeFolderBrowser.InitialDirectory = initialLocation;
+                vspeFolderBrowser.Description = "Select the VSPE installation location";
+                vspeFolderBrowser.UseDescriptionForTitle = true;
+                
+                DialogResult result = vspeFolderBrowser.ShowDialog();                
+
+                while (!isVSPEPathValid)
+                {
+                    if (result == DialogResult.OK)
+                    {
+                        var fullpath = Path.Combine(vspeFolderBrowser.SelectedPath, "VSPEmulator.exe");
+                        //check that the exe exists in that folder
+                        if (File.Exists(fullpath))
+                        {
+                            isVSPEPathValid = true;
+                            AppSettingsManager.UpdateSettings(AppSettingsManager.settingsFile, settings =>
+                            {
+                                settings.AppSettings.VSPEExecutablePath = fullpath;                                
+                            });
+
+                            string s = AppSettingsManager.configuration["AppSettings:VSPEExecutablePath"];
+                        }
+                        else
+                        {
+                            result = vspeFolderBrowser.ShowDialog();
+                        }
+                    }
+                }
+            }
+
+            //UpdateSettings(settingsFile, settings =>
+            //{
+            //    settings.AppSettings.Setting1 = "ThreadSafeValue";
+            //    settings.AppSettings.Setting2 = 4567;
+            //});
+            return isVSPEPathValid;
+        }
+
         private void InitializeSimplySwitchClient()
         {
             if (simplySwitchClient != null)
@@ -296,13 +358,16 @@ namespace SM.ClubManager.AccessControl
         {
             try
             {
-                imgInfo = LoadImageFromResource("SM.ClubManager.AccessControl.UI.Resources.info.png", Assembly.GetExecutingAssembly());
-                imgUnchecked = LoadImageFromResource("SM.ClubManager.AccessControl.UI.Resources.unchecked.png", Assembly.GetExecutingAssembly());
-                imgChecked = LoadImageFromResource("SM.ClubManager.AccessControl.UI.Resources.checked.png", Assembly.GetExecutingAssembly());
-                imgUsbConnection = LoadImageFromResource("SM.ClubManager.AccessControl.UI.Resources.usb-connection.png", Assembly.GetExecutingAssembly());
-                imgWifiConnection = LoadImageFromResource("SM.ClubManager.AccessControl.UI.Resources.wifi-connection.png", Assembly.GetExecutingAssembly());
-                notificationInformationIcon = Icon;//LoadIconFromResource("SM.ClubManager.AccessControl.Resources.notification-warning-icon.ico", Assembly.GetExecutingAssembly());
+                //load Icons
+                notificationInformationIcon = Icon != null ? Icon : LoadIconFromResource("SM.ClubManager.AccessControl.Resources.notification-warning-icon.ico", Assembly.GetExecutingAssembly());                
                 notificationWarningIcon = LoadIconFromResource("SM.ClubManager.AccessControl.UI.Resources.notification-warning-icon.ico", Assembly.GetExecutingAssembly());
+
+                //Load Images
+                imgInfo = LoadImageFromResource("SM.ClubManager.AccessControl.UI.Resources.info.png", Assembly.GetExecutingAssembly());
+                imgUnchecked = LoadImageFromResource("SM.ClubManager.AccessControl.UI.Resources.Unchecked.png", Assembly.GetExecutingAssembly());
+                imgChecked = LoadImageFromResource("SM.ClubManager.AccessControl.UI.Resources.Checked.png", Assembly.GetExecutingAssembly());
+                imgUsbConnection = LoadImageFromResource("SM.ClubManager.AccessControl.UI.Resources.usb-connection.png", Assembly.GetExecutingAssembly());
+                imgWifiConnection = LoadImageFromResource("SM.ClubManager.AccessControl.UI.Resources.wifi-connection.png", Assembly.GetExecutingAssembly());             
             }
             catch (Exception ex)
             {
@@ -432,8 +497,28 @@ namespace SM.ClubManager.AccessControl
                     assembly = Assembly.GetExecutingAssembly();
                 }
 
+                // List all resource names (for debugging)
+                string[] resourceNames = assembly.GetManifestResourceNames();
+                foreach (var name in resourceNames)
+                {
+                    Console.WriteLine($"Found resource: {name}");
+                }
+
                 Stream _imageStream = assembly.GetManifestResourceStream(resourceName);
+                if (_imageStream == null)
+                {
+                    throw new InvalidOperationException($"Resource '{resourceName}' not found. Check the resource name format.");
+                }
+
                 return new Icon(_imageStream);
+
+                //if (assembly == null)
+                //{
+                //    assembly = Assembly.GetExecutingAssembly();
+                //}
+
+                //Stream _imageStream = assembly.GetManifestResourceStream(resourceName);
+                //return new Icon(_imageStream);
             }
             catch (Exception ex)
             {
@@ -446,13 +531,33 @@ namespace SM.ClubManager.AccessControl
         {
             try
             {
+                //if (assembly == null)
+                //{
+                //    assembly = Assembly.GetExecutingAssembly();
+                //}
+
+                //Stream _imageStream = assembly.GetManifestResourceStream(resourceName);
+                //return new Bitmap(_imageStream);
                 if (assembly == null)
                 {
                     assembly = Assembly.GetExecutingAssembly();
                 }
 
+                // List all resource names (for debugging)
+                string[] resourceNames = assembly.GetManifestResourceNames();
+                foreach (var name in resourceNames)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Found resource: {name}");
+                }
+
                 Stream _imageStream = assembly.GetManifestResourceStream(resourceName);
+                if (_imageStream == null)
+                {
+                    throw new InvalidOperationException($"Resource '{resourceName}' not found. Check the resource name format.");
+                }
+
                 return new Bitmap(_imageStream);
+
             }
             catch (Exception)
             {
@@ -869,7 +974,7 @@ namespace SM.ClubManager.AccessControl
                     ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate = 115200;
                 }
 
-                var isServiceMode = Program.Configuration["AppSettings:IsServiceMode"];
+                var isServiceMode = AppSettingsManager.configuration["AppSettings:IsServiceMode"];
                 isServiceMode = isServiceMode != null ? isServiceMode : "false";
                 ApplicationSettings.Instance.IsServiceMode = Convert.ToBoolean(isServiceMode);
 
@@ -885,19 +990,19 @@ namespace SM.ClubManager.AccessControl
             //Console.WriteLine(string.Format("{0} - {1}", DateTime.Now.ToLongTimeString(), msg));
             if (isError)
             {
-                Gibraltar.Agent.Log.Warning("General", msg, "");
+                //Gibraltar.Agent.Log.Warning("General", msg, "");
             }
             else if (isDebug)
             {
-                Gibraltar.Agent.Log.Verbose("General", msg, "");
+                //Gibraltar.Agent.Log.Verbose("General", msg, "");
             }
             else
             {
-                Gibraltar.Agent.Log.Information("General", msg, "");
+                //Gibraltar.Agent.Log.Information("General", msg, "");
             }
             try
             {
-                lstLog.InvokeIfRequired(t => t.AddEntry(msg, isError));
+               // lstLog.InvokeIfRequired(t => t.AddEntry(msg, isError));
             }
             catch (Exception e)
             {

@@ -63,29 +63,9 @@ namespace SM.ClubManager.AccessControl.UI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _checked {
-            get {
-                object obj = ResourceManager.GetObject("checked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _unchecked {
-            get {
-                object obj = ResourceManager.GetObject("unchecked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap access_granted {
             get {
-                object obj = ResourceManager.GetObject("access_granted", resourceCulture);
+                object obj = ResourceManager.GetObject("access-granted", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,29 +73,9 @@ namespace SM.ClubManager.AccessControl.UI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap info {
+        internal static System.Drawing.Bitmap Unchecked {
             get {
-                object obj = ResourceManager.GetObject("info", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon notification_warning_icon {
-            get {
-                object obj = ResourceManager.GetObject("notification_warning_icon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap usb_connection {
-            get {
-                object obj = ResourceManager.GetObject("usb_connection", resourceCulture);
+                object obj = ResourceManager.GetObject("Unchecked", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +83,9 @@ namespace SM.ClubManager.AccessControl.UI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap wifi_connection {
+        internal static System.Drawing.Bitmap Unchecked1 {
             get {
-                object obj = ResourceManager.GetObject("wifi_connection", resourceCulture);
+                object obj = ResourceManager.GetObject("Unchecked1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

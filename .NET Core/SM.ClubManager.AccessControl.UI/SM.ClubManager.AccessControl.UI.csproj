@@ -1,101 +1,82 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows8.0</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Platforms>AnyCPU;x86</Platforms>
-    <SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <StartupObject>SM.ClubManager.AccessControl.UI.Program</StartupObject>
     <ApplicationIcon>simplemode-icon.ico</ApplicationIcon>
+    <NuGetAudit>False</NuGetAudit>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="temp\**" />
-    <EmbeddedResource Remove="temp\**" />
-    <None Remove="temp\**" />
+    <Content Include="simplemode-icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\access-granted.png" />
-    <None Remove="Resources\Checked.png" />
-    <None Remove="Resources\info.png" />
-    <None Remove="Resources\notification-warning-icon.ico" />
-    <None Remove="Resources\Unchecked.png" />
-    <None Remove="Resources\usb-connection.png" />
-    <None Remove="Resources\wifi-connection.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="simplemode-icon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\access-granted.png" />
-    <EmbeddedResource Include="Resources\checked.png" />
+    <EmbeddedResource Include="Resources\access-granted.png" />
+    <EmbeddedResource Include="Resources\Checked.png" />
     <EmbeddedResource Include="Resources\info.png" />
     <EmbeddedResource Include="Resources\notification-warning-icon.ico" />
-    <EmbeddedResource Include="Resources\unchecked.png" />
+    <EmbeddedResource Include="Resources\Unchecked.png" />
     <EmbeddedResource Include="Resources\usb-connection.png" />
     <EmbeddedResource Include="Resources\wifi-connection.png" />
   </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Loupe.Agent.Core" Version="4.14.0.11" />
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.5" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-        <PackageReference Include="SerialPortLib" Version="1.1.2" />
-        <PackageReference Include="Syncfusion.GridHelperClasses.Windows" Version="21.1.39" />
-        <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.20" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="SerialPortLib" Version="1.1.2" />
+    <PackageReference Include="Syncfusion.GridHelperClasses.Windows" Version="21.1.39" />
+    <PackageReference Include="Syncfusion.Licensing" Version="27.2.5" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="27.2.5" />
+    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.Base\SIS.Library.Base.csproj" />
-      <ProjectReference Include="..\..\..\SIS.Library .NET Standard\SIS.Library.WinFormsBase\SIS.Library.WinFormsBase.csproj" />
-      <ProjectReference Include="..\SM.ClubManager.AccessControl.Config\SM.ClubManager.AccessControl.Config.csproj" />
-      <ProjectReference Include="..\SM.ClubManager.AccessControl.PortScanner\SM.ClubManager.AccessControl.PortScanner.csproj" />
-      <ProjectReference Include="..\SM.ClubManager.AccessControl.SDK\SM.ClubManager.AccessControl.SDK.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SM.ClubManager.AccessControl.Config\SM.ClubManager.AccessControl.Config.csproj" />
+    <ProjectReference Include="..\SM.ClubManager.AccessControl.Model\SM.ClubManager.AccessControl.Model.csproj" />
+    <ProjectReference Include="..\SM.ClubManager.AccessControl.PortScanner\SM.ClubManager.AccessControl.PortScanner.csproj" />
+    <ProjectReference Include="..\SM.ClubManager.AccessControl.SDK\SM.ClubManager.AccessControl.SDK.csproj" />
+    <ProjectReference Include="..\SM.ClubManager.Library.Base\SM.ClubManager.Library.Base.csproj" />
+    <ProjectReference Include="..\SM.ClubManager.Library.ModelBase\SM.ClubManager.ModelBase.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <Compile Update="Properties\Resources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Resources.resx</DependentUpon>
-      </Compile>
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
-    <ItemGroup>
-      <EmbeddedResource Update="Properties\Resources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-    </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 
-    <ItemGroup>
-      <None Update="appsettings.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="data.db">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="data.sdf">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="config.vspe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 
-    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-      <Exec Command="cd bin\publish&#xD;&#xA;cd&#xD;&#xA;del * /q" />
-    </Target>
 </Project>
