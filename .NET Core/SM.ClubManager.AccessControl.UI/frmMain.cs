@@ -47,9 +47,7 @@ namespace SM.ClubManager.AccessControl
         ApplicationLogsOnly = 1,
         Full = 2
     }
-
    
-
     public partial class frmMain : Form
     {
         //set default view size
@@ -122,9 +120,9 @@ namespace SM.ClubManager.AccessControl
                     if (result == DialogResult.Yes)
                     {
                         
-                        DialogResult scanConfirmation = DialogResult.Yes;
+                      
                         bool isDetected = false;
-                        while (!isDetected && scanConfirmation == DialogResult.Yes)
+                        while (!isDetected && result == DialogResult.Yes)
                         {
                             frmSplash.ShowSplashScreen("Detecting controller..");
 
@@ -140,12 +138,11 @@ namespace SM.ClubManager.AccessControl
                                 caption = "Controller not found";
                                 icon = MessageBoxIcon.Error;
 
-                                MessageBox.Show(msg, caption,buttons, icon);                                
+                                result = MessageBox.Show(msg, caption,buttons, icon);                                
                             }
                             else
                             {
-                                ApplicationSettings.Instance.SerialPortSimplySwitchName = port;
-                                scanConfirmation = DialogResult.No;
+                                ApplicationSettings.Instance.SerialPortSimplySwitchName = port;                                
                                 isDetected = true;
                             }
 
@@ -210,9 +207,9 @@ namespace SM.ClubManager.AccessControl
             this.ShowInTaskbar = isDisplayInTaskBar.ToBool();
 
             //VSPEManager.KillProcess();
-
+            bool iVSPEPathValid = IsVSPEExecutablePathValid();
             //Validate that the VSPE software path is correct
-            if(!IsVSPEExecutablePathValid())
+            if (!iVSPEPathValid)
             {
                 MessageBox.Show("Cannot find the folder for the VSPE software. Update value in 'settings.json' manually or contact support.","VSPE Folder Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -237,7 +234,10 @@ namespace SM.ClubManager.AccessControl
             }
             else
             {
-                vSPEManager.StartVSPE();
+                if (ApplicationSettings.Instance.IsAutoOpenVSPEOnStartup)
+                {
+                    vSPEManager.StartVSPE();
+                }
             }
             //vSPEManager.CreateVSPEConfig(ApplicationSettings.Instance.SerialPort1Name, ApplicationSettings.Instance.SerialPort2Name, ApplicationSettings.Instance.VSPEConfigPath);
             
@@ -283,8 +283,9 @@ namespace SM.ClubManager.AccessControl
             bool isVSPEPathValid = false;
 
             string? vspePath = AppSettingsManager.configuration["AppSettings:VSPEExecutablePath"];
-            
-            if (!Path.Exists(vspePath))
+            isVSPEPathValid = File.Exists(vspePath);
+
+            if (!isVSPEPathValid)
             {
                 MessageBox.Show("Cannot find VSPE executable. You will now be prompted to select the folder where VSPE is installed.","Cannot found VSPE",MessageBoxButtons.OK,MessageBoxIcon.Error);
 
@@ -627,6 +628,10 @@ namespace SM.ClubManager.AccessControl
 
                 try
                 {
+                    if(serialClient == null)
+                    {                        
+                        return;
+                    }
                     serialClient.Disconnect();
 
                     serialClient.SetPort(portName: portName, baudRate: baudRate);
@@ -730,8 +735,9 @@ namespace SM.ClubManager.AccessControl
             //    item.Dispose();
             //}
             //items = null;
-            
-            VSPEManager.KillProcess();
+
+            if (ApplicationSettings.Instance.IsAutoCloseVSPEOnExit)
+                VSPEManager.KillProcess();
 
             if (settingsForm != null)
             {
@@ -831,7 +837,6 @@ namespace SM.ClubManager.AccessControl
             }
         }
 
-
         private void OnRelayCommandReceived(ISerialMessage item)
         {
             if (!(item is RelayCommand relayCommand))
@@ -846,15 +851,30 @@ namespace SM.ClubManager.AccessControl
             //this method should not care about whether command is wireless / wired. it just wants to execute command
             try
             {
+                bool isInverseCommand = ApplicationSettings.Instance.IsInvertOpenClose;
                 var cmd = item as RelayCommand;
                 SSResponse response;
                 switch (cmd.Command)
                 {
                     case RelayCommand.CommandType.Close:
-                        response = simplySwitchClient.SRelease();
+                        if(!isInverseCommand)
+                        {
+                            response = simplySwitchClient.SRelease();
+                        }
+                        else
+                        {
+                            response = simplySwitchClient.SActivate();
+                        }
                         break;
                     case RelayCommand.CommandType.Open:
-                        response = simplySwitchClient.SActivate();
+                        if (!isInverseCommand)
+                        {
+                            response = simplySwitchClient.SActivate();
+                        }
+                        else
+                        {
+                            response = simplySwitchClient.SRelease();
+                        }
                         break;
                     default:
                         break;
@@ -1002,7 +1022,8 @@ namespace SM.ClubManager.AccessControl
             }
             try
             {
-               // lstLog.InvokeIfRequired(t => t.AddEntry(msg, isError));
+               
+                lstLog.InvokeIfRequired(t => t.AddEntry(msg, isError));
             }
             catch (Exception e)
             {
@@ -1187,9 +1208,9 @@ namespace SM.ClubManager.AccessControl
             //Log("Initialzing communication layer");
             InitSerialComms();
 
-            ConfigureSystem();
-
             CheckSimplySwitchConnectionAndAutoDetect();
+
+            ConfigureSystem();           
         }
 
         private void btnSend_Click(object sender, EventArgs e)

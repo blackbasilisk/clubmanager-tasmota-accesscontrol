@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SM.ClubManager.AccessContro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SM.ClubManager.Library.Base", "..\SM.ClubManager.Library.Base\SM.ClubManager.Library.Base.csproj", "{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup Simply Switch Manager", "..\Simply Switch Manager\Simply Switch Manager.vdproj", "{C43D75A3-B525-4364-9673-585936FDF233}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,14 @@ Global
 		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Release|x86.ActiveCfg = Release|x86
 		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Release|x86.Build.0 = Release|x86
+		{C43D75A3-B525-4364-9673-585936FDF233}.Debug|Any CPU.ActiveCfg = Debug
+		{C43D75A3-B525-4364-9673-585936FDF233}.Debug|Any CPU.Build.0 = Debug
+		{C43D75A3-B525-4364-9673-585936FDF233}.Debug|x86.ActiveCfg = Debug
+		{C43D75A3-B525-4364-9673-585936FDF233}.Debug|x86.Build.0 = Debug
+		{C43D75A3-B525-4364-9673-585936FDF233}.Release|Any CPU.ActiveCfg = Release
+		{C43D75A3-B525-4364-9673-585936FDF233}.Release|Any CPU.Build.0 = Release
+		{C43D75A3-B525-4364-9673-585936FDF233}.Release|x86.ActiveCfg = Release
+		{C43D75A3-B525-4364-9673-585936FDF233}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

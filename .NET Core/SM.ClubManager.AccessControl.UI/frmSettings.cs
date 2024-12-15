@@ -10,6 +10,7 @@ using SM.ClubManager.AccessControl.Config;
 using SM.ClubManager.AccessControl.UI.Infrastructure;
 using Syncfusion.Windows.Forms.Tools;
 using SM.ClubManager.AccessControl.PortScanner;
+using SM.ClubManager.AccessControl.Infrastructure;
 
 namespace SM.ClubManager.AccessControl
 {
@@ -24,7 +25,8 @@ namespace SM.ClubManager.AccessControl
 
         private void Initialize()
         {
-            lblSSPortDetectStatus.Text = "";
+            lblSSPortDetectStatus.InvokeIfRequired(t => t.Text = "");
+            lblLaunchVSPE.InvokeIfRequired(t => t.Text = "");
 
             Log("Loading configuration...");
             try
@@ -38,6 +40,10 @@ namespace SM.ClubManager.AccessControl
                 txtInchingDelay.Text = ApplicationSettings.Instance.InchingDelay.ToString();
                 txtSerialOutBaudRate.Text = ApplicationSettings.Instance.SerialPortSimplySwitchBaudRate.ToString();
                 toggleisWirelessConnection.ToggleState = ApplicationSettings.Instance.IsTargetWireless ? ToggleButtonState.Active : ToggleButtonState.Inactive;
+                toggleInvertOpenClose.ToggleState = ApplicationSettings.Instance.IsInvertOpenClose ? ToggleButtonState.Active : ToggleButtonState.Inactive;
+                toggleIsAutoOpenVSPE.ToggleState = ApplicationSettings.Instance.IsAutoOpenVSPEOnStartup ? ToggleButtonState.Active : ToggleButtonState.Inactive;
+                toggleIsAutoCloseVSPE.ToggleState = ApplicationSettings.Instance.IsAutoCloseVSPEOnExit ? ToggleButtonState.Active : ToggleButtonState.Inactive;
+
                 try
                 {
                     chkAutoConfigSSPort.Checked = ApplicationSettings.Instance.isAutoConfigSimplySwitchPort;
@@ -121,6 +127,8 @@ namespace SM.ClubManager.AccessControl
                     ApplicationSettings.Instance.isAutoConfigSimplySwitchPort = chkAutoConfigSSPort.Checked;
                     ApplicationSettings.Instance.VSPEConfigPath = txtVSPEConfigPath.Text;
                     ApplicationSettings.Instance.IsInvertOpenClose = toggleInvertOpenClose.ToggleState == ToggleButtonState.Active ? true : false;
+                    ApplicationSettings.Instance.IsAutoOpenVSPEOnStartup = toggleIsAutoOpenVSPE.ToggleState == ToggleButtonState.Active ? true : false;
+                    ApplicationSettings.Instance.IsAutoCloseVSPEOnExit = toggleIsAutoCloseVSPE.ToggleState == ToggleButtonState.Active ? true : false;
 
                     isSaveOK = true;
                 }
@@ -455,7 +463,7 @@ namespace SM.ClubManager.AccessControl
                 {
                     Log(ex.Message, true);
                     string msg = "Make sure the formatting of the ports are correct. It need to be 'COMx', where x is a number from 1 - 9. \r\n\r\nAdditional details: " + ex.Message;
-                    MessageBox.Show(msg,"Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     v.StartVSPE();
                     return result;
                 }
@@ -573,7 +581,41 @@ namespace SM.ClubManager.AccessControl
 
         private void txtVSPEConfigPath_TextChanged(object sender, EventArgs e)
         {
+            var txtBox = sender as TextBox;
+            if (txtBox == null)
+            {
+                return;
+            }
+            //this.toolTip1.SetToolTip(this.targetControl, "My Tool Tip");
 
+            ttOpenDelay.SetToolTip(txtBox, txtBox.Text);
+        }
+
+        private void btnLaunchVSPE_Click(object sender, EventArgs e)
+        {
+            try
+            {  
+                //check if VSPE already running
+                using (VSPEManager vspeManager = new VSPEManager())
+                {
+
+                    bool isVSPERunning = vspeManager.IsProcessRunning();
+                    if (isVSPERunning)
+                    {
+                        MessageBox.Show("VSPE is already running. Stop and delete all port configurations and then close VSPE before launching a new instance", "VSPE already running", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        lblLaunchVSPE.InvokeIfRequired(t => t.Text = "");
+                        vspeManager.StartVSPE();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Launch VSPE", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Log(ex.Message,true);                
+            }                              
         }
     }
 }

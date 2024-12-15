@@ -9,6 +9,23 @@
     <ApplicationIcon>simplemode-icon.ico</ApplicationIcon>
     <NuGetAudit>False</NuGetAudit>
     <Platforms>AnyCPU;x86</Platforms>
+    <SignAssembly>False</SignAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <IsPublishable>True</IsPublishable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <IsPublishable>True</IsPublishable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <IsPublishable>True</IsPublishable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <IsPublishable>True</IsPublishable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,9 +48,9 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="SerialPortLib" Version="1.1.2" />
-    <PackageReference Include="Syncfusion.GridHelperClasses.Windows" Version="21.1.39" />
-    <PackageReference Include="Syncfusion.Licensing" Version="27.2.5" />
-    <PackageReference Include="Syncfusion.Shared.Base" Version="27.2.5" />
+    <PackageReference Include="Syncfusion.GridHelperClasses.Windows" Version="28.1.33" />
+    <PackageReference Include="Syncfusion.Licensing" Version="28.1.33" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="28.1.33" />
     <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
   </ItemGroup>
 

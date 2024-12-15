@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SM.ClubManager.AccessControl.UI.Infrastructure
 {
-    internal class VSPEManager
+    internal class VSPEManager : IDisposable        
     {
         #region Internal Methods
         internal void StartVSPE(bool isKillProcess = false)
@@ -20,37 +20,41 @@ namespace SM.ClubManager.AccessControl.UI.Infrastructure
 
             string executablePath = AppSettingsManager.configuration["AppSettings:VSPEExecutablePath"];
 
-            
-            string path = ApplicationSettings.Instance.VSPEConfigPath;
-            string fullPath = Path.Combine(path, "config.vspe");
-            // Parameter to pass to the executable
-            string p1 = "\"" + fullPath + "\"";//@"C:\Source\virtual-serial-ports-lib-test\config.vspe";
-            string p2 = "-minimize";
-
-            if(isKillProcess)
+            if (!File.Exists(executablePath))
             {
-                // If it is running, kill it
-                KillProcess(processName);
+                throw new Exception("Invalid path set for 'AppSettings:VSPEExecutablePath'. Check settings.json in root folder of application.");
             }
-            
-            if(!IsProcessRunning(processName))
-            {
-                var parameters = new List<string>();
-                parameters.Add(p1);
-                parameters.Add(p2);
 
-                // Start the process in a new process
-                StartProcess(executablePath, parameters);
-            }
-            
-            //Log("VSPE started");
+            if (executablePath != null)
+            {
+                string path = ApplicationSettings.Instance.VSPEConfigPath;
+                string fullPath = Path.Combine(path, "config.vspe");
+                // Parameter to pass to the executable
+                string p1 = "\"" + fullPath + "\"";//@"C:\Source\virtual-serial-ports-lib-test\config.vspe";
+                string p2 = "-minimize";
+
+                if (isKillProcess)
+                {
+                    // If it is running, kill it
+                    KillProcess(processName);
+                }
+
+                if (!IsProcessRunning(processName))
+                {
+                    var parameters = new List<string>();
+                    parameters.Add(p1);
+                    parameters.Add(p2);
+
+                    // Start the process in a new process
+                    StartProcess(executablePath, parameters);
+                }
+            }           
         }
 
         internal static void KillProcess()
         {
             KillProcess("VSPEmulator");
         }
-
 
         internal bool IsVSPEConfigExists(string path)
         {
@@ -123,6 +127,7 @@ namespace SM.ClubManager.AccessControl.UI.Infrastructure
 
             return IsProcessRunning(processName);
         }
+       
         private bool IsProcessRunning(string processName)
         {
             //string processName = "VSPEmulator";
@@ -206,7 +211,11 @@ namespace SM.ClubManager.AccessControl.UI.Infrastructure
         };
             // Write the content to the file
             File.WriteAllBytes(Path.Combine(path, fileName), content);
+        }
 
+        public void Dispose()
+        {
+            //no resources to clear            
         }
     }
 }

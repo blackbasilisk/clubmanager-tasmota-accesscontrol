@@ -37,7 +37,7 @@ namespace SM.ClubManager.AccessControl.UI
         {
             //Log.StartSession();
             //Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo + DSMBaFt + QHFqVk9rXVNbdV5dVGpAd0N3RGlcdlR1fUUmHVdTRHRcQlliQXxSc0BmXX5ccXQ =; Mgo + DSMBPh8sVXJ1S0d + X1hPd11dXmJWd1p / THNYflR1fV9DaUwxOX1dQl9gSXpSfkdiXHpbdHVWRWE =; ORg4AjUWIQA / Gnt2VFhhQlJNfV5AQmBIYVp / TGpJfl96cVxMZVVBJAtUQF1hSn5Xd01hWHpbdXBUQmdc; MTc2OTIyNEAzMjMxMmUzMTJlMzMzOUxMQ3lsMmlDaE91WmtHeWk0WnFvek9rbnFrRlo2WTNGRzNyWGxzOFVNVkk9; MTc2OTIyNUAzMjMxMmUzMTJlMzMzOUtSN3BwdFltSnY0c3FaSG9reUNvNnlURFNFNVB1RWhhdUpLTDFCYVRhOFU9; NRAiBiAaIQQuGjN / V0d + XU9Hf1RDX3xKf0x / TGpQb19xflBPallYVBYiSV9jS31TckRrW35bdXFRRGFUUA ==; MTc2OTIyN0AzMjMxMmUzMTJlMzMzOUpJNnJnSnBiNmpQK2lVNmk0OFZvOWNwTzBaQWRwM2RmWDZ2cHFrL1NrZ2s9; MTc2OTIyOEAzMjMxMmUzMTJlMzMzOVFUMDZuSkZnQXJxdHNkS1dZR1lkQ0I3OEJqb28zZ2E0OEs2Rm5ya0hqQnc9; Mgo + DSMBMAY9C3t2VFhhQlJNfV5AQmBIYVp / TGpJfl96cVxMZVVBJAtUQF1hSn5Xd01hWHpbdXBXT2Nd; MTc2OTIzMEAzMjMxMmUzMTJlMzMzOUw0TTlmNFU2dElYREVlLzZ3ZTVnZzg5U0lVc2RUNFFlVkEzTjRWQVhPZG89; MTc2OTIzMUAzMjMxMmUzMTJlMzMzOWtMNDBFYTJ5MVVGT3lMWWYyWmlCbzQ4WXoyalUrZWZXRTB1NlFYOHZIM0E9; MTc2OTIzMkAzMjMxMmUzMTJlMzMzOUpJNnJnSnBiNmpQK2lVNmk0OFZvOWNwTzBaQWRwM2RmWDZ2cHFrL1NrZ2s9");
-            string syncFusionlicenseKey = "Ngo9BigBOggjHTQxAR8/V1NDaF1cX2hIfEx3QXxbf1x0ZFRHal5UTnRWUiweQnxTdEFiW39ZcXVXQ2JVUUdzWA==";
+            string syncFusionlicenseKey = "MzYyNjU3MUAzMjM4MmUzMDJlMzBYTTV2eWxaUno0MDR0ZURLOUF2ZkdpNGtGdnc1RGhiV0hLYndUNzdOL0xBPQ==";
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncFusionlicenseKey);
 
             AppSettingsManager.InitAppSettings();

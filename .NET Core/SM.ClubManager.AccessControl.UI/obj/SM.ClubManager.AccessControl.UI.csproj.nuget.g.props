@@ -18,12 +18,12 @@
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\7.0.20\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\7.0.20\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgSyncfusion_Shared_Base Condition=" '$(PkgSyncfusion_Shared_Base)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.shared.base\27.2.5</PkgSyncfusion_Shared_Base>
-    <PkgSyncfusion_Grid_Windows Condition=" '$(PkgSyncfusion_Grid_Windows)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.grid.windows\21.1.39</PkgSyncfusion_Grid_Windows>
-    <PkgSyncfusion_Tools_Windows Condition=" '$(PkgSyncfusion_Tools_Windows)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.tools.windows\21.1.39</PkgSyncfusion_Tools_Windows>
-    <PkgSyncfusion_PivotTable_WinForms Condition=" '$(PkgSyncfusion_PivotTable_WinForms)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.pivottable.winforms\21.1.39</PkgSyncfusion_PivotTable_WinForms>
-    <PkgSyncfusion_Grid_Grouping_Windows Condition=" '$(PkgSyncfusion_Grid_Grouping_Windows)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.grid.grouping.windows\21.1.39</PkgSyncfusion_Grid_Grouping_Windows>
-    <PkgSyncfusion_Chart_Windows Condition=" '$(PkgSyncfusion_Chart_Windows)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.chart.windows\21.1.39</PkgSyncfusion_Chart_Windows>
+    <PkgSyncfusion_Shared_Base Condition=" '$(PkgSyncfusion_Shared_Base)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.shared.base\28.1.33</PkgSyncfusion_Shared_Base>
+    <PkgSyncfusion_Grid_Windows Condition=" '$(PkgSyncfusion_Grid_Windows)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.grid.windows\28.1.33</PkgSyncfusion_Grid_Windows>
+    <PkgSyncfusion_Tools_Windows Condition=" '$(PkgSyncfusion_Tools_Windows)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.tools.windows\28.1.33</PkgSyncfusion_Tools_Windows>
+    <PkgSyncfusion_PivotTable_WinForms Condition=" '$(PkgSyncfusion_PivotTable_WinForms)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.pivottable.winforms\28.1.33</PkgSyncfusion_PivotTable_WinForms>
+    <PkgSyncfusion_Grid_Grouping_Windows Condition=" '$(PkgSyncfusion_Grid_Grouping_Windows)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.grid.grouping.windows\28.1.33</PkgSyncfusion_Grid_Grouping_Windows>
+    <PkgSyncfusion_Chart_Windows Condition=" '$(PkgSyncfusion_Chart_Windows)' == '' ">C:\Users\Dave Coates\.nuget\packages\syncfusion.chart.windows\28.1.33</PkgSyncfusion_Chart_Windows>
     <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\Dave Coates\.nuget\packages\entityframework\6.5.1</PkgEntityFramework>
     <PkgCauldron_Interception_Fody Condition=" '$(PkgCauldron_Interception_Fody)' == '' ">C:\Users\Dave Coates\.nuget\packages\cauldron.interception.fody\3.2.3</PkgCauldron_Interception_Fody>
   </PropertyGroup>

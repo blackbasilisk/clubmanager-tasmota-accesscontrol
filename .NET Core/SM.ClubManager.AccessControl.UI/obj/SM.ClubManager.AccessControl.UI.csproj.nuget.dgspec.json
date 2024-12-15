@@ -520,15 +520,15 @@
             },
             "Syncfusion.GridHelperClasses.Windows": {
               "target": "Package",
-              "version": "[21.1.39, )"
+              "version": "[28.1.33, )"
             },
             "Syncfusion.Licensing": {
               "target": "Package",
-              "version": "[27.2.5, )"
+              "version": "[28.1.33, )"
             },
             "Syncfusion.Shared.Base": {
               "target": "Package",
-              "version": "[27.2.5, )"
+              "version": "[28.1.33, )"
             },
             "System.Resources.Extensions": {
               "target": "Package",

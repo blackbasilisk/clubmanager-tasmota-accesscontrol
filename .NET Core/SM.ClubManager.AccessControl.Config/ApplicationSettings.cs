@@ -36,6 +36,13 @@
 
         #region Database properties          
         [InterceptorGetAttribute]
+        public bool IsAutoOpenVSPEOnStartup { get; set; }
+
+        [InterceptorGetAttribute]
+        public bool IsAutoCloseVSPEOnExit { get; set; }
+
+
+        [InterceptorGetAttribute]
         public bool IsInvertOpenClose { get; set; }
 
         [InterceptorGetAttribute]
