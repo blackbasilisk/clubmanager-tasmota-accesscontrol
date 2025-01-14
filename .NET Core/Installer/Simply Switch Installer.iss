@@ -7,7 +7,7 @@
 AppId={{7E28C32D-66E5-431F-B545-4B72BD4B6B19}
 AppName=Simply Switch Manager
 AppVersion=2
-;AppVerName=Simply Switch Manager 2
+AppVerName=Simply Switch Manager 2
 AppPublisher=Simple Mode
 DefaultDirName={autopf}\Simply Switch Manager
 UninstallDisplayIcon={app}\SM.ClubManager.AccessControl.UI.exe
@@ -30,12 +30,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 
-; Include the third-party installer
+;VSPE MSI installer
 Source: "C:\Source\Simple Mode\clubmanager-tasmota-accesscontrol\.NET Core\Installer\Dependencies\VSPE x64\SetupVSPE_64.msi"; DestDir: "{tmp}"; Flags: ignoreversion; 
-; Include the VSPE serial key file in the installer
+; VSPE serial key file in the installer
 Source: "C:\Source\Simple Mode\clubmanager-tasmota-accesscontrol\.NET Core\Installer\Dependencies\VSPE x64\VSPE_64_KEY.txt"; DestDir: "{tmp}"; Flags: ignoreversion; 
-; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-; Include the serial driver installer
+; Serial driver installer
 Source: "C:\Source\Simple Mode\clubmanager-tasmota-accesscontrol\.NET Core\Installer\Dependencies\Serial Driver\CH341SER.EXE"; DestDir: "{tmp}"; Flags: ignoreversion; 
 Source: "C:\Source\Simple Mode\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.UI\bin\x86\Debug\net7.0-windows8.0\SM.ClubManager.AccessControl.UI.exe"; DestDir: "{app}"; Flags: ignoreversion; 
 ; Main application files
@@ -46,10 +45,8 @@ Name: "{autoprograms}\Simply Switch Manager"; Filename: "{app}\SM.ClubManager.Ac
 Name: "{autodesktop}\Simply Switch Manager"; Filename: "{app}\SM.ClubManager.AccessControl.UI.exe"; 
 
 [Run]
-Filename: "{tmp}\CH341SER.EXE"; Description: "Install Serial Driver"; Flags: waituntilterminated postinstall
-; Run the third-party installer
-Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\SetupVSPE_64.msi"""; Description: "Install VSPE"; Flags: waituntilterminated skipifsilent postinstall
-
+Filename: "{tmp}\CH341SER.EXE"; Description: "Run Serial Driver Setup"; Flags: waituntilterminated skipifsilent postinstall
+Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\SetupVSPE_64.msi"""; Description: "Run VSPE Setup"; Flags: waituntilterminated skipifsilent postinstall
 
 
 [Registry]
@@ -58,7 +55,16 @@ Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\VSPE"; 
 Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\VSPE"; ValueType: string; ValueName: "UninstallString"; ValueData: """{win}\msiexec.exe"" /x {code:GetVSPEProductCode}"; Flags: uninsdeletevalue
   
 [UninstallRun]
-Filename: "msiexec.exe"; Parameters: "/x {code:GetVSPEProductCode} /quiet"; Flags: runhidden
+Filename: "msiexec.exe"; Parameters: "/x {code:GetVSPEProductCode}"; Flags: skipifdoesntexist; RunOnceId: "DelSimplySwitch"; 
+
+[InstallDelete]
+Type: filesandordirs; Name: "{app}"
+
+[UninstallDelete]
+Type: files; Name: "unins000.dat"
+Type: files; Name: "unins000.exe"
+Type: filesandordirs; Name: "{app}"
+Type: filesandordirs; Name: "{localappdata}\SM.ClubManager.AccessControl.UI"
 
 [Code]
 function GetVSPEProductCode(Param: String): String;

@@ -213,22 +213,26 @@ namespace SM.ClubManager.AccessControl
             //Validate that the VSPE software path is correct
             if (!iVSPEPathValid)
             {
-                MessageBox.Show("Cannot find the folder for the VSPE software. Update value in 'settings.json' manually or contact support.","VSPE Folder Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cannot find the folder for the VSPE software. Update value in 'settings.json' manually or contact support. The software will now exit.","VSPE Folder Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();                
             }
 
             VSPEManager vSPEManager = new VSPEManager();
             
             string path = ApplicationSettings.Instance.VSPEConfigPath;       
                                    
-            if (path == null || path.EndsWith("config.vspe") || string.IsNullOrEmpty(path))
+            if (path == null || !Path.Exists(path) || string.IsNullOrEmpty(path))
             {
-                path = Path.Combine(Environment.CurrentDirectory, "Simply Switch Manager");
-                if(!Path.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
+                string myDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                //path = Path.Combine(myDocumentsPath, "Simply Switch Manager");
+                //if(!Path.Exists(path))
+                //{
+                //    Directory.CreateDirectory(path);
+                //}
                 
-                ApplicationSettings.Instance.VSPEConfigPath = path;
+                ApplicationSettings.Instance.VSPEConfigPath = myDocumentsPath;
+                path = ApplicationSettings.Instance.VSPEConfigPath;
             }
 
             if (!vSPEManager.IsVSPEConfigExists(path))
@@ -290,8 +294,7 @@ namespace SM.ClubManager.AccessControl
 
             if (!isVSPEPathValid)
             {
-                MessageBox.Show("Cannot find VSPE executable. You will now be prompted to select the folder where VSPE is installed.","Cannot found VSPE",MessageBoxButtons.OK,MessageBoxIcon.Error);
-
+                MessageBox.Show("Cannot find VSPE executable. You will now be prompted to select the folder where VSPE is installed.", "Cannot found VSPE", MessageBoxButtons.OK, MessageBoxIcon.Error);                
                 string initialLocation = "C:\\Program Files\\";
                 vspeFolderBrowser.InitialDirectory = initialLocation;
                 vspeFolderBrowser.Description = "Select the VSPE installation location";
@@ -299,7 +302,7 @@ namespace SM.ClubManager.AccessControl
                 
                 DialogResult result = vspeFolderBrowser.ShowDialog();                
 
-                while (!isVSPEPathValid)
+                while (!isVSPEPathValid && result != DialogResult.Cancel)
                 {
                     if (result == DialogResult.OK)
                     {
@@ -314,12 +317,15 @@ namespace SM.ClubManager.AccessControl
                             });
 
                             string s = AppSettingsManager.configuration["AppSettings:VSPEExecutablePath"];
-                        }
-                        else
-                        {
-                            result = vspeFolderBrowser.ShowDialog();
-                        }
+                        }                        
                     }
+                    
+                }
+                
+                if(result == DialogResult.Cancel)
+                {
+                    this.Close();
+                    Application.Exit();
                 }
             }
 

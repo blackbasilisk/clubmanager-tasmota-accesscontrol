@@ -79,7 +79,7 @@ namespace SM.ClubManager.AccessControl.UI.Infrastructure
             string appName = Assembly.GetExecutingAssembly().GetName().Name;
 
             // Get the AppData folder path
-            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), appName);
+            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), appName);
 
             return appDataPath;
         }

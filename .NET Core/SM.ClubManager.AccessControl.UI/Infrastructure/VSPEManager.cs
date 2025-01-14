@@ -22,7 +22,7 @@ namespace SM.ClubManager.AccessControl.UI.Infrastructure
 
             if (!File.Exists(executablePath))
             {
-                throw new Exception("Invalid path set for 'AppSettings:VSPEExecutablePath'. Check settings.json in root folder of application.");
+                throw new Exception("Invalid path set for 'AppSettings:VSPEExecutablePath'. Check settings.json in AppData folder on system.");
             }
 
             if (executablePath != null)
