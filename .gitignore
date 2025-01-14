@@ -33,3 +33,4 @@ _ReSharper*/
 .bazelversion
 .nuget/
 */project.lock.json
+.NET Core/SM.ClubManager.AccessControl/.vs/SM.ClubManager.AccessControl/v17/.suo
