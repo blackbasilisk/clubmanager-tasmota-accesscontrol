@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>simplemode-icon.ico</ApplicationIcon>
     <NuGetAudit>False</NuGetAudit>
-    <Platforms>AnyCPU;x86</Platforms>
+    <Platforms>x86</Platforms>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
@@ -20,16 +21,12 @@
     <IsPublishable>True</IsPublishable>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <IsPublishable>True</IsPublishable>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <IsPublishable>True</IsPublishable>
-  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\VSPE_64_KEY.txt" />
+  </ItemGroup>
 
   <ItemGroup>
-    <Content Include="simplemode-icon.ico" />
+    <EmbeddedResource Include="simplemode-icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,7 +82,7 @@
 
   <ItemGroup>
     <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="config.vspe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -93,6 +90,9 @@
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="VSPE_Serial\VSPE_64_KEY.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

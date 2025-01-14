@@ -19,9 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SM.ClubManager.ModelBase", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SM.ClubManager.AccessControl.UI", "..\SM.ClubManager.AccessControl.UI\SM.ClubManager.AccessControl.UI.csproj", "{FDAB8019-C4FE-42A0-AF8E-44EB3F54B4FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SM.ClubManager.Library.Base", "..\SM.ClubManager.Library.Base\SM.ClubManager.Library.Base.csproj", "{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup Simply Switch Manager", "..\Simply Switch Manager\Simply Switch Manager.vdproj", "{C43D75A3-B525-4364-9673-585936FDF233}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SM.ClubManager.Library.Base", "..\SM.ClubManager.Library.Base\SM.ClubManager.Library.Base.csproj", "{D419CE9A-DB6F-4F28-ACA8-1B1076036CF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,22 +93,14 @@ Global
 		{FDAB8019-C4FE-42A0-AF8E-44EB3F54B4FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FDAB8019-C4FE-42A0-AF8E-44EB3F54B4FD}.Release|x86.ActiveCfg = Release|x86
 		{FDAB8019-C4FE-42A0-AF8E-44EB3F54B4FD}.Release|x86.Build.0 = Release|x86
-		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Debug|x86.ActiveCfg = Debug|x86
-		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Debug|x86.Build.0 = Debug|x86
-		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Release|x86.ActiveCfg = Release|x86
-		{9985F7FD-6C77-4220-9B06-3E1C2D1CF2E0}.Release|x86.Build.0 = Release|x86
-		{C43D75A3-B525-4364-9673-585936FDF233}.Debug|Any CPU.ActiveCfg = Debug
-		{C43D75A3-B525-4364-9673-585936FDF233}.Debug|Any CPU.Build.0 = Debug
-		{C43D75A3-B525-4364-9673-585936FDF233}.Debug|x86.ActiveCfg = Debug
-		{C43D75A3-B525-4364-9673-585936FDF233}.Debug|x86.Build.0 = Debug
-		{C43D75A3-B525-4364-9673-585936FDF233}.Release|Any CPU.ActiveCfg = Release
-		{C43D75A3-B525-4364-9673-585936FDF233}.Release|Any CPU.Build.0 = Release
-		{C43D75A3-B525-4364-9673-585936FDF233}.Release|x86.ActiveCfg = Release
-		{C43D75A3-B525-4364-9673-585936FDF233}.Release|x86.Build.0 = Release
+		{D419CE9A-DB6F-4F28-ACA8-1B1076036CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D419CE9A-DB6F-4F28-ACA8-1B1076036CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D419CE9A-DB6F-4F28-ACA8-1B1076036CF0}.Debug|x86.ActiveCfg = Debug|x86
+		{D419CE9A-DB6F-4F28-ACA8-1B1076036CF0}.Debug|x86.Build.0 = Debug|x86
+		{D419CE9A-DB6F-4F28-ACA8-1B1076036CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D419CE9A-DB6F-4F28-ACA8-1B1076036CF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D419CE9A-DB6F-4F28-ACA8-1B1076036CF0}.Release|x86.ActiveCfg = Release|x86
+		{D419CE9A-DB6F-4F28-ACA8-1B1076036CF0}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

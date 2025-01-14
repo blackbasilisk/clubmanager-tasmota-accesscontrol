@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {
+    "net7.0-windows8.0": {
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -497,10 +497,10 @@
           "SQLitePCLRaw.core": "2.1.4"
         },
         "compile": {
-          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         },
         "runtime": {
-          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
       "System.CodeDom/4.4.0": {
@@ -1329,7 +1329,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0": [
+    "net7.0-windows8.0": [
       "Microsoft.Data.Sqlite.Core >= 7.0.20",
       "Microsoft.EntityFrameworkCore >= 7.0.20",
       "Microsoft.EntityFrameworkCore.Sqlite >= 7.0.20",
@@ -1354,15 +1354,15 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net7.0-windows8.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "projectReferences": {
             "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj": {
               "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj"
@@ -1383,8 +1383,8 @@
       "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net7.0-windows8.0": {
+        "targetAlias": "net7.0-windows8.0",
         "dependencies": {
           "Microsoft.Data.Sqlite.Core": {
             "target": "Package",
@@ -1433,7 +1433,7 @@
       "message": "Package 'System.Text.Json' 7.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-hh2w-p6rv-4g7w",
       "libraryId": "System.Text.Json",
       "targetGraphs": [
-        "net7.0"
+        "net7.0-windows8.0"
       ]
     }
   ]

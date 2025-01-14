@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {
+    "net7.0-windows8.0": {
       "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -722,7 +722,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0": [
+    "net7.0-windows8.0": [
       "SerialPortLib >= 1.1.2"
     ]
   },
@@ -743,15 +743,15 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net7.0-windows8.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "projectReferences": {}
         }
       },
@@ -768,8 +768,8 @@
       "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net7.0-windows8.0": {
+        "targetAlias": "net7.0-windows8.0",
         "dependencies": {
           "SerialPortLib": {
             "target": "Package",

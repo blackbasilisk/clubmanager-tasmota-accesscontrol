@@ -18,15 +18,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Repository\\SM.ClubManager.AccessControl.Repository.csproj": {
                 "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Repository\\SM.ClubManager.AccessControl.Repository.csproj"
@@ -47,8 +47,8 @@
         "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
             "Cauldron.BasicInterceptors": {
               "target": "Package",
@@ -89,15 +89,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj": {
                 "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj"
@@ -118,8 +118,8 @@
         "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
             "Microsoft.Data.Sqlite.Core": {
               "target": "Package",
@@ -174,15 +174,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.Library.ModelBase\\SM.ClubManager.ModelBase.csproj": {
                 "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.Library.ModelBase\\SM.ClubManager.ModelBase.csproj"
@@ -203,8 +203,8 @@
         "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "imports": [
             "net461",
             "net462",
@@ -239,15 +239,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj": {
                 "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Model\\SM.ClubManager.AccessControl.Model.csproj"
@@ -268,8 +268,8 @@
         "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
             "SerialPortLib": {
               "target": "Package",
@@ -310,15 +310,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Database\\SM.ClubManager.AccessControl.Database.csproj": {
                 "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Database\\SM.ClubManager.AccessControl.Database.csproj"
@@ -342,8 +342,8 @@
         "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
             "EntityFramework": {
               "target": "Package",
@@ -384,15 +384,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {}
           }
         },
@@ -409,8 +409,8 @@
         "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
             "SerialPortLib": {
               "target": "Package",
@@ -451,15 +451,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0-windows"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0-windows7.0": {
-            "targetAlias": "net7.0-windows",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {
               "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Config\\SM.ClubManager.AccessControl.Config.csproj": {
                 "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Config\\SM.ClubManager.AccessControl.Config.csproj"
@@ -495,8 +495,8 @@
         "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0-windows7.0": {
-          "targetAlias": "net7.0-windows",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "dependencies": {
             "Microsoft.Data.Sqlite": {
               "target": "Package",
@@ -646,15 +646,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net7.0-windows8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net7.0-windows8.0": {
+            "targetAlias": "net7.0-windows8.0",
             "projectReferences": {}
           }
         },
@@ -671,8 +671,8 @@
         "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "imports": [
             "net461",
             "net462",

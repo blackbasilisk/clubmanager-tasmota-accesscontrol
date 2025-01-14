@@ -1,0 +1,12 @@
+This is a 64 bit VSPE API key.
+*** Valid for version 1.0 ONLY! ***
+It means that it will be invalid for any version except this one!
+After installing new VSPE version you should replace the old key with the new one.
+To find out how to use the key, please refer to the product documentation.
+
+====================== BEGIN ACTIVATION KEY =====================
++S2mKw2GqEoXWFTiGDRH5XNZauN11+Ogc1lq43XX46BzWWrjddfjoHNZauN11+Ogc1lq43XX46BzWWrjddfjoHNZauN11+Ogc1lq43XX46BzWWrjddfjoHNZauN11+Ogc1lq43XX46BzWWrjddfjoHNZauN11+Ogc1lq43XX46BTp3G0syKzM1nxSwLTLTvTc1lq43XX46BzWWrjddfjoHNZauN11+Ogc1lq43XX46BzWWrjddfjoHNZauN11+Ogc1lq43XX46BzWWrjddfjoHNZauN11+Ogc1lq43XX46BzWWrjddfjoHNZauN11+Ogc1lq43XX46BzWWrjddfjoATtx4fpB7rhfgV4wuIYcmigbzvwmfahHHNZauN11+Ogc1lq43XX46BzWWrjddfjoNyZG8WRQWyWaecFSG6R2Iax+RII2f9tCwgTzjY7+743ZCBrwJdO7jHasCCBaWQsTmJ43r6ZVhEuJCmcDh+EKwaxt3L68WUB6HmeK+wHJ+EPTExMHp3oa6qWw6ywWSwlmtTmoRmBrTnEyxAcKYLuA2CyaP5cSRBVePXMTBAwypdb/Y88S1k1HjRYdxGJDaMUoi1zlB5LbFonZR8EMHUpuuU4R7fLz35D6xv8+jdEAzE+oLFcUOZDmKET5wuI7pU/g7u6/gV9P79F7ToGOvnj7TzwsabtmTDAPBDjB6q0SoqInoHyanNzufAVBjNCCuRQDA+s+BJiKYvPpa0iZ83774W7FMc5Ng2uPB+qnl+GlBDDb6E/qd648QP1f9nYCRLeUA==5E7DB448A586360985E276AEC2415C5F
+====================== END ACTIVATION KEY =======================
+
+
+

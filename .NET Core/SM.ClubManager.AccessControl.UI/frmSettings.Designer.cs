@@ -30,19 +30,19 @@ namespace SM.ClubManager.AccessControl
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection1 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection1 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection1 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
+            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection5 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection5 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection5 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSettings));
-            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection2 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection2 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection2 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
-            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection3 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection3 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection3 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
-            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection4 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection4 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
-            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection4 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
+            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection6 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection6 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection6 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
+            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection7 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection7 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection7 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
+            Syncfusion.Windows.Forms.Tools.ActiveStateCollection activeStateCollection8 = new Syncfusion.Windows.Forms.Tools.ActiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.InactiveStateCollection inactiveStateCollection8 = new Syncfusion.Windows.Forms.Tools.InactiveStateCollection();
+            Syncfusion.Windows.Forms.Tools.SliderCollection sliderCollection8 = new Syncfusion.Windows.Forms.Tools.SliderCollection();
             txtPort2 = new TextBox();
             label1 = new Label();
             txtSerialPortPairBaudrate = new TextBox();
@@ -77,6 +77,7 @@ namespace SM.ClubManager.AccessControl
             textBoxExt6 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             picToolTip3 = new PictureBox();
             panel5 = new Panel();
+            lblLaunchVSPE = new Label();
             btnLaunchVSPE = new Button();
             pictureBox4 = new PictureBox();
             label17 = new Label();
@@ -102,7 +103,7 @@ namespace SM.ClubManager.AccessControl
             folderBrowserDialog1 = new FolderBrowserDialog();
             panel7 = new Panel();
             textBoxExt9 = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
-            lblLaunchVSPE = new Label();
+            btnShowSerial = new Button();
             ((System.ComponentModel.ISupportInitialize)toggleisWirelessConnection).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)textBoxExt1).BeginInit();
@@ -231,25 +232,25 @@ namespace SM.ClubManager.AccessControl
             // 
             // toggleisWirelessConnection
             // 
-            activeStateCollection1.BackColor = Color.FromArgb(93, 92, 97);
-            activeStateCollection1.BorderColor = Color.Silver;
-            activeStateCollection1.Text = "Wi-Fi";
-            toggleisWirelessConnection.ActiveState = activeStateCollection1;
+            activeStateCollection5.BackColor = Color.FromArgb(93, 92, 97);
+            activeStateCollection5.BorderColor = Color.Silver;
+            activeStateCollection5.Text = "Wi-Fi";
+            toggleisWirelessConnection.ActiveState = activeStateCollection5;
             toggleisWirelessConnection.Font = new Font("Calibri", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            inactiveStateCollection1.BackColor = Color.FromArgb(93, 92, 97);
-            inactiveStateCollection1.BorderColor = Color.Silver;
-            inactiveStateCollection1.ForeColor = Color.White;
-            inactiveStateCollection1.Text = "USB  ";
-            toggleisWirelessConnection.InactiveState = inactiveStateCollection1;
+            inactiveStateCollection5.BackColor = Color.FromArgb(93, 92, 97);
+            inactiveStateCollection5.BorderColor = Color.Silver;
+            inactiveStateCollection5.ForeColor = Color.White;
+            inactiveStateCollection5.Text = "USB  ";
+            toggleisWirelessConnection.InactiveState = inactiveStateCollection5;
             toggleisWirelessConnection.Location = new Point(146, 27);
             toggleisWirelessConnection.Margin = new Padding(4, 3, 4, 3);
             toggleisWirelessConnection.MinimumSize = new Size(61, 23);
             toggleisWirelessConnection.Name = "toggleisWirelessConnection";
             toggleisWirelessConnection.Size = new Size(74, 24);
-            sliderCollection1.BackColor = Color.Silver;
-            sliderCollection1.BorderColor = Color.Silver;
-            sliderCollection1.Width = 35;
-            toggleisWirelessConnection.Slider = sliderCollection1;
+            sliderCollection5.BackColor = Color.Silver;
+            sliderCollection5.BorderColor = Color.Silver;
+            sliderCollection5.Width = 35;
+            toggleisWirelessConnection.Slider = sliderCollection5;
             toggleisWirelessConnection.TabIndex = 29;
             toggleisWirelessConnection.Text = "toggleButton1";
             toggleisWirelessConnection.ThemeStyle.BorderThickness = 1;
@@ -380,31 +381,31 @@ namespace SM.ClubManager.AccessControl
             label15.Location = new Point(4, 155);
             label15.Margin = new Padding(4, 0, 4, 0);
             label15.Name = "label15";
-            label15.Size = new Size(92, 15);
+            label15.Size = new Size(103, 15);
             label15.TabIndex = 41;
-            label15.Text = "Auto close VSPE";
+            label15.Text = "Close VSPE on exit";
             // 
             // toggleIsAutoCloseVSPE
             // 
-            activeStateCollection2.BackColor = Color.FromArgb(93, 92, 97);
-            activeStateCollection2.BorderColor = Color.Silver;
-            activeStateCollection2.Text = "Yes";
-            toggleIsAutoCloseVSPE.ActiveState = activeStateCollection2;
+            activeStateCollection6.BackColor = Color.FromArgb(93, 92, 97);
+            activeStateCollection6.BorderColor = Color.Silver;
+            activeStateCollection6.Text = "Yes";
+            toggleIsAutoCloseVSPE.ActiveState = activeStateCollection6;
             toggleIsAutoCloseVSPE.Font = new Font("Calibri", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            inactiveStateCollection2.BackColor = Color.FromArgb(93, 92, 97);
-            inactiveStateCollection2.BorderColor = Color.Silver;
-            inactiveStateCollection2.ForeColor = Color.White;
-            inactiveStateCollection2.Text = "No";
-            toggleIsAutoCloseVSPE.InactiveState = inactiveStateCollection2;
+            inactiveStateCollection6.BackColor = Color.FromArgb(93, 92, 97);
+            inactiveStateCollection6.BorderColor = Color.Silver;
+            inactiveStateCollection6.ForeColor = Color.White;
+            inactiveStateCollection6.Text = "No";
+            toggleIsAutoCloseVSPE.InactiveState = inactiveStateCollection6;
             toggleIsAutoCloseVSPE.Location = new Point(146, 146);
             toggleIsAutoCloseVSPE.Margin = new Padding(4, 3, 4, 3);
             toggleIsAutoCloseVSPE.MinimumSize = new Size(61, 23);
             toggleIsAutoCloseVSPE.Name = "toggleIsAutoCloseVSPE";
             toggleIsAutoCloseVSPE.Size = new Size(74, 24);
-            sliderCollection2.BackColor = Color.Silver;
-            sliderCollection2.BorderColor = Color.Silver;
-            sliderCollection2.Width = 35;
-            toggleIsAutoCloseVSPE.Slider = sliderCollection2;
+            sliderCollection6.BackColor = Color.Silver;
+            sliderCollection6.BorderColor = Color.Silver;
+            sliderCollection6.Width = 35;
+            toggleIsAutoCloseVSPE.Slider = sliderCollection6;
             toggleIsAutoCloseVSPE.TabIndex = 40;
             toggleIsAutoCloseVSPE.Text = "toggleButton2";
             toggleIsAutoCloseVSPE.ThemeStyle.BorderThickness = 1;
@@ -415,31 +416,31 @@ namespace SM.ClubManager.AccessControl
             label14.Location = new Point(4, 125);
             label14.Margin = new Padding(4, 0, 4, 0);
             label14.Name = "label14";
-            label14.Size = new Size(92, 15);
+            label14.Size = new Size(108, 15);
             label14.TabIndex = 39;
-            label14.Text = "Auto open VSPE";
+            label14.Text = "Open VSPE on start";
             // 
             // toggleIsAutoOpenVSPE
             // 
-            activeStateCollection3.BackColor = Color.FromArgb(93, 92, 97);
-            activeStateCollection3.BorderColor = Color.Silver;
-            activeStateCollection3.Text = "Yes";
-            toggleIsAutoOpenVSPE.ActiveState = activeStateCollection3;
+            activeStateCollection7.BackColor = Color.FromArgb(93, 92, 97);
+            activeStateCollection7.BorderColor = Color.Silver;
+            activeStateCollection7.Text = "Yes";
+            toggleIsAutoOpenVSPE.ActiveState = activeStateCollection7;
             toggleIsAutoOpenVSPE.Font = new Font("Calibri", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            inactiveStateCollection3.BackColor = Color.FromArgb(93, 92, 97);
-            inactiveStateCollection3.BorderColor = Color.Silver;
-            inactiveStateCollection3.ForeColor = Color.White;
-            inactiveStateCollection3.Text = "No";
-            toggleIsAutoOpenVSPE.InactiveState = inactiveStateCollection3;
+            inactiveStateCollection7.BackColor = Color.FromArgb(93, 92, 97);
+            inactiveStateCollection7.BorderColor = Color.Silver;
+            inactiveStateCollection7.ForeColor = Color.White;
+            inactiveStateCollection7.Text = "No";
+            toggleIsAutoOpenVSPE.InactiveState = inactiveStateCollection7;
             toggleIsAutoOpenVSPE.Location = new Point(146, 116);
             toggleIsAutoOpenVSPE.Margin = new Padding(4, 3, 4, 3);
             toggleIsAutoOpenVSPE.MinimumSize = new Size(61, 23);
             toggleIsAutoOpenVSPE.Name = "toggleIsAutoOpenVSPE";
             toggleIsAutoOpenVSPE.Size = new Size(74, 24);
-            sliderCollection3.BackColor = Color.Silver;
-            sliderCollection3.BorderColor = Color.Silver;
-            sliderCollection3.Width = 35;
-            toggleIsAutoOpenVSPE.Slider = sliderCollection3;
+            sliderCollection7.BackColor = Color.Silver;
+            sliderCollection7.BorderColor = Color.Silver;
+            sliderCollection7.Width = 35;
+            toggleIsAutoOpenVSPE.Slider = sliderCollection7;
             toggleIsAutoOpenVSPE.TabIndex = 38;
             toggleIsAutoOpenVSPE.Text = "toggleButton1";
             toggleIsAutoOpenVSPE.ThemeStyle.BorderThickness = 1;
@@ -456,25 +457,25 @@ namespace SM.ClubManager.AccessControl
             // 
             // toggleInvertOpenClose
             // 
-            activeStateCollection4.BackColor = Color.FromArgb(93, 92, 97);
-            activeStateCollection4.BorderColor = Color.Silver;
-            activeStateCollection4.Text = "Yes";
-            toggleInvertOpenClose.ActiveState = activeStateCollection4;
+            activeStateCollection8.BackColor = Color.FromArgb(93, 92, 97);
+            activeStateCollection8.BorderColor = Color.Silver;
+            activeStateCollection8.Text = "Yes";
+            toggleInvertOpenClose.ActiveState = activeStateCollection8;
             toggleInvertOpenClose.Font = new Font("Calibri", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            inactiveStateCollection4.BackColor = Color.FromArgb(93, 92, 97);
-            inactiveStateCollection4.BorderColor = Color.Silver;
-            inactiveStateCollection4.ForeColor = Color.White;
-            inactiveStateCollection4.Text = "No";
-            toggleInvertOpenClose.InactiveState = inactiveStateCollection4;
+            inactiveStateCollection8.BackColor = Color.FromArgb(93, 92, 97);
+            inactiveStateCollection8.BorderColor = Color.Silver;
+            inactiveStateCollection8.ForeColor = Color.White;
+            inactiveStateCollection8.Text = "No";
+            toggleInvertOpenClose.InactiveState = inactiveStateCollection8;
             toggleInvertOpenClose.Location = new Point(146, 86);
             toggleInvertOpenClose.Margin = new Padding(4, 3, 4, 3);
             toggleInvertOpenClose.MinimumSize = new Size(61, 23);
             toggleInvertOpenClose.Name = "toggleInvertOpenClose";
             toggleInvertOpenClose.Size = new Size(74, 24);
-            sliderCollection4.BackColor = Color.Silver;
-            sliderCollection4.BorderColor = Color.Silver;
-            sliderCollection4.Width = 35;
-            toggleInvertOpenClose.Slider = sliderCollection4;
+            sliderCollection8.BackColor = Color.Silver;
+            sliderCollection8.BorderColor = Color.Silver;
+            sliderCollection8.Width = 35;
+            toggleInvertOpenClose.Slider = sliderCollection8;
             toggleInvertOpenClose.TabIndex = 36;
             toggleInvertOpenClose.Text = "toggleButton1";
             toggleInvertOpenClose.ThemeStyle.BorderThickness = 1;
@@ -565,6 +566,7 @@ namespace SM.ClubManager.AccessControl
             // panel5
             // 
             panel5.BorderStyle = BorderStyle.FixedSingle;
+            panel5.Controls.Add(btnShowSerial);
             panel5.Controls.Add(lblLaunchVSPE);
             panel5.Controls.Add(btnLaunchVSPE);
             panel5.Controls.Add(pictureBox4);
@@ -591,6 +593,17 @@ namespace SM.ClubManager.AccessControl
             panel5.Size = new Size(343, 223);
             panel5.TabIndex = 32;
             panel5.Paint += panel5_Paint;
+            // 
+            // lblLaunchVSPE
+            // 
+            lblLaunchVSPE.AutoSize = true;
+            lblLaunchVSPE.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            lblLaunchVSPE.Location = new Point(239, 192);
+            lblLaunchVSPE.Margin = new Padding(4, 0, 4, 0);
+            lblLaunchVSPE.Name = "lblLaunchVSPE";
+            lblLaunchVSPE.Size = new Size(33, 15);
+            lblLaunchVSPE.TabIndex = 47;
+            lblLaunchVSPE.Text = "NAN";
             // 
             // btnLaunchVSPE
             // 
@@ -875,16 +888,15 @@ namespace SM.ClubManager.AccessControl
             textBoxExt9.Text = "Simply Switch";
             textBoxExt9.TextAlign = HorizontalAlignment.Center;
             // 
-            // lblLaunchVSPE
+            // btnShowSerial
             // 
-            lblLaunchVSPE.AutoSize = true;
-            lblLaunchVSPE.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            lblLaunchVSPE.Location = new Point(239, 192);
-            lblLaunchVSPE.Margin = new Padding(4, 0, 4, 0);
-            lblLaunchVSPE.Name = "lblLaunchVSPE";
-            lblLaunchVSPE.Size = new Size(33, 15);
-            lblLaunchVSPE.TabIndex = 47;
-            lblLaunchVSPE.Text = "NAN";
+            btnShowSerial.Location = new Point(143, 195);
+            btnShowSerial.Name = "btnShowSerial";
+            btnShowSerial.Size = new Size(89, 23);
+            btnShowSerial.TabIndex = 48;
+            btnShowSerial.Text = "Show Serial";
+            btnShowSerial.UseVisualStyleBackColor = true;
+            btnShowSerial.Click += btnShowSerial_Click;
             // 
             // frmSettings
             // 
@@ -1002,6 +1014,7 @@ namespace SM.ClubManager.AccessControl
         private PictureBox pictureBox4;
         private Button btnLaunchVSPE;
         private Label lblLaunchVSPE;
+        private Button btnShowSerial;
     }
 }
 

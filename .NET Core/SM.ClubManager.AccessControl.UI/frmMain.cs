@@ -207,7 +207,9 @@ namespace SM.ClubManager.AccessControl
             this.ShowInTaskbar = isDisplayInTaskBar.ToBool();
 
             //VSPEManager.KillProcess();
-            bool iVSPEPathValid = IsVSPEExecutablePathValid();
+            string? pathFromJson = AppSettingsManager.configuration["AppSettings:VSPEExecutablePath"];
+            bool iVSPEPathValid = IsVSPEExecutablePathValid(pathFromJson);
+            
             //Validate that the VSPE software path is correct
             if (!iVSPEPathValid)
             {
@@ -216,11 +218,11 @@ namespace SM.ClubManager.AccessControl
 
             VSPEManager vSPEManager = new VSPEManager();
             
-            string path = ApplicationSettings.Instance.VSPEConfigPath;        
-            
-            if (path.EndsWith(".exe") || string.IsNullOrEmpty(path))
+            string path = ApplicationSettings.Instance.VSPEConfigPath;       
+                                   
+            if (path == null || path.EndsWith("config.vspe") || string.IsNullOrEmpty(path))
             {
-                path = Path.Combine(Environment.SpecialFolder.CommonApplicationData.ToString(), "Simply Switch Manager");
+                path = Path.Combine(Environment.CurrentDirectory, "Simply Switch Manager");
                 if(!Path.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -228,6 +230,7 @@ namespace SM.ClubManager.AccessControl
                 
                 ApplicationSettings.Instance.VSPEConfigPath = path;
             }
+
             if (!vSPEManager.IsVSPEConfigExists(path))
             {                
                 MessageBox.Show("No valid VSPE config exists. Recreate VSPE configuration under 'Settings'.");                
@@ -275,15 +278,15 @@ namespace SM.ClubManager.AccessControl
             Log("Startup completed");
         }
 
-        private bool IsVSPEExecutablePathValid()
+        private bool IsVSPEExecutablePathValid(string path)
         {
             //read setting from settings.json
             //check if it's valid
             //if it's not valid, get the user to select the location of the VSPEManager.exe
             bool isVSPEPathValid = false;
 
-            string? vspePath = AppSettingsManager.configuration["AppSettings:VSPEExecutablePath"];
-            isVSPEPathValid = File.Exists(vspePath);
+            //string? vspePath = AppSettingsManager.configuration["AppSettings:VSPEExecutablePath"];
+            isVSPEPathValid = File.Exists(path);
 
             if (!isVSPEPathValid)
             {
@@ -305,7 +308,7 @@ namespace SM.ClubManager.AccessControl
                         if (File.Exists(fullpath))
                         {
                             isVSPEPathValid = true;
-                            AppSettingsManager.UpdateSettings(AppSettingsManager.settingsFile, settings =>
+                            AppSettingsManager.UpdateSettings(settings =>
                             {
                                 settings.AppSettings.VSPEExecutablePath = fullpath;                                
                             });
@@ -320,7 +323,7 @@ namespace SM.ClubManager.AccessControl
                 }
             }
 
-            //UpdateSettings(settingsFile, settings =>
+            //UpdateSettings(settingsFileName, settings =>
             //{
             //    settings.AppSettings.Setting1 = "ThreadSafeValue";
             //    settings.AppSettings.Setting2 = 4567;

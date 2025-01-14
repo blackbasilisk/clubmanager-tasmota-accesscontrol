@@ -11,6 +11,7 @@ using SM.ClubManager.AccessControl.UI.Infrastructure;
 using Syncfusion.Windows.Forms.Tools;
 using SM.ClubManager.AccessControl.PortScanner;
 using SM.ClubManager.AccessControl.Infrastructure;
+using SM.ClubManager.AccessControl.UI;
 
 namespace SM.ClubManager.AccessControl
 {
@@ -594,7 +595,7 @@ namespace SM.ClubManager.AccessControl
         private void btnLaunchVSPE_Click(object sender, EventArgs e)
         {
             try
-            {  
+            {
                 //check if VSPE already running
                 using (VSPEManager vspeManager = new VSPEManager())
                 {
@@ -614,8 +615,15 @@ namespace SM.ClubManager.AccessControl
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Launch VSPE", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Log(ex.Message,true);                
-            }                              
+                Log(ex.Message, true);
+            }
+        }
+
+        private void btnShowSerial_Click(object sender, EventArgs e)
+        {
+            frmSerial serialForm = new frmSerial();
+            serialForm.ShowDialog(this);
+            serialForm.Dispose();
         }
     }
 }

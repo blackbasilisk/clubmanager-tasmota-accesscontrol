@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {
+    "net7.0-windows8.0": {
       "Cauldron.BasicInterceptors/3.2.3": {
         "type": "package",
         "dependencies": {
@@ -605,10 +605,10 @@
           "SQLitePCLRaw.core": "2.1.4"
         },
         "compile": {
-          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         },
         "runtime": {
-          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
       "System.CodeDom/4.7.0": {
@@ -2405,7 +2405,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0": [
+    "net7.0-windows8.0": [
       "Cauldron.BasicInterceptors >= 3.2.3",
       "SM.ClubManager.AccessControl.Repository >= 1.0.0"
     ]
@@ -2427,15 +2427,15 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net7.0-windows8.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net7.0-windows8.0": {
+          "targetAlias": "net7.0-windows8.0",
           "projectReferences": {
             "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Repository\\SM.ClubManager.AccessControl.Repository.csproj": {
               "projectPath": "C:\\Source\\Simple Mode\\clubmanager-tasmota-accesscontrol\\.NET Core\\SM.ClubManager.AccessControl.Repository\\SM.ClubManager.AccessControl.Repository.csproj"
@@ -2456,8 +2456,8 @@
       "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net7.0-windows8.0": {
+        "targetAlias": "net7.0-windows8.0",
         "dependencies": {
           "Cauldron.BasicInterceptors": {
             "target": "Package",
@@ -2492,7 +2492,7 @@
       "message": "Package 'System.Data.SqlClient' 4.8.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-8g2p-5pqh-5jmc",
       "libraryId": "System.Data.SqlClient",
       "targetGraphs": [
-        "net7.0"
+        "net7.0-windows8.0"
       ]
     },
     {
@@ -2502,7 +2502,7 @@
       "message": "Package 'System.Data.SqlClient' 4.8.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
       "libraryId": "System.Data.SqlClient",
       "targetGraphs": [
-        "net7.0"
+        "net7.0-windows8.0"
       ]
     },
     {
@@ -2512,7 +2512,7 @@
       "message": "Package 'System.Drawing.Common' 4.7.0 has a known critical severity vulnerability, https://github.com/advisories/GHSA-rxg9-xrhp-64gj",
       "libraryId": "System.Drawing.Common",
       "targetGraphs": [
-        "net7.0"
+        "net7.0-windows8.0"
       ]
     },
     {
@@ -2522,7 +2522,7 @@
       "message": "Package 'System.Text.Json' 7.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-hh2w-p6rv-4g7w",
       "libraryId": "System.Text.Json",
       "targetGraphs": [
-        "net7.0"
+        "net7.0-windows8.0"
       ]
     }
   ]

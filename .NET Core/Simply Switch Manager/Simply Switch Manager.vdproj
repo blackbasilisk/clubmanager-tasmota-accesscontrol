@@ -165,6 +165,17 @@
             "Property" = "8:ProgramFilesFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_F0921FD290D8495A8F08EB5C6B4B1C77"
+                    {
+                    "Name" = "8:Simply Switch Manager"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_93703380FF064945975272DAF0A2970B"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_F93D407DA0164A9395805281978BD7A2"
@@ -196,7 +207,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Simply Switch Manager"
         "ProductCode" = "8:{69F14FB2-3494-421F-B8A7-FE537494AE69}"
-        "PackageCode" = "8:{893B71E4-A428-47FB-8877-2DA60B83EFB7}"
+        "PackageCode" = "8:{91478567-293B-4330-B0BB-8336696E19F1}"
         "UpgradeCode" = "8:{CFB6F17F-8219-46AE-9394-EC3F9D81D3BC}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -316,7 +327,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C24A88AB74B24C56B2EEBFD9E55B7D51"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_66AB6BF1359B495FB96DEA8C2FEAD2EB"
             {
             "Name" = "8:Simply Switch Manager"
             "Arguments" = "8:"
@@ -326,7 +337,7 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:"
             "Folder" = "8:_0AC0958B67E540729B5BD12C0FE7DADF"
-            "WorkingFolder" = "8:_F93D407DA0164A9395805281978BD7A2"
+            "WorkingFolder" = "8:_F0921FD290D8495A8F08EB5C6B4B1C77"
             "Icon" = "8:"
             "Feature" = "8:"
             }
