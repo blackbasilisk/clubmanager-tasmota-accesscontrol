@@ -11,14 +11,19 @@ namespace SM.ClubManager.AccessControl.Repository
 {
     public class ApplicationConfigurationRepository : IDisposable
     {
+        string dbPath = "";
 
         public ApplicationConfigurationRepository()
-        { }
+        {
+            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Simple Mode", "Simply Switch Manager", "data.db");
+
+            dbPath = appDataPath;
+        }
 
         public object GetByKey(string key)
         {
             object obj;
-            using (MainContext context = MainContext.Create())
+            using (MainContext context = MainContext.Create(dbPath))
             {
                 try
                 {

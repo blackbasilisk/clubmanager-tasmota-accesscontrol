@@ -2,6 +2,8 @@
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
+using System.CodeDom;
+using Syncfusion.Grouping;
 
 namespace SM.ClubManager.AccessControl.UI.Infrastructure
 {
@@ -76,10 +78,27 @@ namespace SM.ClubManager.AccessControl.UI.Infrastructure
 
         private static string GetSettingsFilePath()
         {
-            string appName = Assembly.GetExecutingAssembly().GetName().Name;
+            //SAMPLE FROM ChatGPT 
+            ////string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "YourCompanyName", "YourAppName");
+            ////string configFilePath = Path.Combine(appDataPath, "ConfigFile.json");
+            ////string databaseFilePath = Path.Combine(appDataPath, "LocalDatabase.db");
+
+
+            var assembly = Assembly.GetExecutingAssembly();
+            if (assembly == null)
+                throw new Exception("Executing Assemly value is null. Cannot get the settings path.");
+            
+            var assemblyName = assembly.GetName();
+
+            if (assemblyName == null)
+                throw new Exception("Cannot get the settings path. The assembly name is null.");
+                        
+            string? appName = assemblyName.Name;
+            if (appName == null)
+                throw new Exception("Cannot get the settings path. The assembly name is null."); 
 
             // Get the AppData folder path
-            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), appName);
+            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Simple Mode", "Simply Switch Manager");
 
             return appDataPath;
         }

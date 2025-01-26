@@ -2,13 +2,26 @@ using Microsoft.EntityFrameworkCore;
 using SM.ClubManager.AccessControl.Model;
 
 using System.IO;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace SM.ClubManager.AccessControl.Database
 {
     public class MainContext : DbContext
     {
-       
+        public static string dbPath
+        { 
+            get 
+            { 
+                return _dbPath; 
+            } 
+            set 
+            { 
+                _dbPath = value; 
+            } 
+        }
+
+        private static string _dbPath = ".\\data.db";
 
         public static string ConnectionStringCache;
         // Your context has been configured to use a 'MainContext' connection string from your application's 
@@ -34,12 +47,18 @@ namespace SM.ClubManager.AccessControl.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
+            string connectionString = "Data Source=" + _dbPath;
             // connect to sqlite database
-            options.UseSqlite("Data Source=.\\data.db");            
+            options.UseSqlite(connectionString);            
         }
 
-        public static MainContext Create()
+        public static MainContext Create(string databasePath)
         {
+            if(!string.IsNullOrEmpty(databasePath))
+            {
+                _dbPath = databasePath;
+            }
+                
             MainContext dbContext = new MainContext();
             // Uncomment the line below to start fresh with a new database.
             //dbContext.Database.EnsureDeleted();

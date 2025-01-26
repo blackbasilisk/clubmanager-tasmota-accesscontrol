@@ -39,6 +39,7 @@ Source: "C:\Source\Simple Mode\clubmanager-tasmota-accesscontrol\.NET Core\Insta
 Source: "C:\Source\Simple Mode\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.UI\bin\x86\Debug\net7.0-windows8.0\SM.ClubManager.AccessControl.UI.exe"; DestDir: "{app}"; Flags: ignoreversion; 
 ; Main application files
 Source: "C:\Source\Simple Mode\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.UI\bin\x86\Debug\net7.0-windows8.0\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; 
+Source: "C:\Source\Simple Mode\clubmanager-tasmota-accesscontrol\.NET Core\SM.ClubManager.AccessControl.UI\bin\x86\Debug\net7.0-windows8.0\data.db"; DestDir: "{commonappdata}\Simple Mode\Simply Switch Manager"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\Simply Switch Manager"; Filename: "{app}\SM.ClubManager.AccessControl.UI.exe"
